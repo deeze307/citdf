@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "wordpress",
+    "password": "ingTDF.19",
+    "database": "wordpress",
+    "host": "localhost",
+    "dialect": "mysql",
+    "SEED": "este-es-un-seed-dificil"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "localhost",
+    "dialect": "postgres",
+    "SEED": "este-es-un-seed-dificil"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "localhost",
+    "dialect": "postgres",
+    "SEED": "este-es-un-seed-dificil"
+  }
+}
