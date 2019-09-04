@@ -3,7 +3,7 @@ var cors = require('cors');
 const bcrypt = require('bcryptjs')
 const Request = require('request');
 const db = require('../models');
-const dot_env = require('dotenv').config();
+require('dotenv').config({path: __dirname + '/.env'})
 const Sequelize = require('../models').Sequelize;
 const mdAuthentication = require('../middlewares/authentication');
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -12,7 +12,7 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 }
 const WPAPI = require('wpapi');
 const wp = new WPAPI({
-  endpoint:dot_env.parsed.CITDF_WPAPI
+  endpoint:process.env.CITDF_WPAPI
 })
 // const jwt = require('jsonwebtoken');
 // const SEED = require('../config/config').SEED;
@@ -51,7 +51,7 @@ app.get('/me', (req,res,next) => {
 
 app.post('/login',(req,res)=>{
   let body = req.body;
-  let uri = dot_env.parsed.CITDF_WPAPI+"/jwt-auth/v1/token";
+  let uri = process.env.CITDF_WPAPI+"/jwt-auth/v1/token";
   Request({
     url: uri,
     method: "POST",
@@ -107,7 +107,7 @@ app.put('/:id', (req, res) => {
     url:body.url
   }).then(data => {
     // Despues actualizo datos de custom_fields
-    let uri = dot_env.parsed.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
     let apt = "";
     body.custom_fields.apt.map(a =>{
       if(apt ===""){

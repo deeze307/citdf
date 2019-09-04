@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const Sequelize = require('sequelize');
-
-const env = require('dotenv').config();
+require('dotenv').config({path: __dirname + '/.env'})
+// require('dotenv').config({ path: require('find-config')('.env') });
 const node_env = process.env.NODE_ENV || 'production';
 const port = 3031;
 
@@ -25,14 +25,13 @@ app.use(
   })
 )
 
-
 sequelize = new Sequelize({
-  dialect: env.parsed.DB_DIALECT,
-  username: env.parsed.DB_USERNAME,
-  port: env.parsed.DB_PORT,
-  password: env.parsed.DB_PASSWORD,
-  host: env.parsed.DB_HOST,
-  database: env.parsed.DB_DATABASE
+  dialect: process.env.DB_DIALECT,
+  username: process.env.DB_USERNAME,
+  port: process.env.DB_PORT,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE
 });
 
 if (node_env === 'development') {
@@ -81,5 +80,5 @@ sequelize
   });
 
 app.listen(port, () => {
-    console.log(`App corriendo en el puerto ${port}. | host: ${process.env.host}`)
+    console.log(`App corriendo en el puerto ${port}. | host: ${process.env.DB_HOST}`)
 })

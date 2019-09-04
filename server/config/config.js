@@ -1,5 +1,5 @@
 'use strict'
-const dot_env = require('dotenv').config();
+require('dotenv').config({path: __dirname + '/.env'})
 
 console.log(dot_env);
 module.exports = {
