@@ -1,6 +1,6 @@
 const express = require('express');
 var cors = require('cors');
-const dot_env = require('dotenv').config();
+require('dotenv').config({path: __dirname + '/.env'})
 // const mdAuthentication = require('../middlewares/authentication');
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -8,7 +8,7 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 }
 const WPAPI = require('wpapi');
 const wp = new WPAPI({
-  endpoint:dot_env.parsed.CITDF_WPAPI
+  endpoint:process.env.CITDF_WPAPI
 })
 const app = express();
 
