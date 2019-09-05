@@ -20,7 +20,7 @@ const module = {
   actions: {
     MENU_TOOLBAR_retrieveMenuItems: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://localhost:3031'
+        baseURL: 'http://18.222.190.185:3031'
       });
       curl.get('/menu')
           .then(function(response) {

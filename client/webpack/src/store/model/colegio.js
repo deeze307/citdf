@@ -55,7 +55,7 @@ const module = {
   actions: {
     COLEGIO_retrieveMisionVision: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://localhost:3031'
+        baseURL: 'http://18.222.190.185:3031'
       });
       curl.get('/colegio/mision-y-vision')
           .then(function(mision_vision) {
@@ -71,7 +71,7 @@ const module = {
     },
     COLEGIO_retrieveAutoridades: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://localhost:3031'
+        baseURL: 'http://18.222.190.185:3031'
       });
       curl.get('/colegio/autoridades')
           .then(function(autoridades) {
@@ -87,7 +87,7 @@ const module = {
     },
     COLEGIO_retrieveDeberesAtribuciones: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://localhost:3031'
+        baseURL: 'http://18.222.190.185:3031'
       });
       curl.get('/colegio/deberes-y-atribuciones')
           .then(function(deberes) {
@@ -103,7 +103,7 @@ const module = {
     },
     COLEGIO_retrieveActas: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://localhost:3031'
+        baseURL: 'http://18.222.190.185:3031'
       });
       curl.get('/colegio/actas')
           .then(function(actas) {
