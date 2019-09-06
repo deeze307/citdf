@@ -1,10 +1,12 @@
 const express = require('express');
+const Axios = require('axios');
 var cors = require('cors');
 const bcrypt = require('bcryptjs')
 const Request = require('request');
 const db = require('../models');
 require('dotenv').config({path: __dirname + '/.env'})
 const Sequelize = require('../models').Sequelize;
+const Op = Sequelize.Op;
 const mdAuthentication = require('../middlewares/authentication');
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -16,7 +18,6 @@ const wp = new WPAPI({
 })
 // const jwt = require('jsonwebtoken');
 // const SEED = require('../config/config').SEED;
-const User = require('../models/user');
 
 const app = express();
 
@@ -31,6 +32,72 @@ app.get('/', (req, res, next) => {
         res.json({error: err});// handle err
     }
     res.json({ info: data })
+  });
+});
+
+app.get('/matriculados',(req,res,next) => {
+  // Obtengo Todos los tramites
+  console.log(req.query);
+  let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
+  let limit = +req.query.pageSize || 5;
+  let offset = 0;
+  let count = 0;
+  let where = {
+    [Op.and]: [
+      {ID: {
+        [Op.like]: ID !== undefined ? `${ID}` : '%%'
+        }
+      },
+      {user_login: {
+        [Op.like]: user_login !== undefined ? `${user_login}` : '%%'
+        }
+      },
+      {user_email: {
+        [Op.like]: user_email !== undefined ? `${user_email}` : '%%'
+        }
+      },
+      {user_status: {
+        [Op.like]: user_status !== undefined ? `${user_status}` : '%%'
+        }
+      },
+      {display_name: {
+        [Op.like]: display_name !== undefined ? `${display_name}` : '%%'
+        }
+      }
+    ]
+  };
+  
+  db.wp_users.findAndCountAll().then((data) => {
+    let page = +req.query.pageNumber || 0;
+    let pages = Math.ceil(data.count / limit);
+    offset = (page) * limit;
+    count = data.count;
+    db.wp_users.findAll({
+        attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
+        limit: limit,
+        offset: offset,
+        where: where,
+        order: [
+          ["display_name", "Asc"]
+        ]
+      })
+      .then(mat => {
+        assignACF(mat).then(matriculados =>{
+          console.log("matriculados: ",matriculados);
+          res.status(200).json({
+            ok: true,
+            payload: matriculados,
+            count: count,
+            pages: pages
+          });
+        });
+      });
+  }).catch(Sequelize.ValidationError, function(msg) {
+    return res.status(422).json({
+      message: msg.errors
+    });
+  }).catch(function(err) {
+    return res.status(400).json({ message: "Error al recuperar los matriculados",err });
   });
 });
 
@@ -56,7 +123,7 @@ app.post('/login',(req,res)=>{
     url: uri,
     method: "POST",
     json: true,   // <--Very important!!!
-    body: {username:body.username,password:body.password}
+    body: {user_email:body.username,password:body.password}
   }, function (error, response, body){
       if(response.body.token){
         res.status(200).json({
@@ -78,22 +145,6 @@ app.post('/login',(req,res)=>{
 app.post('/logout',(request,response)=>{
   
 });
-
-// //Verificar token
-// app.use('/', (req, res, next) => {
-//     let token = req.query.token;
-
-//     jwt.verify(token, SEED, (err, decoded) => {
-//         if (err) {
-//             return res.status(401).json({
-//                 ok: false,
-//                 message: 'Token incorrecto',
-//                 errors: err
-//             });
-//         }
-//         next();
-//     })
-// });
 
 app.put('/:id', (req, res) => {
   if (req.headers.authorization){
@@ -201,6 +252,28 @@ app.delete('/:id', /*mdAuthentication.verifyToken,*/ (req, res) => {
         return res.status(400).json({ message: "Ocurrió un error al intentar eliminar el Usuario" });
       });
 });
+
+async function assignACF(mat){
+  const promises = mat.map( async m => {
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+m.ID;
+    const req = await Axios({method:'GET',url:uri});
+    let custom_fields = req.data.acf;
+    return {
+      ID: m.ID,
+      user_login: m.user_login,
+      user_nicename: m.user_nicename,
+      user_email: m.user_email,
+      user_url: m.user_url,
+      user_status: m.user_status,
+      display_name: m.display_name,
+      custom_fields : custom_fields
+    };
+  });
+
+  // Espero a que terminen todas las promesas
+  const matriculados = await Promise.all(promises);
+  return matriculados;
+}
 
 
 module.exports = app;
