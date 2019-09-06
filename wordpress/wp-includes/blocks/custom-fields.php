@@ -15,6 +15,9 @@ function jwt_auth_function($data, $user) {
             array_push($formated,$item);
         }
         $data["custom_fields"]["user_email"] = $user->user_email;
+        $data["custom_fields"]["url"] = $user->url;
+        $data["custom_fields"]["name"] = $user->name;
+        $data["custom_fields"]["description"] = $user->description;
         $data['custom_fields']['apt'] = $formated;
     }
     return $data;

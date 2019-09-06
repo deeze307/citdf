@@ -244,7 +244,7 @@
                 </v-card-title>
                 <v-card-text class="mb-0 pt-1 pb-1 grow">
                   <span style="color:#0277BD;" class="caption right">{{bolsa.date | fechaSinHora}}</span>
-                  <div class="job_desc pt-4" v-html="bolsa.content.rendered.substring(0,330) + ' [...]'"></div>
+                  <div class="job_desc pt-4" v-html="bolsa.content.rendered.substring(0,200) + ' [...]'"></div>
                 </v-card-text>  
                 <v-card-actions id="create" class="pa-3">
                   <v-spacer></v-spacer>

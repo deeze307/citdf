@@ -15,7 +15,7 @@ const module = {
 
       PROFILE_update: function({commit,dispatch,state},profileData=null){
         const curl = axios.create({
-          baseURL: 'http://localhost:3031',
+          baseURL: 'http://18.222.190.185:3031',
           headers:{
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',

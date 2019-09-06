@@ -12,7 +12,7 @@ const mdAuthentication = require('../middlewares/authentication');
 // const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 const app = express();
-const User = require('../models/user');
+const User = require('../models/wp_users');
 
 // ==========================================
 // Renueva token
