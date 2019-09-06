@@ -74,6 +74,11 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('Conexión a la base de datos MySql exitosa.');
+    console.log('Environment: '+ process.env.NODE_ENV);
+    console.log('DB Host: '+ process.env.DB_HOST);
+    console.log('DB Database: '+ process.env.DB_DATABASE);
+    console.log('DB Port: '+ process.env.DB_PORT);
+
   })
   .catch(err => {
     console.error('No fue posible conectar con la base de datos:', err);
