@@ -75,8 +75,10 @@ sequelize
   .then(() => {
     console.log('Conexión a la base de datos MySql exitosa.');
     console.log('Environment: '+ process.env.NODE_ENV);
-    console.log('DB Host: '+ process.env.DB_HOST);
+    console.log('DB Dialect: '+ process.env.DB_DIALECT);
     console.log('DB Database: '+ process.env.DB_DATABASE);
+    console.log('DB Username: '+ process.env.DB_USERNAME);
+    console.log('DB Password: '+ process.env.DB_PASSWORD);
     console.log('DB Port: '+ process.env.DB_PORT);
 
   })
