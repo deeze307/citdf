@@ -16,11 +16,11 @@
     "SEED": "este-es-un-seed-dificil"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
+    "username": "wordpress",
+    "password": "ingTDF.19",
+    "database": "wordpress",
     "host": "localhost",
-    "dialect": "postgres",
+    "dialect": "mysql",
     "SEED": "este-es-un-seed-dificil"
   }
 }
