@@ -123,7 +123,7 @@ app.post('/login',(req,res)=>{
     url: uri,
     method: "POST",
     json: true,   // <--Very important!!!
-    body: {user_email:body.username,password:body.password}
+    body: {username:body.username,password:body.password}
   }, function (error, response, body){
       if(response.body.token){
         res.status(200).json({
@@ -133,8 +133,8 @@ app.post('/login',(req,res)=>{
       }else{
         console.log("Ocurrio un error ",response.body);
 
-        res.status(422).json({
-          error: response.body.code
+        res.status(400).json({
+          error: response.body
         });
       }
       
