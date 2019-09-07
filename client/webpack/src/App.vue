@@ -129,7 +129,7 @@
                 v-for="(item, i) in userItems"
                 :key="i"
                 @click="callToAction(item.path)"
-                v-if="checkAdmin(item.admin)"
+                v-if="checkAdmin(item)"
               >
                 <v-list-item-title v-if="item.title">{{ item.title }}</v-list-item-title>
               </v-list-item>
@@ -234,7 +234,7 @@
         userItems: [
         { title: 'Mi Perfil', path:'/profile', admin:false},
         { title: 'Mis Trámites',path:'/tramites',admin:false},
-        { title: 'Gestionar',path:'/gestion',admin:true},
+        // { title: 'Gestionar',path:'/gestion',admin:true},
       ]
       }
     },
@@ -290,14 +290,19 @@
       },
       checkAdmin(item){
         let isAdmin = true;
-        if(item){
-          isAdmin = false;
-          this.user.user.user_roles.map( rol => {
-            if(rol === 'administrator'){
-              isAdmin = true;
-            }
-          })
+        console.log('verificando permiso de usuario',this.user.user);
+        if(this.user.user.user_roles){
+          if(item.admin){
+            isAdmin = false;
+            this.user.user.user_roles.map( rol => {
+              if(rol === 'administrator'){
+                console.log('es admin');
+                isAdmin = true;
+              }
+            })
+          }
         }
+        console.log(`Mostrar ${item.title}? `,isAdmin)
         return isAdmin;
       },
       subMenu(submenu) {

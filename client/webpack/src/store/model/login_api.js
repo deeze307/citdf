@@ -3,8 +3,10 @@ import axios from 'axios'
 import router from '../../router'
 
 const module = {
+  
   state: {
     // Flags
+    api_url:'http://api-deeze.tk:3031',
     loginIsRunning: false,
     loggedIn: false,
     token: '',
@@ -67,7 +69,7 @@ const module = {
         }
 
         const curl = axios.create({
-          baseURL: 'http://api-deeze.tk:3031',
+          baseURL: state.api_url,
           headers:{
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
@@ -112,7 +114,7 @@ const module = {
         // Clear all
         commit('LOGIN_API_clear');
         const curl = axios.create({
-          baseURL: 'http://api-deeze.tk:3031',
+          baseURL: state.api_url,
           headers:{
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
@@ -186,7 +188,7 @@ const module = {
         commit('LOGIN_API_fetchUserIsrunning',true);
 
         const curl = axios.create({
-          baseURL: 'http://api-deeze.tk:3031'
+          baseURL: state.api_url
         });
 
         // Header con token
