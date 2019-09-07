@@ -112,7 +112,12 @@ const module = {
         // Clear all
         commit('LOGIN_API_clear');
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031'
+          baseURL: 'http://18.222.190.185:3031',
+          headers:{
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
+            'Access-Control-Allow-Credentials' : true
+          }
         });
 
         curl.post('/users/login', payload)
@@ -143,6 +148,7 @@ const module = {
               button: "Aceptar",
             });
           }else{
+            console.log(response.error);
             swal({
               title: "Oops!",
               text: "Ocurrió un error: "+response.error,

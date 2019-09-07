@@ -26,7 +26,7 @@
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
           <download-excel
-              :data   = "matriculados"
+              :data   = "matriculados.payload"
               :fields = "exportHeaders"
               worksheet = "Lista de Matriculados"
               name    = "Lista de Matriculados.xls">
@@ -39,7 +39,7 @@
         <v-flex xs12 sm12 md10 lg10 xl10>
             <v-data-table
             :headers="headers"
-            :items="matriculados"
+            :items="matriculados.payload"
             :loading="loading"
             :search="buscarMatriculado"
             class="elevation-1"
@@ -53,19 +53,18 @@
                   <v-card-text>
                     <v-container>
                       <v-col>
-                        <div><span><strong>Matricula:</strong></span> {{ editedItem.matricula }}</div>
-                        <div><span><strong> Nombre Completo:</strong></span> {{ editedItem.nombres +" "+ editedItem.apellidos }}</div>
-                        <div><span><strong> Número Documento:</strong></span> {{ editedItem.documento_nro }}</div>
-                        <div><span><strong> Título Profesional:</strong></span> {{ editedItem.titulo_profesional }}</div>
-                        <div><span><strong> Ciudad:</strong></span> {{ editedItem.ciudad }}</div>
-                        <div><span><strong> Email:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Dirección:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Teléfono:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Sitio Web:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Aptitudes:</strong></span> {{ editedItem.email }}</div>
-                        <div><span><strong> Acerca de:</strong></span> {{ editedItem.email }}</div>
+                        <div><span><strong>Matricula:</strong></span> {{ editedItem.custom_fields.matricula }}</div>
+                        <div><span><strong> Número Documento:</strong></span> {{ editedItem.custom_fields.documento_nro }}</div>
+                        <div><span><strong> Título Profesional:</strong></span> {{ editedItem.custom_fields.titulo_profesional }}</div>
+                        <div><span><strong> Ciudad:</strong></span> {{ editedItem.custom_fields.ciudad }}</div>
+                        <div><span><strong> Email:</strong></span> {{ editedItem.user_email }}</div>
+                        <div><span><strong> Dirección:</strong></span> {{ editedItem.custom_fields.direccion }}</div>
+                        <div><span><strong> Teléfono:</strong></span> {{ editedItem.custom_fields.telefono }}</div>
+                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.custom_fields.facebook_profile }}</div>
+                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.custom_fields.linkedin_profile }}</div>
+                        <div><span><strong> Sitio Web:</strong></span> {{ editedItem.user_url }}</div>
+                        <div><span><strong> Aptitudes:</strong></span> {{ editedItem.custom_fields.apt }}</div>
+                        <div><span><strong> Acerca de:</strong></span> {{ editedItem.custom_fields.description }}</div>
                       </v-col>
                     </v-container>
                   </v-card-text>
@@ -108,105 +107,51 @@
 import axios from 'axios'
 
 export default {
-    components:{
-    },
     data:() => ({
       exportHeaders:{
-        'Matricula': 'matricula',
-        'Apellidos': 'apellidos',
-        'Nombres': 'nombres',
-        'Documento Nro': 'documento_nro',
-        'Título Profesional': 'titulo_profesional',
-        'Ciudad':'ciudad',
-        'Res':'res'
+        'Matricula': 'custom_fields.matricula',
+        'Nombre Completo': 'display_name',
+        'Documento Nro': 'custom_fields.documento_nro',
+        'Título Profesional': 'custom_fields.titulo_profesional',
+        'Ciudad':'custom_fields.ciudad',
+        'Res':'custom_fields.res'
         
       },
       headers: [
-        { text: 'Matricula', value: 'matricula' , sortable: true, align: 'center' , width:'5%'},
-        { text: 'Apellidos', value: 'apellidos' , sortable: true, align: 'center' , width:'20%'},
-        { text: 'Nombres', value: 'nombres' , sortable: true, align: 'center' , width:'20%'},
-        { text: 'Documento Nro', value: 'documento_nro' , sortable: true, align: 'center' , width:'15%'},
-        { text: 'Título', value: 'titulo_profesional' , sortable: true, align: 'center', width:'30%' },
-        { text: 'Ciudad', value: 'ciudad' , sortable: true, align: 'center', width:'5%' },
-        { text: 'Res', value: 'res' , sortable: true, align: 'center', width:'5%' },
+        { text: 'Matricula', value: 'custom_fields.matricula' , sortable: true, align: 'center' , width:'5%'},
+        { text: 'Nombre Completo', value: 'display_name' , sortable: true, align: 'center' , width:'35%'},
+        { text: 'Documento Nro', value: 'custom_fields.documento_nro' , sortable: true, align: 'center' , width:'15%'},
+        { text: 'Título', value: 'custom_fields.titulo_profesional' , sortable: true, align: 'center', width:'30%' },
+        { text: 'Ciudad', value: 'custom_fields.ciudad' , sortable: true, align: 'center', width:'5%' },
+        { text: 'Res', value: 'custom_fields.res' , sortable: true, align: 'center', width:'5%' },
         { text: 'Ver Detalle', value: 'detalle' , sortable: false, align: 'center', width:'5%' }
       ],
-      matriculados: [{
-        'matricula':'001',
-        'apellidos':'Zárate',
-        'nombres':'Fabio Adrián',
-        'documento_nro':'16.206.023',
-        'titulo_profesional':'Ingeniero Civil',
-        'ciudad':'RG',
-        'res':'002',
-      },
-      {
-        'matricula':'334',
-        'apellidos':'Zossi',
-        'nombres':'Augusto',
-        'documento_nro':'33.540.288',
-        'titulo_profesional':'Ingeniero Civil',
-        'ciudad':'USH',
-        'res':'126',
-      },
-      {
-        'matricula':'005',
-        'apellidos':'Wallner',
-        'nombres':'Daniel Antonio',
-        'documento_nro':'12.879.900',
-        'titulo_profesional':'Ingeniero en Construcciones',
-        'ciudad':'RG',
-        'res':'002',
-      },
-      {
-        'matricula':'272',
-        'apellidos':'Zeleznik',
-        'nombres':'Roman Klemens',
-        'documento_nro':'25.385.801',
-        'titulo_profesional':'Ingeniero Industrial; Especialista en Seguridad, Higiene y Protección Ambiental',
-        'ciudad':'USH',
-        'res':'084',
-      },
-      {
-        'matricula':'255',
-        'apellidos':'Vélez',
-        'nombres':'Claudio Marcelo',
-        'documento_nro':'24.682.707',
-        'titulo_profesional':'Ingeniero en Seguridad e Higiene',
-        'ciudad':'RG',
-        'res':'069',
-      },
-      {
-        'matricula':'315',
-        'apellidos':'Vukasovic',
-        'nombres':'Ricardo Fabián',
-        'documento_nro':'16.295.907',
-        'titulo_profesional':'Ingeniero Forestál',
-        'ciudad':'RG',
-        'res':'118',
-      }],
       buscarMatriculado:'',
       count:0,
       pages:0,
+      pageNumber:1,
+      pageSize:100,
       dialogMatriculado:false,
       editedIndex: -1,
       editedItem:{
-        matricula:'',
-        apellidos:'',
-        nombres:'',
-        documento_nro:'',
-        titulo_profesional:'',
-        ciudad:'',
-        res:''
+        display_name:'',
+        custom_fields:{
+          matricula:'',
+          documento_nro:'',
+          titulo_profesional:'',
+          ciudad:'',
+          res:''
+        }
       },
       defaultItem: {
-        matricula:'',
-        apellidos:'',
-        nombres:'',
-        documento_nro:'',
-        titulo_profesional:'',
-        ciudad:'',
-        res:''
+        display_name:'',
+        custom_fields:{
+          matricula:'',
+          documento_nro:'',
+          titulo_profesional:'',
+          ciudad:'',
+          res:''
+        }
       },
       dialog_ops:{
         dialog: false,
@@ -224,7 +169,17 @@ export default {
       details_loading: false
       
     }),
+    created:function(){
+      store.dispatch('MATRICULADOS_retrieveAll',this.pageNumber,this.pageSize);
+    },
+    computed:{
+      matriculados(){
+        console.log("Matriculados: ",store.state.matriculados.items);
+        return store.state.matriculados.items;
+      }
+    },
     watch:{
+      matriculados(){},
       dialog (val) {
         console.log("Cambiando Dialog ",val);
         val || this.close()
@@ -233,7 +188,7 @@ export default {
     methods:{
         showMatriculado(matriculado){
           let vm = this;
-          vm.editedIndex = vm.matriculados.indexOf(matriculado)
+          vm.editedIndex = this.$store.state.matriculados.items.payload.indexOf(matriculado)
           vm.editedItem = Object.assign({}, matriculado)
           vm.dialogMatriculado = true
           console.log("abriendo Dialog: ",vm.editedItem);

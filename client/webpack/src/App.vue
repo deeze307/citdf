@@ -129,6 +129,7 @@
                 v-for="(item, i) in userItems"
                 :key="i"
                 @click="callToAction(item.path)"
+                v-if="checkAdmin(item.admin)"
               >
                 <v-list-item-title v-if="item.title">{{ item.title }}</v-list-item-title>
               </v-list-item>
@@ -286,6 +287,18 @@
       },
       verifyUserData(){
          return (_.has(this.user.user,'firstName')) ? true : false;
+      },
+      checkAdmin(item){
+        let isAdmin = true;
+        if(item){
+          isAdmin = false;
+          this.user.user.user_roles.map( rol => {
+            if(rol === 'administrator'){
+              isAdmin = true;
+            }
+          })
+        }
+        return isAdmin;
       },
       subMenu(submenu) {
         if(!submenu.children){

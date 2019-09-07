@@ -185,7 +185,7 @@ export default {
       }
     },
     created: function(){
-      store.dispatch("TRAMITES_retrieveAll",)
+      store.dispatch("TRAMITES_retrieveAll")
     },
     computed:{
       tramites(){

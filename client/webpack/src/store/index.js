@@ -10,6 +10,7 @@ import contacto from './model/contacto'
 import tramites from './model/tramites'
 import pagos from './model/pagos'
 import beneficios from './model/beneficios'
+import matriculados from './model/matriculados'
 
 //import user from './model/user'
 import profile from './model/profile'
@@ -30,6 +31,7 @@ const store = new Vuex.Store({
     tramites: tramites,
     pagos: pagos,
     beneficios: beneficios,
+    matriculados: matriculados,
 
 //    user: user,
     profile:profile,
