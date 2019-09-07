@@ -185,7 +185,7 @@ export default {
       }
     },
     created: function(){
-      store.dispatch("TRAMITES_retrieveAll")
+      
     },
     computed:{
       tramites(){
@@ -193,11 +193,19 @@ export default {
       },
       pagos(){
         return store.state.pagos.items
+      },
+      user() {
+        console.log("Usuario: ",store.state.login_api.user);
+        return store.state.login_api.user
       }
     },
     watch:{
       tramites(){
         this.tramitesLoading=false;
+      },
+      user(perfil){
+        console.log(perfil);
+        store.dispatch("TRAMITES_retrieveAll",perfil.user.id)
       },
       pagos(){}
     },
