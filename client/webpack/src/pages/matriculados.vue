@@ -129,8 +129,8 @@ export default {
       buscarMatriculado:'',
       count:0,
       pages:0,
-      pageNumber:1,
-      pageSize:100,
+      pageNumber:0,
+      pageSize:20,
       dialogMatriculado:false,
       editedIndex: -1,
       editedItem:{
@@ -170,7 +170,11 @@ export default {
       
     }),
     created:function(){
-      store.dispatch('MATRICULADOS_retrieveAll',this.pageNumber,this.pageSize);
+      let params = {
+        pageNumber:this.pageNumber,
+        pageSize:this.pageSize
+      }
+      store.dispatch('MATRICULADOS_retrieveAll',params);
     },
     computed:{
       matriculados(){
