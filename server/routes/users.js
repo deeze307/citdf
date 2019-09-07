@@ -49,7 +49,7 @@ app.get('/matriculados',(req,res,next) => {
         }
       },
       {user_login: {
-        [Op.like]: user_login !== undefined ? `${user_login}` : '%%'
+        [Op.regexp]: '^[0-9]'
         }
       },
       {user_email: {
@@ -68,7 +68,7 @@ app.get('/matriculados',(req,res,next) => {
   };
   
   db.wp_users.findAndCountAll().then((data) => {
-    let page = +req.query.pageNumber || 0;
+    let page = +req.query.pageNumber || 1;
     let pages = Math.ceil(data.count / limit);
     offset = (page) * limit;
     count = data.count;

@@ -12,6 +12,7 @@ const module = {
     },
     mutations: {
       asignarTramites(state,payload){
+        console.log("asignarTramites: ",payload);
         state.items = payload;
       }
     },
