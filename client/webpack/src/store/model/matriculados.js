@@ -18,16 +18,17 @@ const module = {
     },
     actions: {
 
-      MATRICULADOS_retrieveAll:function({commit,dispatch,state},pageNumber,pageSize){
+      MATRICULADOS_retrieveAll:function({commit,dispatch,state},params){
         console.log("Obteniendo Matriculados");
         const curl = axios.create({
           baseURL: 'http://api-deeze.tk:3031',
         });
 
-        let params = {
-          pageNumber:pageNumber,
-          pageSize:pageSize
-        };
+        // let params = {
+        //   pageNumber:pageNumber,
+        //   pageSize:pageSize
+        // };
+        console.log("Params: ",params);
 
         curl.get('/users/matriculados',{params:params}).then(function(response){
           let matriculados = response.data;
