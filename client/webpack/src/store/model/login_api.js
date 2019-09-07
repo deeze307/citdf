@@ -67,7 +67,7 @@ const module = {
         }
 
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031',
+          baseURL: 'http://api-deeze.tk:3031',
           headers:{
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
@@ -112,7 +112,7 @@ const module = {
         // Clear all
         commit('LOGIN_API_clear');
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031',
+          baseURL: 'http://api-deeze.tk:3031',
           headers:{
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
@@ -186,7 +186,7 @@ const module = {
         commit('LOGIN_API_fetchUserIsrunning',true);
 
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031'
+          baseURL: 'http://api-deeze.tk:3031'
         });
 
         // Header con token

@@ -20,7 +20,7 @@ const module = {
 
       TRAMITES_retrieveAll:function({commit,dispatch,state},userId=null){
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031',
+          baseURL: 'http://api-deeze.tk:3031',
         });
 
         let params = "";
@@ -58,7 +58,7 @@ const module = {
       },
       TRAMITES_update:function({commit,dispatch,state},tramite){
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031',
+          baseURL: 'http://api-deeze.tk:3031',
         });
 
         curl.put(`/tramites/${tramite.id}`,tramite)

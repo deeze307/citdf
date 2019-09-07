@@ -5,8 +5,8 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  CITDF_API : "http://18.222.190.185:3031",
-  CITDF_WPAPI : "http://18.222.190.185/citdf/wordpress/wp-json",
+  CITDF_API : "http://api-deeze.tk:3031",
+  CITDF_WPAPI : "http://api-deeze.tk/citdf/wordpress/wp-json",
   CITDF_ADMIN_USER : "citdf",
   CITDF_ADMIN_PASS : "ingTDF.19",
   DB_USERNAME : "wordpress",

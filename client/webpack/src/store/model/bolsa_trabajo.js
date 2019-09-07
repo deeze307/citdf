@@ -34,7 +34,7 @@ const module = {
   actions: {
     BOLSA_TRABAJO_retrievePosts: function({commit,dispatch,state},perPage=null){
       const curl = axios.create({
-        baseURL: 'http://18.222.190.185:3031'
+        baseURL: 'http://api-deeze.tk:3031'
       });
       let params = [];
       if(perPage != null && perPage != ''){
