@@ -21,7 +21,7 @@ const module = {
       MATRICULADOS_retrieveAll:function({commit,dispatch,state},pageNumber,pageSize){
         console.log("Obteniendo Matriculados");
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031',
+          baseURL: 'http://api-deeze.tk:3031',
         });
 
         let params = {
@@ -40,7 +40,7 @@ const module = {
       },
       MATRICULADOS_update:function({commit,dispatch,state},matriculado){
         const curl = axios.create({
-          baseURL: 'http://18.222.190.185:3031',
+          baseURL: 'http://api-deeze.tk:3031',
         });
 
         curl.put(`/users/matriculados/${tramite.id}`,tramite)

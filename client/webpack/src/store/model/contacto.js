@@ -27,7 +27,7 @@ const module = {
   actions: {
     CONTACTO_retrieveContactInfo: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://18.222.190.185:3031'
+        baseURL: 'http://api-deeze.tk:3031'
       });
       curl.get('/contacto')
           .then(function(contacto) {

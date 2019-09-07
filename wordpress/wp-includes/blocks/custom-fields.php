@@ -14,6 +14,7 @@ function jwt_auth_function($data, $user) {
             $item = str_replace("\r\n","",$item);
             array_push($formated,$item);
         }
+        $data["user_roles"] = $user->roles;
         $data["custom_fields"]["user_email"] = $user->user_email;
         $data["custom_fields"]["url"] = $user->url;
         $data["custom_fields"]["name"] = $user->name;
