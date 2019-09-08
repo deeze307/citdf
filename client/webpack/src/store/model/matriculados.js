@@ -87,7 +87,7 @@ const module = {
           button: "Aceptar",
         });
       },
-      MATRICULADOS_retrieveComoMatricularse:function({}){
+      MATRICULADOS_retrieveComoMatricularse:function({commit,dispatch,state}){
         const curl = axios.create({
           baseURL: 'http://api-deeze.tk:3031',
         });
@@ -100,6 +100,7 @@ const module = {
 
         curl.get('/users/matriculados/como-matricularse').then(function(response){
           let como_matricularse = response.data;
+          console.log(como_matricularse);
           
           commit("asignarComoMatricularse",como_matricularse);
 
