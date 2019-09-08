@@ -7,7 +7,11 @@ const module = {
         payload:[]
       },
       como_matricularse:{
-        content:{rendered:""}
+        info:{
+          content:{
+            rendered:""
+          }
+        }
       },
     },
     getters: {
