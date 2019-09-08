@@ -5,7 +5,10 @@ const module = {
     state: {
       items:{
         payload:[]
-      }
+      },
+      como_matricularse:{
+        content:{rendered:""}
+      },
     },
     getters: {
       
@@ -14,6 +17,9 @@ const module = {
       asignarMatriculados(state,payload){
         console.log("asignarMatriculados: ",payload);
         state.items = payload;
+      },
+      asignarComoMatricularse(state,payload){
+        state.como_matricularse = payload;
       }
     },
     actions: {
@@ -79,6 +85,26 @@ const module = {
           text: "Matriculado Creado Exitosamente!",
           icon: "success",
           button: "Aceptar",
+        });
+      },
+      MATRICULADOS_retrieveComoMatricularse:function({}){
+        const curl = axios.create({
+          baseURL: 'http://api-deeze.tk:3031',
+        });
+
+        // let params = {
+        //   pageNumber:pageNumber,
+        //   pageSize:pageSize
+        // };
+        // console.log("Params: ",params);
+
+        curl.get('/users/matriculados/como-matricularse',{params:params}).then(function(response){
+          let como_matricularse = response.data;
+          
+          commit("asignarComoMatricularse",como_matricularse);
+
+        }).catch(error => {
+          console.log("Error: ",error);
         });
       }
     }

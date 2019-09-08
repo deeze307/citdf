@@ -4,7 +4,6 @@ import Router from 'vue-router'
 // Paginas
 import home from '@/pages/home'
 import gestion from '@/pages/gestion'
-import matriculados from '@/pages/matriculados'
 import contacto from '@/pages/contacto'
 // Grupo de rutas
 import user from './user'
@@ -12,6 +11,7 @@ import bolsa_trabajo from './bolsa-trabajo'
 import beneficios from './beneficios'
 import novedades from './novedades'
 import colegio from './colegio'
+import matricula from './matricula'
 
 Vue.use(Router);
 
@@ -25,15 +25,11 @@ const baseRoutes = [
     component: gestion
   },
   {
-    path: '/lista-de-matriculados',
-    component: matriculados
-  },
-  {
     path: '/contacto',
     component: contacto
   }
 ]
-let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,beneficios);
+let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,beneficios,matricula);
 export default new Router({
   routes
 })
