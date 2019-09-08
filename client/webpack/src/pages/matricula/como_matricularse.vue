@@ -43,8 +43,8 @@ export default {
     },
     computed:{
       comoMatricularse(){
-        console.log("¿Cómo Matricularse?: ",store.state.matriculados.comoMatricularse);
-        return store.state.matriculados.comoMatricularse;
+        console.log("¿Cómo Matricularse?: ",store.state.matriculados.como_matricularse.info);
+        return store.state.matriculados.como_matricularse.info;
       }
     },
     watch:{

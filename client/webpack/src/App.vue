@@ -231,16 +231,18 @@
           {
             title:"Home",
             url: "/"
-          }
-          ,
+          },
           {
             title:"Contacto",
             url:"contacto"
-          }
-          ,
+          },
           {
             title:"Lista de Matriculados",
             url:"lista-de-matriculados"
+          },
+          {
+            title:"Links",
+            url:"links"
           }
         ],
         userItems: [
