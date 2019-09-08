@@ -98,7 +98,7 @@ const module = {
         // };
         // console.log("Params: ",params);
 
-        curl.get('/users/matriculados/como-matricularse',{params:params}).then(function(response){
+        curl.get('/users/matriculados/como-matricularse').then(function(response){
           let como_matricularse = response.data;
           
           commit("asignarComoMatricularse",como_matricularse);
