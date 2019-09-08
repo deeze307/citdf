@@ -14,7 +14,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-card :elevation="hover ? 12 : 5" class="flexcard">
               <v-img
-              src="https://i0.wp.com/nuevo.sellofueguino.com/wp-content/uploads/2018/05/arakur-hotel-ushu.jpg?resize=550%2C366"
+              src="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/09/slider1.jpg"
               class="white--text"
               height="200px"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -25,7 +25,7 @@
               </v-img>
               <v-card-actions id="create" class="pa-3">
                 <v-spacer></v-spacer>
-                <social-sharing url="http://citdf.org"
+                <social-sharing url="http://citdf.org/beneficios"
                       title="Colegio de Ingenieros de Tierra del Fuego"
                       :description=beneficio.excerpt.rendered
                       :quote=beneficio.excerpt.rendered
