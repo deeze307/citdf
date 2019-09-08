@@ -26,7 +26,7 @@
                   x-small
                   text
                   class="mx-0 px-1"
-                  :to="item.object_slug"
+                  :to="formatRoute(item.object_slug)"
                 >
                 {{item.title}}
                 </v-btn>
@@ -174,14 +174,15 @@
       wrap
     >
       <v-btn
-        v-for="link in links"
-        :key="link"
+        v-for="link in footerLinks"
+        :key="link.title"
         color="white"
         small
         text
         rounded
+        :to="link.url"
       >
-        {{ link }}
+        {{ link.title }}
       </v-btn>
       <v-flex
         primary
@@ -226,10 +227,21 @@
         maintenanceMode: false,
         loginWorking:false,
         spinner:false,
-        links:[
-          "Home",
-          "Contacto",
-          "Matriculados"
+        footerLinks:[
+          {
+            title:"Home",
+            url: "/"
+          }
+          ,
+          {
+            title:"Contacto",
+            url:"contacto"
+          }
+          ,
+          {
+            title:"Lista de Matriculados",
+            url:"lista-de-matriculados"
+          }
         ],
         userItems: [
         { title: 'Mi Perfil', path:'/profile', admin:false},
@@ -307,10 +319,13 @@
       },
       subMenu(submenu) {
         if(!submenu.children){
-          return submenu.object_slug
+          return "/"+submenu.object_slug
         }else{
           return ''
         }
+      },
+      formatRoute(route){
+        return "/"+route;
       }
     },
     name: 'App'
