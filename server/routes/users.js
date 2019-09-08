@@ -101,6 +101,15 @@ app.get('/matriculados',(req,res,next) => {
   });
 });
 
+app.get('/matriculados/como-matricularse', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('como-matricularse').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
 app.get('/me', (req,res,next) => {
   if (req.headers.authorization){
     wp.setHeaders('Authorization',req.headers.authorization);
