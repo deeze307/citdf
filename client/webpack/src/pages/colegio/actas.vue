@@ -1,5 +1,18 @@
 <template>
     <v-container class="ml-0 mr-0" fluid>
+      <v-dialog v-model="spinner" persistent content content-class="centered-dialog">
+        <v-container fill-height>
+          <v-layout column justify-center align-center>
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="primary"
+              indeterminate
+              v-if="spinner"
+            ></v-progress-circular>
+          </v-layout>
+        </v-container>
+      </v-dialog>
       <v-layout align-center justify-space-around row fill-height>
         <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-2 pb-4">
           <h2 class="display-1 font-weight-black" style="color:#263238"></h2>
@@ -53,6 +66,7 @@ export default {
     },
     data () {
       return {
+        spinner:true,
         tab: null,
         items: [
           'Actas Asambleas Ordinarias', 'Actas del Consejo Superior'
@@ -68,7 +82,11 @@ export default {
       }
     },
     watch:{
-      actas(){}
+      actas(val){
+        if(val[0].content){
+          this.spinner = false;
+        }
+      }
     },
     methods:{
     }
@@ -92,5 +110,15 @@ export default {
 
 a{
   text-decoration: none;
+}
+
+.dialog.centered-dialog,
+.v-dialog.centered-dialog
+{
+  /* background: #282c2dad; */
+  box-shadow: none;
+  border-radius: 6px;
+  width: auto;
+  color: whitesmoke;
 }
 </style>
