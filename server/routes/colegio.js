@@ -55,5 +55,21 @@ app.get('/actas', (req, res, next) => {
   });
 });
 
+app.get('/elecciones', (req, res, next) => {
+  wp.pages().slug('elecciones').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
+app.get('/tesoreria', (req, res, next) => {
+  wp.pages().slug('tesoreria').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
 
 module.exports = app;

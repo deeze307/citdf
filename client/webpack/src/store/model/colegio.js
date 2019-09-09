@@ -20,14 +20,22 @@ const module = {
       {
         content:{rendered:""}
       }
-    ]
+    ],
+    elecciones:{
+      content:{rendered:""}
+    },
+    tesoreria:{
+      content:{rendered:""}
+    },
   },
   getters:{
     colegio: state => {
       state.mision_vision,
       state.autoridades,
       state.deberes_atribuciones,
-      state.actas
+      state.actas,
+      state.elecciones,
+      state.tesoreria
     }
   },
   setters:{
@@ -35,7 +43,9 @@ const module = {
       state.mision_vision,
       state.autoridades,
       state.deberes_atribuciones,
-      state.actas
+      state.actas,
+      state.elecciones,
+      state.tesoreria
     } 
   },
   mutations: {
@@ -50,6 +60,12 @@ const module = {
     },
     asignarActas(state,payload) {
       state.actas = payload;
+    },
+    asignarElecciones(state,payload) {
+      state.elecciones = payload;
+    },
+    asignarTesoreria(state,payload) {
+      state.tesoreria = payload;
     }
   },
   actions: {
@@ -115,6 +131,38 @@ const module = {
           })
           .catch(function (error) {
             console.log('asignarActas Error: ', error);
+          });
+    },
+    COLEGIO_retrieveElecciones: function({commit,dispatch,state}){
+      const curl = axios.create({
+        baseURL: 'http://api-deeze.tk:3031'
+      });
+      curl.get('/colegio/elecciones')
+          .then(function(elecciones) {
+            // handle success
+            if(elecciones.data.info){
+              commit('asignarElecciones',elecciones.data.info)
+            }else{
+            }
+          })
+          .catch(function (error) {
+            console.log('asignarElecciones Error: ', error);
+          });
+    },
+    COLEGIO_retrieveTesoreria: function({commit,dispatch,state}){
+      const curl = axios.create({
+        baseURL: 'http://api-deeze.tk:3031'
+      });
+      curl.get('/colegio/tesoreria')
+          .then(function(tesoreria) {
+            // handle success
+            if(tesoreria.data.info){
+              commit('asignarTesoreria',tesoreria.data.info)
+            }else{
+            }
+          })
+          .catch(function (error) {
+            console.log('asignarTesoreria Error: ', error);
           });
     }
   }
