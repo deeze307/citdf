@@ -121,4 +121,22 @@ app.put('/:id', (req, res) => {
   });
 });
 
+app.get('/legajo-minimo', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('legajo-minimo').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
+app.get('/certificacion-de-firma', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('certificacion-de-firma').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
 module.exports = app;

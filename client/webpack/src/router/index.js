@@ -13,6 +13,7 @@ import beneficios from './beneficios'
 import novedades from './novedades'
 import colegio from './colegio'
 import matricula from './matricula'
+import tramites from './tramites'
 
 Vue.use(Router);
 
@@ -34,7 +35,7 @@ const baseRoutes = [
     component: links
   },
 ]
-let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,beneficios,matricula);
+let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,beneficios,matricula,tramites);
 export default new Router({
   routes
 })
