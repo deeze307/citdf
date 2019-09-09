@@ -3,7 +3,7 @@ import router from '../../router'
 
 const module = {
     state: {
-      apiUrl:'api-deeze.tk:3001',
+      apiUrl:'http://api-deeze.tk:3031',
       items:{
         payload:[]
       },
