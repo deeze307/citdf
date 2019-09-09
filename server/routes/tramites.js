@@ -139,4 +139,13 @@ app.get('/certificacion-de-firma', (req, res, next) => {
   });
 });
 
+app.get('/encomienda-de-tareas', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('encomienda-de-tareas').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
 module.exports = app;
