@@ -37,6 +37,11 @@ export default {
       return {
         resoluciones: [
           {
+            res: "160",
+            fecha: "13/08/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/09/Resolución-Nº160.pdf" target="_blank">Modificar Art. N°1 de Resolución N° 108/2017.</a>'
+          },
+          {
             res: "159",
             fecha: "06/08/2019",
             concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2019/08/Resolución-Nº159.pdf" target="_blank">Aceptar solicitud de baja M.P.N°317 y 140.</a>'
