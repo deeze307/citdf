@@ -1,6 +1,19 @@
 <template>
   <div>
     <v-container class="ml-0 mr-0" fluid>
+      <v-dialog v-model="spinner" persistent content content-class="centered-dialog">
+        <v-container fill-height>
+          <v-layout column justify-center align-center>
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="primary"
+              indeterminate
+              v-if="spinner"
+            ></v-progress-circular>
+          </v-layout>
+        </v-container>
+      </v-dialog>
       <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-2 pb-4">
         <h1 class="display-2 font-weight-black" style="color:#263238">BENEFICIOS</h1>
         <h3 class="subheading font-weight-black" style="color:#263238">
@@ -14,7 +27,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-card :elevation="hover ? 12 : 5" class="flexcard">
               <v-img
-              src="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/09/slider1.jpg"
+              :src=formatExcerptForImage(beneficio.excerpt.rendered)
               class="white--text"
               height="200px"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -27,8 +40,8 @@
                 <v-spacer></v-spacer>
                 <social-sharing url="http://citdf.org/beneficios"
                       title="Colegio de Ingenieros de Tierra del Fuego"
-                      :description=beneficio.excerpt.rendered
-                      :quote=beneficio.excerpt.rendered
+                      :description=beneficio.content.rendered
+                      :quote=beneficio.content.rendered
                       hashtags="CITDF"
                       twitter-user="citdf"
                       inline-template>
@@ -107,6 +120,7 @@ export default {
     },
     data () {
       return {
+        spinner:true,
         fab: false,
         top: false,
         right: true,
@@ -128,6 +142,7 @@ export default {
     computed:{
       beneficios(){
         let items = store.state.beneficios.items;
+        console.log(items);
         return items;
       },
       beneficiosSelected:{
@@ -140,12 +155,20 @@ export default {
       }
     },
     watch:{
-      beneficios(){}
+      beneficios(val){
+        if(val.length > 0){
+          this.spinner = false;
+        }
+      }
     },
     methods:{
       irBeneficio(beneficio) {
         store.dispatch('BENEFICIOS_goWithSelected',beneficio);
         router.push('beneficios/detalle');
+      },
+      formatExcerptForImage(image){
+        image = image.substring(3,image.length - 5);
+        return image;
       }
     }
 }
@@ -165,5 +188,15 @@ export default {
   #create .v-btn--floating {
     position: relative;
 
+  }
+
+  .dialog.centered-dialog,
+  .v-dialog.centered-dialog
+  {
+    /* background: #282c2dad; */
+    box-shadow: none;
+    border-radius: 6px;
+    width: auto;
+    color: whitesmoke;
   }
 </style>
