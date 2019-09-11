@@ -91,6 +91,106 @@ export default {
             fecha: "06/05/2019",
             concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2019/05/Resolución-Nº150.pdf" target="_blank">Aceptar solicitud de baja M.P.N° 274.</a>'
           },
+          {
+            res: "149",
+            fecha: "06/05/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2019/05/Resolución-Nº149.pdf" target="_blank">Otorga M.P.N° 354.</a>'
+          },
+          {
+            res: "148",
+            fecha: "03/05/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2019/05/Resolución-Nº148.pdf" target="_blank">Anular convenio con DPOSS.</a>'
+          },
+          {
+            res: "147",
+            fecha: "03/05/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2019/05/Resolución-Nº147.pdf" target="_blank">Aceptar renuncia del Secretario.</a>'
+          },
+          {
+            res: "146",
+            fecha: "11/04/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº146.pdf" target="_blank">Otorga M.P.N° 351; 352 y 353.</a>'
+          },
+          {
+            res: "145",
+            fecha: "25/03/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº145.pdf" target="_blank">Otorga M.P.N° 350</a>'
+          },
+          {
+            res: "144",
+            fecha: "15/03/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº144.pdf" target="_blank">Otorga M.P.N° 349</a>'
+          },
+          {
+            res: "143",
+            fecha: "07/03/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº143.pdf" target="_blank">Otorga M.P.N° 348</a>'
+          },
+          {
+            res: "142",
+            fecha: "25/02/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº142.pdf" target="_blank">Otorga M.P.N° 347</a>'
+          },
+          {
+            res: "141",
+            fecha: "19/02/2019",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº141.pdf" target="_blank">Aceptar solicitud de baja M.P.N° 319</a>'
+          },
+          {
+            res: "140",
+            fecha: "26/12/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N140.pdf" rel="noopener" target="_blank">Aceptar solicitud de baja M.P. N° 158 y 147</a>'
+          },
+          {
+            res: "139",
+            fecha: "18/12/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N139.pdf" rel="noopener" target="_blank">Otorga M.P. N° 346</a>'
+          },
+          {
+            res: "138",
+            fecha: "18/12/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N138.pdf" rel="noopener" target="_blank">Resolver descuento del 30% en el pago de la matricula a M.P. 208 y 118</a>'
+          },
+          {
+            res: "137",
+            fecha: "18/12/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N137.pdf" rel="noopener" target="_blank">Establece valores de módulo y matricula para el año 2019</a>'
+          },
+          {
+            res: "136",
+            fecha: "18/12/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N136.pdf" rel="noopener" target="_blank">Incorporar integrantes del Consejo Superior y Certificadores de firmas</a>'
+          },
+          {
+            res: "135",
+            fecha: "10/12/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N135.pdf" rel="noopener" target="_blank">Otorga M.P. N° 345</a>'
+          },
+          {
+            res: "134",
+            fecha: "31/10/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N134.pdf" rel="noopener" target="_blank">Aceptar solicitud de baja M.P. N° 84</a>'
+          },
+          {
+            res: "133",
+            fecha: "25/10/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N133.pdf" rel="noopener" target="_blank">Aceptar solicitud de baja M.P. N° 57</a>'
+          },
+          {
+            res: "132",
+            fecha: "22/10/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_N132.pdf" rel="noopener" target="_blank">Otorga M.P. N° 343 y 344</a>'
+          },
+          {
+            res: "131",
+            fecha: "18/07/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_131.pdf" rel="noopener" target="_blank">Otorga M.P. N° 339 340 341 y 342</a>'
+          },
+          {
+            res: "130",
+            fecha: "18/07/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº130.pdf" rel="noopener" target="_blank">Otorga M.P. N° 337 y 338</a>'
+          },
         ],
         
       }
