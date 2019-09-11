@@ -6,6 +6,7 @@ import home from '@/pages/home'
 import gestion from '@/pages/gestion'
 import contacto from '@/pages/contacto'
 import links from '@/pages/links'
+import honorarios from '@/pages/honorarios'
 // Grupo de rutas
 import user from './user'
 import bolsa_trabajo from './bolsa-trabajo'
@@ -34,6 +35,10 @@ const baseRoutes = [
   {
     path: '/links',
     component: links
+  },
+  {
+    path: '/honorarios',
+    component: honorarios
   },
 ]
 let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,beneficios,matricula,tramites,marco_legal);
