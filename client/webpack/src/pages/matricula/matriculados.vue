@@ -17,12 +17,12 @@
             label="Ciudad"
           ></v-select>
         </v-flex>
-        <v-flex xs12 sm12 md2 lg2 xl2>
+        <!-- <v-flex xs12 sm12 md2 lg2 xl2>
           <v-select
             :items="['Ushuaia','Tolhuin','Rio Grande']"
             label="Titulo Profesional"
           ></v-select>
-        </v-flex>
+        </v-flex> -->
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
           <download-excel
@@ -41,8 +41,16 @@
             :headers="headers"
             :items="matriculados.payload"
             :loading="loading"
+            loading-text="Cargando... espere por favor"
             :search="buscarMatriculado"
             class="elevation-1"
+            :footer-props="{
+              showFirstLastPage: true,
+              firstIcon: 'first_page',
+              lastIcon: 'last_page',
+              prevIcon: 'chevron_left',
+              nextIcon: 'chevron_right'
+            }"
             >
             <template v-slot:top>
               <v-dialog v-model="dialogMatriculado" max-width="400">
@@ -162,7 +170,7 @@ export default {
       },
 
       // apigw: process.env.TEU_API,
-      loading: false,
+      loading: true,
       saving:false,
       error: false,
       error_message: '',
@@ -183,7 +191,12 @@ export default {
       }
     },
     watch:{
-      matriculados(){},
+      matriculados(val){
+        console.log(val);
+        if(val.payload.length > 0){
+          this.loading = false
+        }
+      },
       dialog (val) {
         console.log("Cambiando Dialog ",val);
         val || this.close()

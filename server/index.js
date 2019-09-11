@@ -54,6 +54,7 @@ if (node_env === 'development') {
   const tramitesRoutes = require('./routes/tramites');
   const beneficiosRoutes = require('./routes/beneficios');
   const marcoLegalRoutes = require('./routes/marco_legal');
+  const generalRoutes = require('./routes/generals');
   // const loginRoutes = require('./routes/login');
 
   // LAS RUTAS
@@ -66,6 +67,7 @@ if (node_env === 'development') {
   app.use('/tramites',tramitesRoutes);
   app.use('/beneficios',beneficiosRoutes);
   app.use('/marco_legal',marcoLegalRoutes);
+  app.use('/general',generalRoutes);
   // app.use('/login',loginRoutes);
 
 app.get('/', (request, response) => {
