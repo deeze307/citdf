@@ -74,8 +74,8 @@ app.get('/matriculados',(req,res,next) => {
     count = data.count;
     db.wp_users.findAll({
         attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
-        limit: limit,
-        offset: offset,
+        // limit: limit,
+        // offset: offset,
         where: where,
         order: [
           ["display_name", "Asc"]
