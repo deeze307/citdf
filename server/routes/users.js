@@ -283,7 +283,7 @@ async function assignACF(mat){
     const matriculados = await Promise.all(promises);
     return matriculados;
   }catch(err) {
-    return res.json({error: err})
+    return err
   };
   
 
