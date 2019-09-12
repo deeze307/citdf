@@ -37,7 +37,6 @@ app.get('/', (req, res, next) => {
 
 app.get('/matriculados',(req,res,next) => {
   // Obtengo Todos los tramites
-  console.log(req.query);
   let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
   let limit = +req.query.pageSize || 5;
   let offset = 0;
@@ -263,21 +262,26 @@ app.delete('/:id', /*mdAuthentication.verifyToken,*/ (req, res) => {
 });
 
 async function assignACF(mat){
-  const promises = mat.map( async m => {
-    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+m.ID;
-    const req = await Axios({method:'GET',url:uri});
-    let custom_fields = req.data.acf;
-    return {
-      ID: m.ID,
-      user_login: m.user_login,
-      user_nicename: m.user_nicename,
-      user_email: m.user_email,
-      user_url: m.user_url,
-      user_status: m.user_status,
-      display_name: m.display_name,
-      custom_fields : custom_fields
-    };
-  });
+  try{
+    const promises = mat.map( async m => {
+      let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+m.ID;
+      const req = await Axios({method:'GET',url:uri});
+      let custom_fields = req.data.acf;
+      return {
+        ID: m.ID,
+        user_login: m.user_login,
+        user_nicename: m.user_nicename,
+        user_email: m.user_email,
+        user_url: m.user_url,
+        user_status: m.user_status,
+        display_name: m.display_name,
+        custom_fields : custom_fields
+      };
+    });
+  }catch(err) {
+    return res.json({error: err})
+  };
+  
 
   // Espero a que terminen todas las promesas
   const matriculados = await Promise.all(promises);
