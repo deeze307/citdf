@@ -278,14 +278,16 @@ async function assignACF(mat){
         custom_fields : custom_fields
       };
     });
+
+    // Espero a que terminen todas las promesas
+    const matriculados = await Promise.all(promises);
+    return matriculados;
   }catch(err) {
     return res.json({error: err})
   };
   
 
-  // Espero a que terminen todas las promesas
-  const matriculados = await Promise.all(promises);
-  return matriculados;
+  
 }
 
 
