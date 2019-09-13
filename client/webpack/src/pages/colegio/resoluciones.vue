@@ -191,6 +191,156 @@ export default {
             fecha: "18/07/2018",
             concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº130.pdf" rel="noopener" target="_blank">Otorga M.P. N° 337 y 338</a>'
           },
+          {
+            res: "129",
+            fecha: "26/06/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/Resolución-Nº129.pdf" rel="noopener" target="_blank">Otorga M.P. N° 336</a>'
+          },
+          {
+            res: "128",
+            fecha: "15/06/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_128.pdf" rel="noopener" target="_blank">Cambio de firmas Bco. TDF</a>'
+          },
+          {
+            res: "127",
+            fecha: "08/06/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_127.pdf" rel="noopener" target="_blank">Aceptar solicitud de baja M.P. N° 192</a>'
+          },
+          {
+            res: "126",
+            fecha: "04/06/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_126.pdf" rel="noopener" target="_blank">Otorga M.P. N° 334 y 335</a>'
+          },
+          {
+            res: "125",
+            fecha: "21/05/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_125.pdf" rel="noopener" target="_blank">Otorga M.P. N° 329 a 333</a>'
+          },
+          {
+            res: "124",
+            fecha: "23/04/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_124.pdf" rel="noopener" target="_blank">Otorga M.P. N° 327 y 328</a>'
+          },
+          {
+            res: "123",
+            fecha: "03/04/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_123.pdf" rel="noopener" target="_blank">Otorga M.P. N° 323 a 326</a>'
+          },
+          {
+            res: "122",
+            fecha: "03/04/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_122.pdf" rel="noopener" target="_blank">Aceptar solicitud de baja M.P. N° 175</a>'
+          },
+          {
+            res: "121",
+            fecha: "09/03/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_121.pdf" rel="noopener" target="_blank">Otorga M.P. N° 319 a 322</a>'
+          },
+          {
+            res: "120",
+            fecha: "21/02/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/04/Resolución-Nº120.pdf" rel="noopener" target="_blank">Aceptar solicitud de baja M.P. N° 301</a>'
+          },
+          {
+            res: "119",
+            fecha: "07/02/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/04/Resolución-Nº119.pdf" rel="noopener" target="_blank">Otorga M.P. N° 317 y 318</a>'
+          },
+          {
+            res: "118",
+            fecha: "09/01/2018",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/04/Resolución-Nº118.pdf" rel="noopener" target="_blank">Otorga M.P. N° 315 y 316</a>'
+          },
+          {
+            res: "117",
+            fecha: "22/12/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_117.pdf" rel="noopener" target="_blank">Designa a la Ing. Inés Caliva como certificadora temporal de firmas en la localidad de Rio Grande</a>'
+          },
+          {
+            res: "116",
+            fecha: "21/12/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_116.pdf" rel="noopener" target="_blank">Crear El Departamento de Higiene y Seguridad de Trabajo (D. I. H. y S. T.)</a>'
+          },
+          {
+            res: "115",
+            fecha: "21/12/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_115.pdf" rel="noopener" target="_blank">Establece valores de módulo y matricula para el año 2018</a>'
+          },
+          {
+            res: "114",
+            fecha: "21/12/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_114.pdf" rel="noopener" target="_blank">Otorga M.P. N° 314</a>'
+          },
+          {
+            res: "113",
+            fecha: "01/12/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_113.pdf" rel="noopener" target="_blank">Otorga M.P. N° 312 y 313</a>'
+          },
+          {
+            res: "112",
+            fecha: "16/11/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_112.pdf" rel="noopener" target="_blank">Otorga M.P. N° 311</a>'
+          },
+          {
+            res: "111",
+            fecha: "03/11/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_111.pdf" rel="noopener" target="_blank">Otorga M.P. N° 309 y 310</a>'
+          },
+          {
+            res: "110",
+            fecha: "20/10/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_110.pdf" rel="noopener" target="_blank">Otorga M.P. N° 305 a 308. Agrega a M.P. N° 039 la Especialidad Adicional en Higiene en Seguridad y Trabajo</a>'
+          },
+          {
+            res: "109",
+            fecha: "27/09/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_109.pdf" rel="noopener" target="_blank">Otorga M.P. N° 304</a>'
+          },
+          {
+            res: "108",
+            fecha: "07/09/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_108.pdf" rel="noopener" target="_blank">Otorga M.P. N° 300 a 303</a>'
+          },
+          {
+            res: "107",
+            fecha: "26/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_107.pdf" rel="noopener" target="_blank">Agrega a M.P. N° 027 la Especialidad Adicional en Higiene en Seguridad y Trabajo</a>'
+          },
+          {
+            res: "106",
+            fecha: "26/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_106.pdf" rel="noopener" target="_blank">Otorga licencia por tiempo indeterminado al Presidente Ing. Horacio Salvañá</a>'
+          },
+          {
+            res: "105",
+            fecha: "11/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_105.pdf" rel="noopener" target="_blank">Otorga M.P. N° 299</a>'
+          },
+          {
+            res: "104",
+            fecha: "10/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_104.pdf" rel="noopener" target="_blank">Otorga M.P. N° 298</a>'
+          },
+          {
+            res: "103",
+            fecha: "08/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_103.pdf" rel="noopener" target="_blank">Otorga M.P. N° 296 y 297</a>'
+          },
+          {
+            res: "102",
+            fecha: "08/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_102.pdf" rel="noopener" target="_blank">Otorga M.P. N° 295 por resolución judicial</a>'
+          },
+          {
+            res: "101",
+            fecha: "02/08/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_101.pdf" rel="noopener" target="_blank">Determina la reducción de la matrícula anual al 50% en el segundo trimestre de cada año</a>'
+          },
+          {
+            res: "100",
+            fecha: "19/07/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_100.pdf" rel="noopener" target="_blank">Otorga M.P. N° 294</a>'
+          },
         ],
         
       }
