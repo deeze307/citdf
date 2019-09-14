@@ -75,7 +75,7 @@ app.get('/matriculados',(req,res,next) => {
         attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
         // limit: limit,
         // offset: offset,
-        where: where,
+        // where: where,
         order: [
           ["display_name", "Asc"]
         ]
