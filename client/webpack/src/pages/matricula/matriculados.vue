@@ -15,6 +15,7 @@
           <v-select
             :items="['Ushuaia','Tolhuin','Rio Grande']"
             label="Ciudad"
+            v-model="ciudadMatriculado"
           ></v-select>
         </v-flex>
         <!-- <v-flex xs12 sm12 md2 lg2 xl2>
@@ -134,7 +135,9 @@ export default {
         { text: 'Res', value: 'custom_fields.res' , sortable: true, align: 'center', width:'5%' },
         { text: 'Ver Detalle', value: 'detalle' , sortable: false, align: 'center', width:'5%' }
       ],
+      matriculadosResult:[],
       buscarMatriculado:'',
+      ciudadMatriculado:'',
       count:0,
       pages:0,
       pageNumber:0,
@@ -178,15 +181,17 @@ export default {
       
     }),
     created:function(){
-      let params = {
-        pageNumber:this.pageNumber,
-        pageSize:this.pageSize
-      }
+      let params={};
+      // let params = {
+      //   pageNumber:this.pageNumber,
+      //   pageSize:this.pageSize
+      // }
       store.dispatch('MATRICULADOS_retrieveAll',params);
     },
     computed:{
       matriculados(){
         console.log("Matriculados: ",store.state.matriculados.items);
+        this.matriculadosResult = store.state.matriculados.items;
         return store.state.matriculados.items;
       }
     },
@@ -200,6 +205,9 @@ export default {
       dialog (val) {
         console.log("Cambiando Dialog ",val);
         val || this.close()
+      },
+      ciudadMatriculado(ciudad){
+        console.log("Ciudad: "+ciudad);
       }
     },
     methods:{

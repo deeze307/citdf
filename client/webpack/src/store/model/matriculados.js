@@ -31,7 +31,7 @@ const module = {
       MATRICULADOS_retrieveAll:function({commit,dispatch,state},params){
         console.log("Obteniendo Matriculados");
         const curl = axios.create({
-          baseURL: 'http://api-deeze.tk:3031',
+          baseURL: 'http://localhost:3031',
         });
 
         // let params = {

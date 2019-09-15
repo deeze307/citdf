@@ -40,63 +40,23 @@ app.get('/matriculados',(req,res,next) => {
   let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
   let limit = +req.query.pageSize || 5;
   let offset = 0;
-  let count = 0;
-  let where = {
-    [Op.and]: [
-      {ID: {
-        [Op.like]: ID !== undefined ? `${ID}` : '%%'
-        }
-      },
-      {user_login: {
-        [Op.regexp]: '^[0-9]'
-        }
-      },
-      {user_email: {
-        [Op.like]: user_email !== undefined ? `${user_email}` : '%%'
-        }
-      },
-      {user_status: {
-        [Op.like]: user_status !== undefined ? `${user_status}` : '%%'
-        }
-      },
-      {display_name: {
-        [Op.like]: display_name !== undefined ? `${display_name}` : '%%'
-        }
-      }
+  db.wp_users.findAll({
+    attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
+    // limit: count,
+    // offset: 0,
+    // where: where,
+    order: [
+      ["display_name", "Asc"]
     ]
-  };
-  
-  db.wp_users.findAndCountAll().then((data) => {
-    let page = +req.query.pageNumber || 1;
-    let pages = Math.ceil(data.count / limit);
-    offset = (page) * limit;
-    count = data.count;
-    db.wp_users.findAll({
-        attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
-        limit: 100,
-        // offset: offset,
-        // where: where,
-        order: [
-          ["display_name", "Asc"]
-        ]
-      })
-      .then(mat => {
-        assignACF(mat).then(matriculados =>{
-          console.log("matriculados: ",matriculados);
-          res.status(200).json({
-            ok: true,
-            payload: matriculados,
-            count: count,
-            pages: pages
-          });
-        });
+  })
+  .then(mat => {
+    assignACF(mat).then(matriculados =>{
+      console.log("matriculados: ",matriculados);
+      res.status(200).json({
+        ok: true,
+        payload: matriculados,
       });
-  }).catch(Sequelize.ValidationError, function(msg) {
-    return res.status(422).json({
-      message: msg.errors
     });
-  }).catch(function(err) {
-    return res.status(400).json({ message: "Error al recuperar los matriculados",err });
   });
 });
 
@@ -265,18 +225,21 @@ async function assignACF(mat){
   try{
     const promises = mat.map( async m => {
       let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+m.ID;
-      const req = await Axios({method:'GET',url:uri});
-      let custom_fields = req.data.acf;
-      return {
-        ID: m.ID,
-        user_login: m.user_login,
-        user_nicename: m.user_nicename,
-        user_email: m.user_email,
-        user_url: m.user_url,
-        user_status: m.user_status,
-        display_name: m.display_name,
-        custom_fields : custom_fields
-      };
+      return Axios.get(uri).then((req) =>{
+        let custom_fields = req.data.acf;
+        return {
+          ID: m.ID,
+          user_login: m.user_login,
+          user_nicename: m.user_nicename,
+          user_email: m.user_email,
+          user_url: m.user_url,
+          user_status: m.user_status,
+          display_name: m.display_name,
+          custom_fields : custom_fields
+        };
+      }).catch((err) => {
+
+      });
     });
 
     // Espero a que terminen todas las promesas

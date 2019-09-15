@@ -341,6 +341,156 @@ export default {
             fecha: "19/07/2017",
             concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_100.pdf" rel="noopener" target="_blank">Otorga M.P. N° 294</a>'
           },
+          {
+            res: "099",
+            fecha: "10/07/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_099.pdf" rel="noopener" target="_blank">Acepta la solicitud de baja M.P. N° 171</a>'
+          },
+          {
+            res: "098",
+            fecha: "06/07/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_098.pdf" rel="noopener" target="_blank">Otorga M.P. N° 291 a 293</a>'
+          },
+          {
+            res: "097",
+            fecha: "16/06/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_097.pdf" rel="noopener" target="_blank">Otorga M.P. N° 290</a>'
+          },
+          {
+            res: "096",
+            fecha: "18/05/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_096.pdf" rel="noopener" target="_blank">Otorga M.P. N° 288 Y 289</a>'
+          },
+          {
+            res: "095",
+            fecha: "02/05/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_RESOLUCION_095.pdf" rel="noopener" target="_blank">Acepta la solicitud de baja M.P. N° 243</a>'
+          },
+          {
+            res: "094",
+            fecha: "08/05/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_RESOLUCION_094.pdf" rel="noopener" target="_blank">Otorga M.P. N° 286 Y 287</a>'
+          },
+          {
+            res: "093",
+            fecha: "18/04/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_093.pdf" rel="noopener" target="_blank">Otorga M.P. N° 284 Y 285</a>'
+          },
+          {
+            res: "092",
+            fecha: "07/04/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_092.pdf" rel="noopener" target="_blank">Otorga M.P. N° 281 a 283</a>'
+          },
+          {
+            res: "091",
+            fecha: "28/03/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_091.pdf" rel="noopener" target="_blank">Otorga M.P. N° 279 Y 280</a>'
+          },
+          {
+            res: "090",
+            fecha: "13/03/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_090.pdf" rel="noopener" target="_blank">Otorga M.P. N° 277 Y 278</a>'
+          },
+          {
+            res: "089",
+            fecha: "06/03/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_089.pdf" rel="noopener" target="_blank">Acepta la solicitud de baja M.P. N° 137</a>'
+          },
+          {
+            res: "088",
+            fecha: "03/03/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/RESOLUCION-N°088.pdf" rel="noopener" target="_blank">Acepta la solicitud de baja M.P. N° 014/051/079/142/164</a>'
+          },
+          {
+            res: "087",
+            fecha: "22/02/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/RESOLUCION-N°087.pdf" rel="noopener" target="_blank">Otorga M.P. N° 275 y 276</a>'
+          },
+          {
+            res: "086",
+            fecha: "08/02/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolusion_086.pdf" rel="noopener" target="_blank">Otorga M.P. N° 274</a>'
+          },
+          {
+            res: "085",
+            fecha: "27/01/2017",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolusion_085.pdf" rel="noopener" target="_blank">Otorga M.P. N° 273</a>'
+          },
+          {
+            res: "084",
+            fecha: "21/12/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_084.pdf" rel="noopener" target="_blank">Otorga M.P. N° 271 y 272</a>'
+          },
+          {
+            res: "083",
+            fecha: "24/11/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_083.pdf" rel="noopener" target="_blank">Otorga M.P. N° 269 y 270</a>'
+          },
+          {
+            res: "082",
+            fecha: "14/11/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_082.pdf" rel="noopener" target="_blank">Otorga M.P. N° 265 a 268</a>'
+          },
+          {
+            res: "081",
+            fecha: "10/11/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_081.pdf" rel="noopener" target="_blank">Otorga M.P. N° 263 y 264</a>'
+          },
+          {
+            res: "080",
+            fecha: "07/11/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_080.pdf" rel="noopener" target="_blank">Deniega el pedido de excepción de cumplir recaudos legales para lamatriculación al Ing. Sergio Amador López</a>'
+          },
+          {
+            res: "079",
+            fecha: "22/10/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_079.pdf" rel="noopener" target="_blank">Determina reducción de matrícula para el 3° y 4° trimestre del año 2017</a>'
+          },
+          {
+            res: "078",
+            fecha: "04/10/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_078.pdf" rel="noopener" target="_blank">Otorga M.P. N° 261 y 262</a>'
+          },
+          {
+            res: "077",
+            fecha: "27/09/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_077.pdf" rel="noopener" target="_blank">Otorga M.P. N° 260 Modifica resolución 076/16</a>'
+          },
+          {
+            res: "076",
+            fecha: "09/09/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_076.pdf" rel="noopener" target="_blank">Otorga M.P. N° 260</a>'
+          },
+          {
+            res: "075",
+            fecha: "09/09/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_075.pdf" rel="noopener" target="_blank">Otorga M.P. N° 259</a>'
+          },
+          {
+            res: "074",
+            fecha: "27/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_074.pdf" rel="noopener" target="_blank">Otorga M.P. N° 257 y 258</a>'
+          },
+          {
+            res: "073",
+            fecha: "16/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_073.pdf" rel="noopener" target="_blank">Crea Depto. De Sistemas</a>'
+          },
+          {
+            res: "072",
+            fecha: "16/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_072.pdf" rel="noopener" target="_blank">Crea Depto. De Electromecánica</a>'
+          },
+          {
+            res: "071",
+            fecha: "11/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_071.pdf" rel="noopener" target="_blank">Crea Depto. De Ciencias Naturales</a>'
+          },
+          {
+            res: "070",
+            fecha: "16/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_070.pdf" rel="noopener" target="_blank">Crea Depto. De Ingeniería Civíl y Construcciones</a>'
+          },
         ],
         
       }
