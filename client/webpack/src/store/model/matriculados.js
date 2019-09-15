@@ -1,6 +1,5 @@
 import axios from 'axios'
 import router from '../../router'
-import { stat } from 'fs';
 
 const module = {
     state: {
