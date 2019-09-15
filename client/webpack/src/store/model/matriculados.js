@@ -1,8 +1,10 @@
 import axios from 'axios'
 import router from '../../router'
+import { stat } from 'fs';
 
 const module = {
     state: {
+      apiUrl: 'http://api-deeze.tk:3031',
       items:{
         payload:[]
       },
@@ -31,7 +33,7 @@ const module = {
       MATRICULADOS_retrieveAll:function({commit,dispatch,state},params){
         console.log("Obteniendo Matriculados");
         const curl = axios.create({
-          baseURL: 'http://localhost:3031',
+          baseURL: state.apiUrl,
         });
 
         // let params = {
@@ -51,7 +53,7 @@ const module = {
       },
       MATRICULADOS_update:function({commit,dispatch,state},matriculado){
         const curl = axios.create({
-          baseURL: 'http://api-deeze.tk:3031',
+          baseURL: state.apiUrl,
         });
 
         curl.put(`/users/matriculados/${tramite.id}`,tramite)
@@ -93,7 +95,7 @@ const module = {
       },
       MATRICULADOS_retrieveComoMatricularse:function({commit,dispatch,state}){
         const curl = axios.create({
-          baseURL: 'http://api-deeze.tk:3031',
+          baseURL: state.apiUrl,
         });
 
         // let params = {
