@@ -491,6 +491,351 @@ export default {
             fecha: "16/07/2016",
             concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_070.pdf" rel="noopener" target="_blank">Crea Depto. De Ingeniería Civíl y Construcciones</a>'
           },
+          {
+            res: "069",
+            fecha: "15/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_069.pdf" rel="noopener" target="_blank">Otorga M.P. N° 254 a 256</a>'
+          },
+          {
+            res: "068",
+            fecha: "04/07/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_068.pdf" rel="noopener" target="_blank">Crea Caja Chica para ambas Sedes</a>'
+          },
+          {
+            res: "067",
+            fecha: "15/06/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_067.pdf" rel="noopener" target="_blank">Otorga M.P. N° 253</a>'
+          },
+          {
+            res: "066",
+            fecha: "30/05/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_066.pdf" rel="noopener" target="_blank">Otorga M.P. N° 248 a 252</a>'
+          },
+          {
+            res: "065",
+            fecha: "13/05/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_065.pdf" rel="noopener" target="_blank">Publica llamado a convocatoria Asamblea Anual Ordinaria año 2016</a>'
+          },
+          {
+            res: "064",
+            fecha: "05/05/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_064.pdf" rel="noopener" target="_blank">Otorga M.P. N° 245 a 247</a>'
+          },
+          {
+            res: "063",
+            fecha: "02/05/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_063.pdf" rel="noopener" target="_blank">Acepta solicitud de baja M.P. N° 053/029/035/102/002</a>'
+          },
+          {
+            res: "062",
+            fecha: "15/04/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_062-1.pdf" rel="noopener" target="_blank">Establece prórroga para el pago de matrícula año 2016. Modifica resolución N° 058</a>'
+          },
+          {
+            res: "061",
+            fecha: "11/04/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_061.pdf" rel="noopener" target="_blank">Otorga M.P. N° 244</a>'
+          },
+          {
+            res: "060",
+            fecha: "23/03/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_060.pdf" rel="noopener" target="_blank">Convoca a elecciones y designa miembros de la junta electoral</a>'
+          },
+          {
+            res: "059",
+            fecha: "23/03/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_059.pdf" rel="noopener" target="_blank">Otorga M.P. N° 241 a 243</a>'
+          },
+          {
+            res: "058",
+            fecha: "21/03/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_058.pdf" rel="noopener" target="_blank">Aprueba aranceles varios año 2016</a>'
+          },
+          {
+            res: "057",
+            fecha: "11/03/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_057.pdf" rel="noopener" target="_blank">Otorga M.P. N° 239 y 240</a>'
+          },
+          {
+            res: "056",
+            fecha: "08/02/2016",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_056.pdf" rel="noopener" target="_blank">Otorga M.P. N° 235 a 238</a>'
+          },
+          {
+            res: "055",
+            fecha: "17/12/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_055.pdf" rel="noopener" target="_blank">Otorga M.P. N° 234</a>'
+          },
+          {
+            res: "054",
+            fecha: "30/11/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_054.pdf" rel="noopener" target="_blank">Otorga M.P. N° 232 y 233</a>'
+          },
+          {
+            res: "053",
+            fecha: "09/10/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_053.pdf" rel="noopener" target="_blank">Otorga M.P. N° 229 a 231</a>'
+          },
+          {
+            res: "052",
+            fecha: "25/09/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_0521.pdf" rel="noopener" target="_blank">Determina reducción de Matrícula 4° trimestre</a>'
+          },
+          {
+            res: "051",
+            fecha: "25/09/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_0511.pdf" rel="noopener" target="_blank">Autoriza apertura Cuenta Corriente Banco Patagonia</a>'
+          },
+          {
+            res: "050",
+            fecha: "11/09/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_0501.pdf" rel="noopener" target="_blank">Otorga M.P. N° 227 y 228</a>'
+          },
+          {
+            res: "049",
+            fecha: "28/08/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_049.pdf" rel="noopener" target="_blank">Otorga M.P. N° 223 a 226</a>'
+          },
+          {
+            res: "048",
+            fecha: "14/08/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_048.pdf" rel="noopener" target="_blank">Otorga M.P. N° 218 a 222</a>'
+          },
+          {
+            res: "047",
+            fecha: "16/07/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_047.pdf" rel="noopener" target="_blank">Otorga M.P. N° 214 a 217</a>'
+          },
+          {
+            res: "046",
+            fecha: "10/07/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_046.pdf" rel="noopener" target="_blank">Otorga M.P. N° 211 a 213 (Art. 1) y otorga M.P. en Especialidad Adicional a M.P. 135 (Art.2)</a>'
+          },
+          {
+            res: "045",
+            fecha: "26/06/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_045.pdf" rel="noopener" target="_blank">Otorga M.P. N° 210</a>'
+          },
+          {
+            res: "044",
+            fecha: "10/06/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_044.pdf" rel="noopener" target="_blank">Otorga M.P. N° 206 a 209</a>'
+          },
+          {
+            res: "043",
+            fecha: "03/06/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_Resolucion_043.pdf" rel="noopener" target="_blank">Otorga M.P. N° 203 a 205</a>'
+          },
+          {
+            res: "042",
+            fecha: "04/05/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/05/CITDF_Resolucion_042.pdf" rel="noopener" target="_blank">Otorga M.P. N° 201 y 202</a>'
+          },
+          {
+            res: "041",
+            fecha: "14/04/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/05/CITDF_Resolucion_041.pdf" rel="noopener" target="_blank">Otorga M.P. N° 199 y 200</a>'
+          },
+          {
+            res: "040",
+            fecha: "13/04/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/05/CITDF_Resolucion_040.pdf" rel="noopener" target="_blank">Otorga M.P. N° 186 y 194 a 198</a>'
+          },
+          {
+            res: "039",
+            fecha: "30/03/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/05/CITDF_Resolucion_039.pdf" rel="noopener" target="_blank">Otorga M.P. N° 187 a 193</a>'
+          },
+          {
+            res: "038",
+            fecha: "12/01/2015",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/01/CITDF_Resolucion_038.pdf.pdf" rel="noopener" target="_blank">Otorga M.P. N° 184 y 185</a>'
+          },
+          {
+            res: "037",
+            fecha: "27/11/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/01/CITDF_Resolucion_037.pdf.pdf" rel="noopener" target="_blank">Otorga M.P. N° 181 a 183</a>'
+          },
+          {
+            res: "036",
+            fecha: "19/11/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_036.pdf" rel="noopener" target="_blank">Ratifica acción de inconstitucionalidad y medida cautelar</a>'
+          },
+          {
+            res: "035",
+            fecha: "18/11/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_035.pdf" rel="noopener" target="_blank">Otorga M.P. N° 176 a 180</a>'
+          },
+          {
+            res: "034",
+            fecha: "17/11/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/01/CITDF_Resolucion_034.pdf.pdf" rel="noopener" target="_blank">Establece arancel del trámite de Registro de Encomienda de Tareas Profesionales</a>'
+          },
+          {
+            res: "033",
+            fecha: "17/11/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2015/01/CITDF_Resolucion_033.pdf.pdf" rel="noopener" target="_blank">Otorga M.P. N° 172 a 175</a>'
+          },
+          {
+            res: "032",
+            fecha: "01/11/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_032.pdf" rel="noopener" target="_blank">Baja firmas autorizadas Cuenta Corriente BTF</a>'
+          },
+          {
+            res: "031",
+            fecha: "16/09/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_031.pdf" rel="noopener" target="_blank">Otorga M.P. N° 171</a>'
+          },
+          {
+            res: "030",
+            fecha: "09/09/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2018/06/CITDF_Resolucion_030.pdf" rel="noopener" target="_blank">Otorga M.P. N° 167 a 170</a>'
+          },
+          {
+            res: "029",
+            fecha: "17/09/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_029.pdf" rel="noopener" target="_blank">Otorga M.P. N° 165 y 166</a>'
+          },
+          {
+            res: "028",
+            fecha: "15/09/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_028.pdf" rel="noopener" target="_blank">Otorga M.P. N° 162 a 164</a>'
+          },
+          {
+            res: "027",
+            fecha: "04/09/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_027.pdf" rel="noopener" target="_blank">Crea el Registro de Encomienda de Tareas Profesionales/ Firmas</a>'
+          },
+          {
+            res: "026",
+            fecha: "04/09/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_026.pdf" rel="noopener" target="_blank">Otorga M.P. N° 159 a 161</a>'
+          },
+          {
+            res: "025",
+            fecha: "19/08/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_025.pdf" rel="noopener" target="_blank">Oficializa la única lista (N°1)</a>'
+          },
+          {
+            res: "024",
+            fecha: "31/07/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_024.pdf" rel="noopener" target="_blank">Otorga M.P. N° 156 a 158</a>'
+          },
+          {
+            res: "023",
+            fecha: "30/07/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_023.pdf" rel="noopener" target="_blank">Otorga M.P. N° 148 a 155</a>'
+          },
+          {
+            res: "022",
+            fecha: "04/07/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_022.pdf" rel="noopener" target="_blank">Acepta propuesta de Asesoramiento Profesional del Dr. Fernando Horacio Domínguez Pose</a>'
+          },
+          {
+            res: "021",
+            fecha: "03/07/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_021.pdf" rel="noopener" target="_blank">Otorga M.P. N° 144 a 147</a>'
+          },
+          {
+            res: "020",
+            fecha: "09/06/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_020.pdf" rel="noopener" target="_blank">Otorga M.P. N° 138 a 143</a>'
+          },
+          {
+            res: "019",
+            fecha: "04/06/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_019.pdf" rel="noopener" target="_blank">Establece arancel del trámite de Certificación de Firmas</a>'
+          },
+          {
+            res: "018",
+            fecha: "26/05/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_018.pdf" rel="noopener" target="_blank">Establece valor punitorio por atraso en el pago de la matrícula</a>'
+          },
+          {
+            res: "017",
+            fecha: "26/05/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_017.pdf" rel="noopener" target="_blank">Crea el Registro de Certificaciones. Designa integrantes del Consejo Superior y Certificadores de firmas</a>'
+          },
+          {
+            res: "016",
+            fecha: "26/05/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_016.pdf" rel="noopener" target="_blank">Otorga M.P. N° 131 a 137</a>'
+          },
+          {
+            res: "015",
+            fecha: "17/04/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_015.pdf" rel="noopener" target="_blank">Otorga M.P. N° 127 a 130</a>'
+          },
+          {
+            res: "014",
+            fecha: "08/04/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_014.pdf" rel="noopener" target="_blank">Otorga M.P. N° 115 a 126</a>'
+          },
+          {
+            res: "013",
+            fecha: "01/03/2014",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_013.pdf" rel="noopener" target="_blank">Otorga M.P. N° 096 a 114</a>'
+          },
+          {
+            res: "012",
+            fecha: "02/11/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_012.pdf" rel="noopener" target="_blank">Otorga M.P. N° 063 a 095</a>'
+          },
+          {
+            res: "011",
+            fecha: "03/08/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_011.pdf" rel="noopener" target="_blank">Otorga M.P. N° 057 a 062</a>'
+          },
+          {
+            res: "010",
+            fecha: "29/06/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_010.pdf" rel="noopener" target="_blank">Otorga M.P. N° 052 a 056</a>'
+          },
+          {
+            res: "009",
+            fecha: "18/05/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_009.pdf" rel="noopener" target="_blank">Otorga M.P. N° 049 a 051</a>'
+          },
+          {
+            res: "008",
+            fecha: "16/05/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_008.pdf" rel="noopener" target="_blank">Otorga M.P. N° 037 a 048</a>'
+          },
+          {
+            res: "007",
+            fecha: "20/04/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_007.pdf" rel="noopener" target="_blank">Otorga M.P. N° 034 a 036</a>'
+          },
+          {
+            res: "006",
+            fecha: "23/03/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_006.pdf" rel="noopener" target="_blank">Otorga M.P. N° 030 a 033</a>'
+          },
+          {
+            res: "005",
+            fecha: "13/02/2013",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_005.pdf" rel="noopener" target="_blank">Otorga M.P. N° 024 a 029</a>'
+          },
+          {
+            res: "004",
+            fecha: "22/11/2012",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_004.pdf" rel="noopener" target="_blank">Otorga M.P. N° 020 a 023</a>'
+          },
+          {
+            res: "003",
+            fecha: "08/11/2012",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_003.pdf" rel="noopener" target="_blank">Otorga M.P. N° 015 a 019</a>'
+          },
+          {
+            res: "002",
+            fecha: "04/10/2012",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_002.pdf" rel="noopener" target="_blank">Otorga M.P. N° 001 a 014</a>'
+          },
+          {
+            res: "001",
+            fecha: "04/10/2012",
+            concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_001.pdf" rel="noopener" target="_blank">Autoriza apertura Cuenta Corriente Banco Galicia. Autoriza firmantes esquema doble firma</a>'
+          },
         ],
         
       }

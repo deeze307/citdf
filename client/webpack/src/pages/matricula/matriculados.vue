@@ -13,7 +13,7 @@
         </v-flex>
         <v-flex xs12 sm12 md2 lg2 xl2 class="ml-5 mr-2">
           <v-select
-            :items="['Ushuaia','Tolhuin','Rio Grande']"
+            :items="['Todos','Ushuaia','Tolhuin','Rio Grande']"
             label="Ciudad"
             v-model="ciudadMatriculado"
           ></v-select>
@@ -40,7 +40,7 @@
         <v-flex xs12 sm12 md10 lg10 xl10>
             <v-data-table
             :headers="headers"
-            :items="matriculados.payload"
+            :items="matriculadosResult.payload"
             :loading="loading"
             loading-text="Cargando... espere por favor"
             :search="buscarMatriculado"
@@ -207,7 +207,7 @@ export default {
         val || this.close()
       },
       ciudadMatriculado(ciudad){
-        console.log("Ciudad: "+ciudad);
+        this.filterMatriculados();
       }
     },
     methods:{
@@ -224,6 +224,23 @@ export default {
             this.editedItem = Object.assign({}, this.defaultItem)
             this.editedIndex = -1
           }, 300)
+        },
+        filterMatriculados(){
+          if(this.ciudadMatriculado === 'Todos'){
+
+          }else if(this.ciudadMatriculado !== ''){
+            this.matriculadosResult.payload = $store.state.matriculados.items;
+            let filtered = [];
+            this.loading = true;
+            this.matriculadosResult.payload.map(mPayload =>{
+              console.log("este es el payload",mPayload);
+              if(mPayload !== null && mPayload.custom_fields.ciudad === this.ciudadMatriculado){
+                filtered.push(mPayload);
+              }
+            })
+            this.matriculadosResult.payload = filtered;
+            this.loading = false;
+          }
         }
     }
 }
