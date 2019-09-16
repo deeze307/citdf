@@ -40,11 +40,23 @@ app.get('/matriculados',(req,res,next) => {
   let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
   let limit = +req.query.pageSize || 5;
   let offset = 0;
+  let where = {
+    [Op.and]: [
+      {user_login: {
+        [Op.not]: 'citdf'
+        }
+      },
+      {user_login: {
+        [Op.not]: 'dmaidana'
+        }
+      }
+    ]
+  };
   db.wp_users.findAll({
     attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
     // limit: count,
     // offset: 0,
-    // where: where,
+    where: where,
     order: [
       ["display_name", "Asc"]
     ]
@@ -225,7 +237,7 @@ async function assignACF(mat){
   try{
     const promises = mat.map( async m => {
       let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+m.ID;
-      return Axios.get(uri).then((req) =>{
+      return await Axios.get(uri).then((req) =>{
         let custom_fields = req.data.acf;
         return {
           ID: m.ID,
