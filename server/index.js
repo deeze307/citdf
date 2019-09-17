@@ -44,34 +44,34 @@ if (node_env === 'development') {
 
 }
 
-  // SE IMPORTAN LAS RUTAS
-  const usersRoutes = require('./routes/users');
-  const menuRoutes = require('./routes/menu');
-  const bolsaTrabajoRoutes = require('./routes/bolsa_trabajo');
-  const novedadesRoutes = require('./routes/novedades');
-  const colegioRoutes = require('./routes/colegio');
-  const contactoRoutes = require('./routes/contacto');
-  const tramitesRoutes = require('./routes/tramites');
-  const beneficiosRoutes = require('./routes/beneficios');
-  const marcoLegalRoutes = require('./routes/marco_legal');
-  const generalRoutes = require('./routes/generals');
-  // const loginRoutes = require('./routes/login');
+// SE IMPORTAN LAS RUTAS
+const usersRoutes = require('./routes/users');
+const menuRoutes = require('./routes/menu');
+const bolsaTrabajoRoutes = require('./routes/bolsa_trabajo');
+const novedadesRoutes = require('./routes/novedades');
+const colegioRoutes = require('./routes/colegio');
+const contactoRoutes = require('./routes/contacto');
+const tramitesRoutes = require('./routes/tramites');
+const beneficiosRoutes = require('./routes/beneficios');
+const marcoLegalRoutes = require('./routes/marco_legal');
+const generalRoutes = require('./routes/generals');
+const descargasRoutes = require('./routes/descargas');
 
-  // LAS RUTAS
-  app.use('/users', usersRoutes);
-  app.use('/menu',menuRoutes);
-  app.use('/bolsa_trabajo',bolsaTrabajoRoutes);
-  app.use('/novedades',novedadesRoutes);
-  app.use('/colegio',colegioRoutes);
-  app.use('/contacto',contactoRoutes);
-  app.use('/tramites',tramitesRoutes);
-  app.use('/beneficios',beneficiosRoutes);
-  app.use('/marco_legal',marcoLegalRoutes);
-  app.use('/general',generalRoutes);
-  // app.use('/login',loginRoutes);
+// LAS RUTAS
+app.use('/users', usersRoutes);
+app.use('/menu',menuRoutes);
+app.use('/bolsa_trabajo',bolsaTrabajoRoutes);
+app.use('/novedades',novedadesRoutes);
+app.use('/colegio',colegioRoutes);
+app.use('/contacto',contactoRoutes);
+app.use('/tramites',tramitesRoutes);
+app.use('/beneficios',beneficiosRoutes);
+app.use('/marco_legal',marcoLegalRoutes);
+app.use('/general',generalRoutes);
+app.use('/descargas',descargasRoutes);
 
 app.get('/', (request, response) => {
-    response.json({ info: 'VueJs, Node.js, Express, and WordPress-API' })
+  response.json({ info: 'VueJs, Node.js, Express, and WordPress-API' })
 })
 
 sequelize
