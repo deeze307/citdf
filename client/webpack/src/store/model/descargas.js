@@ -4,12 +4,12 @@ import axios from 'axios'
 
 const module = {
   state: {
-    items:{
-      content:{rendered:""},
-      content:{rendered:""},
-      content:{rendered:""},
-      content:{rendered:""}
-    }
+    items:[
+      {content:{rendered:""}},
+      {content:{rendered:""}},
+      {content:{rendered:""}},
+      {content:{rendered:""}}
+    ]
   },
   getters:{
     descargas: state => {
