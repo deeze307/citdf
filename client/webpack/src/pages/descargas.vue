@@ -83,6 +83,7 @@ export default {
     },
     watch:{
       descargas(val){
+        console.log("descargas: ",val);
         if(val[0].content){
           this.spinner = false;
         }
