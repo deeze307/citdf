@@ -190,7 +190,6 @@ export default {
     },
     computed:{
       matriculados(){
-        console.log("Matriculados: ",store.state.matriculados.items);
         this.matriculadosResult = store.state.matriculados.items;
         return store.state.matriculados.items;
       }
@@ -206,7 +205,7 @@ export default {
         console.log("Cambiando Dialog ",val);
         val || this.close()
       },
-      ciudadMatriculado(ciudad){
+      ciudadMatriculado(){
         this.filterMatriculados();
       }
     },
@@ -226,14 +225,16 @@ export default {
           }, 300)
         },
         filterMatriculados(){
-          if(this.ciudadMatriculado === 'Todos'){
+          console.log("Seleccionado: "+this.ciudadMatriculado);
+          this.matriculadosResult.payload = this.$store.state.matriculados.items.payload;
+          this.loading = true;
 
+          if(this.ciudadMatriculado === 'Todos'){
+            this.loading = false;
           }else if(this.ciudadMatriculado !== ''){
-            this.matriculadosResult.payload = $store.state.matriculados.items;
             let filtered = [];
-            this.loading = true;
             this.matriculadosResult.payload.map(mPayload =>{
-              console.log("este es el payload",mPayload);
+              // console.log("este es el payload",mPayload);
               if(mPayload !== null && mPayload.custom_fields.ciudad === this.ciudadMatriculado){
                 filtered.push(mPayload);
               }
