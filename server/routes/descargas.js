@@ -26,7 +26,7 @@ app.get('/', (req, res, next) => {
           jornadas_2016_09 = jornadas_2016_09[0];
           jornadas_2017_06_13 = jornadas_2017_06_13[0];
           jornadas_2017_06_27 = jornadas_2017_06_27[0];
-          jornadas_2017_09_21 = jornadas_2017_06_27[0];
+          jornadas_2017_09_21 = jornadas_2017_09_21[0];
           let response = [jornadas_2016_09,jornadas_2017_06_13,jornadas_2017_06_27,jornadas_2017_09_21];
           return res.status(200).json({info: response});
         }).catch(function(err){
