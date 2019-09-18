@@ -248,7 +248,7 @@
         userItems: [
         { title: 'Mi Perfil', path:'/profile', admin:false},
         { title: 'Mis Trámites',path:'/tramites',admin:false},
-        // { title: 'Gestionar',path:'/gestion',admin:true},
+        { title: 'Gestionar',path:'/gestion',admin:true},
       ]
       }
     },
@@ -304,17 +304,20 @@
       },
       checkAdmin(item){
         let isAdmin = true;
-        console.log('verificando permiso de usuario',this.user.user);
-        if(this.user.user.user_roles){
-          if(item.admin){
-            isAdmin = false;
-            this.user.user.user_roles.map( rol => {
-              if(rol === 'administrator'){
-                console.log('es admin');
-                isAdmin = true;
-              }
-            })
-          }
+        if(item.admin){
+          isAdmin = false;
+          console.log("Roles: ",this.user.user);
+          // if(this.user.user.user_roles){
+            // this.user.user.user_roles.map( rol => {
+            //   if(rol === 'administrator'){
+            //     console.log('es admin');
+            //     isAdmin = true;
+            //   }
+            // })
+            if(_.has(this.user.user,'slug') && (this.user.user.slug === 'citdf' || this.user.user.slug === 'dmaidana' || this.user.user.slug === 'secretaria')){
+              isAdmin = true;
+            }
+          // }
         }
         console.log(`Mostrar ${item.title}? `,isAdmin)
         return isAdmin;
