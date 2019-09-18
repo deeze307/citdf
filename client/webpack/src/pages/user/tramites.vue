@@ -195,8 +195,12 @@ export default {
         return store.state.pagos.items
       },
       user() {
-        console.log("Usuario: ",store.state.login_api.user);
-        return store.state.login_api.user
+        let usuario = store.state.login_api.user;
+        console.log("Usuario: ",usuario)
+        if(usuario.user){
+          store.dispatch("TRAMITES_retrieveAll",usuario.user.id)
+        };
+        return usuario
       }
     },
     watch:{
@@ -204,7 +208,6 @@ export default {
         this.tramitesLoading=false;
       },
       user(perfil){
-        console.log(perfil);
         store.dispatch("TRAMITES_retrieveAll",perfil.user.id)
       },
       pagos(){}

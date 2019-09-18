@@ -6,6 +6,7 @@ require('dotenv').config({path: __dirname + '/.env'})
 // require('dotenv').config({ path: require('find-config')('.env') });
 const node_env = process.env.NODE_ENV || 'production';
 const port = 3031;
+var mercadopago = require('mercadopago');
 
 // // Firebase
 // const admin = require('../node_modules/firebase-admin');
@@ -89,6 +90,16 @@ sequelize
   .catch(err => {
     console.error('No fue posible conectar con la base de datos:', err);
   });
+
+  // MercadoPago
+
+  mercadopago.configure({
+    sandbox: true,
+    access_token: process.env.MERCADOPAGO_ACCESS_TOKEN
+  });
+  console.log(mercadopago.payment);
+
+  // /MercadoPago
 
 app.listen(port, () => {
     console.log(`App corriendo en el puerto ${port}. | host: ${process.env.DB_HOST}`)
