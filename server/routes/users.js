@@ -50,6 +50,11 @@ app.get('/matriculados',(req,res,next) => {
         [Op.not]: 'dmaidana'
         }
       }
+      ,
+      {user_login: {
+        [Op.not]: 'secretaria'
+        }
+      }
     ]
   };
   db.wp_users.findAll({
@@ -250,7 +255,7 @@ async function assignACF(mat){
           custom_fields : custom_fields
         };
       }).catch((err) => {
-
+        return {error: err};
       });
     });
 
