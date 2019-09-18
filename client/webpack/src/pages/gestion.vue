@@ -18,7 +18,7 @@
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
           <download-excel
-              :data   = "tramitesItems.payload"
+              :data   = "tramitesExport"
               :fields = "headers"
               worksheet = "Trámites de Matriculados"
               name    = "Trámites de Matriculados.xls">
@@ -197,9 +197,8 @@ export default {
           { text: 'Gestionar', value: 'action' , sortable: false, align: 'center' , width:'10%'},
         ],
         buscarTramite:'',
-        tramitesItems:{
-          payload:{status:""}
-        },
+        tramitesItems:[],
+        tramitesExport:[],
         tiposTramites:[
           "Certificación de Firma",
           "Encomienda de Tareas"
@@ -252,12 +251,18 @@ export default {
     computed:{
       tramites(){
         this.tramitesItems = store.state.tramites.items;
+        if(this.tramitesItems.payload){
+          this.tramitesExport = this.tramitesItems.payload;
+        }
         return store.state.tramites.items;
       }
     },
     watch:{
       tramites(val){
         // this.tramiteStatusChanged(val.payload);
+        if(val.payload){
+          this.tramitesExport = val.payload;
+        }
         this.tramitesLoading=false;
       }
     },

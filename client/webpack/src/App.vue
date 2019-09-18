@@ -306,7 +306,6 @@
         let isAdmin = true;
         if(item.admin){
           isAdmin = false;
-          console.log("Roles: ",this.user.user);
           // if(this.user.user.user_roles){
             // this.user.user.user_roles.map( rol => {
             //   if(rol === 'administrator'){
@@ -319,7 +318,6 @@
             }
           // }
         }
-        console.log(`Mostrar ${item.title}? `,isAdmin)
         return isAdmin;
       },
       subMenu(submenu) {
