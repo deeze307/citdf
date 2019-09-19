@@ -34,6 +34,9 @@
           <v-btn color="default" small> <v-icon left>cloud_download</v-icon> Descargar Lista</v-btn>
           </download-excel>
         </v-flex>
+        <v-flex xs12 sm12 md3 lg3 xl3 offset-md1>
+          <v-btn color="success" small>Agregar Matriculado</v-btn>
+        </v-flex>
       </v-layout>
       <v-layout align-center justify-space-around row fill-height>
         <!-- Datatable -->
@@ -53,6 +56,10 @@
               nextIcon: 'chevron_right'
             }"
             >
+            <template v-slot:item.custom_fields.habilitado="{item}">
+                <v-icon v-if="item.custom_fields.habilitado" small right>done</v-icon>
+                <v-icon v-if="!item.custom_fields.habilitado" small right>block</v-icon>
+            </template>
             <template v-slot:top>
               <v-dialog v-model="dialogMatriculado" max-width="400">
                 <v-card>
@@ -123,19 +130,22 @@ export default {
         'Documento Nro': 'custom_fields.documento_nro',
         'Título Profesional': 'custom_fields.titulo_profesional',
         'Ciudad':'custom_fields.ciudad',
+        'Estado':'custom_fields.ciudad',
         'Res':'custom_fields.res'
         
       },
       headers: [
         { text: 'Matricula', value: 'custom_fields.matricula' , sortable: true, align: 'center' , width:'5%'},
         { text: 'Nombre Completo', value: 'display_name' , sortable: true, align: 'center' , width:'35%'},
-        { text: 'Documento Nro', value: 'custom_fields.documento_nro' , sortable: true, align: 'center' , width:'15%'},
+        { text: 'Documento Nro', value: 'custom_fields.documento_nro' , sortable: true, align: 'center' , width:'10%'},
         { text: 'Título', value: 'custom_fields.titulo_profesional' , sortable: true, align: 'center', width:'30%' },
         { text: 'Ciudad', value: 'custom_fields.ciudad' , sortable: true, align: 'center', width:'5%' },
         { text: 'Res', value: 'custom_fields.res' , sortable: true, align: 'center', width:'5%' },
+        { text: 'Estado', value: 'custom_fields.habilitado' , sortable: true, align: 'center', width:'5%' },
         { text: 'Ver Detalle', value: 'detalle' , sortable: false, align: 'center', width:'5%' }
       ],
       matriculadosResult:[],
+      matriculadosOrigen:[],
       buscarMatriculado:'',
       ciudadMatriculado:'',
       count:0,
@@ -196,7 +206,10 @@ export default {
     },
     watch:{
       matriculados(val){
-        console.log(val);
+        if(val.payload && !this.matriculadosOrigen.payload){
+          console.log("Total: "+val.payload.length);
+          this.matriculadosOrigen = val;
+        }
         if(val.payload.length > 0){
           this.loading = false
         }
@@ -225,23 +238,23 @@ export default {
           }, 300)
         },
         filterMatriculados(){
-          console.log("Seleccionado: "+this.ciudadMatriculado);
-          this.matriculadosResult.payload = this.$store.state.matriculados.items.payload;
           this.loading = true;
 
-          if(this.ciudadMatriculado === 'Todos'){
+          if(this.ciudadMatriculado === "Todos"){
+            // this.matriculadosResult.payload = this.matriculadosOrigen.payload;
             this.loading = false;
-          }else if(this.ciudadMatriculado !== ''){
+          }else if(this.ciudadMatriculado !== ""){
             let filtered = [];
             this.matriculadosResult.payload.map(mPayload =>{
               // console.log("este es el payload",mPayload);
-              if(mPayload !== null && mPayload.custom_fields.ciudad === this.ciudadMatriculado){
+              if((mPayload.custom_fields !== null && mPayload.custom_fields !== undefined) && mPayload.custom_fields.ciudad === this.ciudadMatriculado){
                 filtered.push(mPayload);
               }
             })
             this.matriculadosResult.payload = filtered;
             this.loading = false;
           }
+          console.log("Seleccionado: "+this.ciudadMatriculado + "|"+this.matriculadosOrigen.payload.length);
         }
     }
 }
