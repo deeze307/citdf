@@ -115,6 +115,12 @@
                   counter="100"
                   ></v-textarea>
                 </v-flex>
+                <v-flex xs12 sm12 md12 lg12 xl12 d-flex class="px-5">
+                  <v-switch
+                    v-model="form.custom_fields.newsletter"
+                    label="Suscripto a Newsletter"
+                  ></v-switch>
+                </v-flex>
               </v-layout>
             </v-card-text>
             <v-card-actions>
@@ -143,7 +149,7 @@ import router from '../../router'
         loading: false,
         form: {
           avatar_urls: 'MALE_CAUCASIAN_BLOND_BEARD',
-          custom_fields:{}
+          custom_fields:{newsletter:false}
         },
         ciudades:[
           'Ushuaia',
