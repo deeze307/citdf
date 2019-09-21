@@ -69,24 +69,31 @@
                   <v-card-text>
                     <v-container>
                       <v-col>
-                        <div><span><strong>Matricula:</strong></span> {{ editedItem.custom_fields.matricula }}</div>
-                        <div><span><strong> Número Documento:</strong></span> {{ editedItem.custom_fields.documento_nro }}</div>
-                        <div><span><strong> Título Profesional:</strong></span> {{ editedItem.custom_fields.titulo_profesional }}</div>
-                        <div><span><strong> Ciudad:</strong></span> {{ editedItem.custom_fields.ciudad }}</div>
+                        <div><span><strong>Matricula:</strong></span> {{ editedItem.matricula }}</div>
+                        <div><span><strong> Número Documento:</strong></span> {{ editedItem.documento_nro }}</div>
+                        <div><span><strong> Título Profesional:</strong></span> {{ editedItem.titulo_profesional }}</div>
+                        <div><span><strong> Ciudad:</strong></span> {{ editedItem.ciudad }}</div>
                         <div><span><strong> Email:</strong></span> {{ editedItem.user_email }}</div>
-                        <div><span><strong> Dirección:</strong></span> {{ editedItem.custom_fields.direccion }}</div>
-                        <div><span><strong> Teléfono:</strong></span> {{ editedItem.custom_fields.telefono }}</div>
-                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.custom_fields.facebook_profile }}</div>
-                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.custom_fields.linkedin_profile }}</div>
+                        <div><span><strong> Dirección:</strong></span> {{ editedItem.direccion }}</div>
+                        <div><span><strong> Teléfono:</strong></span> {{ editedItem.telefono }}</div>
+                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.facebook_profile }}</div>
+                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.linkedin_profile }}</div>
                         <div><span><strong> Sitio Web:</strong></span> {{ editedItem.user_url }}</div>
-                        <div><span><strong> Aptitudes:</strong></span> {{ editedItem.custom_fields.apt }}</div>
-                        <div><span><strong> Acerca de:</strong></span> {{ editedItem.custom_fields.description }}</div>
+                        <div><span><strong> Aptitudes:</strong></span> {{ editedItem.apt }}</div>
+                        <div><span><strong> Acerca de:</strong></span> {{ editedItem.description }}</div>
+                        <div v-if="loggedAsAdmin">
+                          <v-switch
+                            v-model="editedItem.newsletter"
+                            label="Habilitado"
+                          ></v-switch>
+                        </div>
                       </v-col>
                     </v-container>
                   </v-card-text>
 
                   <v-card-actions>
                     <div class="flex-grow-1"></div>
+                    <v-btn v-if="loggedAsAdmin" color="orange darken-1" text>Actualizar</v-btn>
                     <v-btn color="blue darken-1" text @click="close">Cerrar</v-btn>
                   </v-card-actions>
                 </v-card>
@@ -125,25 +132,26 @@ import axios from 'axios'
 export default {
     data:() => ({
       exportHeaders:{
-        'Matricula': 'custom_fields.matricula',
+        'Matricula': 'matricula',
         'Nombre Completo': 'display_name',
-        'Documento Nro': 'custom_fields.documento_nro',
-        'Título Profesional': 'custom_fields.titulo_profesional',
-        'Ciudad':'custom_fields.ciudad',
-        'Estado':'custom_fields.ciudad',
-        'Res':'custom_fields.res'
+        'Documento Nro': 'documento_nro',
+        'Título Profesional': 'titulo_profesional',
+        'Ciudad':'ciudad',
+        'Estado':'ciudad',
+        'Res':'res'
         
       },
       headers: [
-        { text: 'Matricula', value: 'custom_fields.matricula' , sortable: true, align: 'center' , width:'5%'},
+        { text: 'Matricula', value: 'matricula' , sortable: true, align: 'center' , width:'5%'},
         { text: 'Nombre Completo', value: 'display_name' , sortable: true, align: 'center' , width:'35%'},
-        { text: 'Documento Nro', value: 'custom_fields.documento_nro' , sortable: true, align: 'center' , width:'10%'},
-        { text: 'Título', value: 'custom_fields.titulo_profesional' , sortable: true, align: 'center', width:'30%' },
-        { text: 'Ciudad', value: 'custom_fields.ciudad' , sortable: true, align: 'center', width:'5%' },
-        { text: 'Res', value: 'custom_fields.res' , sortable: true, align: 'center', width:'5%' },
-        { text: 'Estado', value: 'custom_fields.habilitado' , sortable: true, align: 'center', width:'5%' },
+        { text: 'Documento Nro', value: 'documento_nro' , sortable: true, align: 'center' , width:'10%'},
+        { text: 'Título', value: 'titulo_profesional' , sortable: true, align: 'center', width:'30%' },
+        { text: 'Ciudad', value: 'ciudad' , sortable: true, align: 'center', width:'5%' },
+        { text: 'Res', value: 'res' , sortable: true, align: 'center', width:'5%' },
+        { text: 'Estado', value: 'habilitado' , sortable: true, align: 'center', width:'5%' },
         { text: 'Ver Detalle', value: 'detalle' , sortable: false, align: 'center', width:'5%' }
       ],
+      loggedAsAdmin:false,
       matriculadosResult:[],
       matriculadosOrigen:[],
       buscarMatriculado:'',
@@ -156,23 +164,19 @@ export default {
       editedIndex: -1,
       editedItem:{
         display_name:'',
-        custom_fields:{
-          matricula:'',
-          documento_nro:'',
-          titulo_profesional:'',
-          ciudad:'',
-          res:''
-        }
+        matricula:'',
+        documento_nro:'',
+        titulo_profesional:'',
+        ciudad:'',
+        res:''
       },
       defaultItem: {
         display_name:'',
-        custom_fields:{
-          matricula:'',
-          documento_nro:'',
-          titulo_profesional:'',
-          ciudad:'',
-          res:''
-        }
+        matricula:'',
+        documento_nro:'',
+        titulo_profesional:'',
+        ciudad:'',
+        res:''
       },
       dialog_ops:{
         dialog: false,
@@ -192,22 +196,34 @@ export default {
     }),
     created:function(){
       let params={};
+      this.matriculadosResult=[];
+      // this.isAdmin();
       // let params = {
       //   pageNumber:this.pageNumber,
       //   pageSize:this.pageSize
       // }
       store.dispatch('MATRICULADOS_retrieveAll',params);
+      store.dispatch('LOGIN_API_fetchUser');
+    
     },
     computed:{
       matriculados(){
         this.matriculadosResult = store.state.matriculados.items;
         return store.state.matriculados.items;
+      },
+      user() {
+        let usuario = store.state.login_api.user;
+        if(usuario.user_nicename){
+          this.isAdmin(usuario.user_nicename);
+        }else if(usuario.slug){
+          this.isAdmin(usuario.slug);
+        }
+        return usuario;
       }
     },
     watch:{
       matriculados(val){
         if(val.payload && !this.matriculadosOrigen.payload){
-          console.log("Total: "+val.payload.length);
           this.matriculadosOrigen = val;
         }
         if(val.payload.length > 0){
@@ -215,11 +231,17 @@ export default {
         }
       },
       dialog (val) {
-        console.log("Cambiando Dialog ",val);
         val || this.close()
       },
       ciudadMatriculado(){
         this.filterMatriculados();
+      },
+      user(val){
+        if(val.user){
+          this.isAdmin(val.user.slug);
+        }else if(val.user_nicename){
+          this.isAdmin(val.user.user_nicename);
+        }
       }
     },
     methods:{
@@ -228,7 +250,6 @@ export default {
           vm.editedIndex = this.$store.state.matriculados.items.payload.indexOf(matriculado)
           vm.editedItem = Object.assign({}, matriculado)
           vm.dialogMatriculado = true
-          console.log("abriendo Dialog: ",vm.editedItem);
         },
         close() {
           this.dialogMatriculado = false
@@ -247,7 +268,7 @@ export default {
             let filtered = [];
             this.matriculadosResult.payload.map(mPayload =>{
               // console.log("este es el payload",mPayload);
-              if((mPayload.custom_fields !== null && mPayload.custom_fields !== undefined) && mPayload.custom_fields.ciudad === this.ciudadMatriculado){
+              if(mPayload.ciudad === this.ciudadMatriculado){
                 filtered.push(mPayload);
               }
             })
@@ -255,6 +276,14 @@ export default {
             this.loading = false;
           }
           console.log("Seleccionado: "+this.ciudadMatriculado + "|"+this.matriculadosOrigen.payload.length);
+        },
+        isAdmin(matriculado){
+          let vm = this;
+          if(matriculado === 'citdf' || matriculado === 'secretaria'){
+            vm.loggedAsAdmin = true;
+          }else{
+            vm.loggedAsAdmin = false;
+          }
         }
     }
 }
