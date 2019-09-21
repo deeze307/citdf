@@ -18,7 +18,7 @@
             v-model="ciudadMatriculado"
           ></v-select>
         </v-flex>
-        <v-flex xs12 sm12 md2 lg2 xl2 class="ml-5 mr-2">
+        <v-flex v-if="loggedAsAdmin" xs12 sm12 md2 lg2 xl2 class="ml-5 mr-2">
           <v-row justify="center">
             <v-dialog v-model="dialogNuevoMatriculado" persistent max-width="600px">
               <template v-slot:activator="{ on }">

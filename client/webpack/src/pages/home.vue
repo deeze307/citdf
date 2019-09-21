@@ -4,15 +4,18 @@
     <v-parallax
       dark
       src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-      height=200
+      :height=parallaxHeight
     >
       <v-layout
         align-center
         column
         justify-center
       >
-        <h1 class="display-2 font-weight-thin mb-3">Colégio de Ingenieros de Tierra del Fuego</h1>
-        <h4 class="display-1 font-weight-thin">Antártida e Islas del Atlántico Sur</h4>
+        <h1 v-if="!isMobile" class="display-2 font-weight-thin mb-3">Colégio de Ingenieros de Tierra del Fuego</h1>
+        <h4 v-if="!isMobile" class="display-1 font-weight-thin">Antártida e Islas del Atlántico Sur</h4>
+
+        <h1 v-if="isMobile" style="text-align:center;" class="font-weight-thin mb-3">Colégio de Ingenieros de Tierra del Fuego</h1>
+        <h4 v-if="isMobile" class="font-weight-thin">Antártida e Islas del Atlántico Sur</h4>
       </v-layout>
     </v-parallax>
     <!-- Fin PARALLAX -->
@@ -27,7 +30,6 @@
           next-icon="keyboard_arrow_right"
           prev-icon="keyboard_arrow_left"
           delimiter-icon="fiber_manual_record"
-          style="max-width:958px; max-height:364px;"
           v-if="carouselItems.length > 0"
         >
           <v-carousel-item
@@ -145,7 +147,7 @@
             </v-flex>
             <v-flex xs12 sm12 md12 lg12 xl12 class="mb-3" v-for="(novedad, index) in novedades" :key="index">
               <v-hover v-slot:default="{ hover }">
-                <v-card :elevation="hover ? 12 : 5" height=280>
+                <v-card :elevation="hover ? 12 : 5" :height=novedadesHeight>
                   <v-card-title class="mb-0 pb-0" style="height:80px;">
                     <h3 style="color:#0277BD;" class=".subheading font-weight-light">{{novedad.title.rendered}}</h3>
                   </v-card-title>
@@ -238,7 +240,7 @@
             
           <v-flex xs12 sm12 md3 lg3 xl3 class="mb-3" v-for="(bolsa, i) in bolsaTrabajo" :key="i">
             <v-hover v-slot:default="{ hover }">
-              <v-card :elevation="hover ? 12 : 5" height=350 class="flexcard">
+              <v-card :elevation="hover ? 12 : 5" :height=bolsaTrabajoHeight class="flexcard">
                 <v-card-title class="mb-2 pb-0">
                   <h3 style="color:#0277BD;" class=".subheading font-weight-light">{{bolsa.title.rendered}}</h3>
                 </v-card-title>
@@ -332,6 +334,10 @@
   export default {
     data(){
       return{
+        novedadesHeight:280,
+        bolsaTrabajoHeight:350,
+        parallaxHeight:200,
+        isMobile:false,
         fab: false,
         top: false,
         right: true,
@@ -345,6 +351,9 @@
       this.carouselImages(require.context("@/assets/carousel", true, /\.jpg$/));
       store.dispatch('BOLSA_TRABAJO_retrievePosts',3);
       store.dispatch('NOVEDADES_retrievePosts',3);
+    },
+    mounted: function() {
+      this.onResize();
     },
     components:{
       login_api
@@ -400,6 +409,15 @@
       },
       goTo(route){
         router.push(route);
+      },
+      onResize(){
+        if(window.innerWidth <= 480){
+          this.isMobile = true;
+          this.parallaxHeight = 160;
+        }else{
+          this.parallaxHeight = 200;
+          this.isMobile = false;
+        }
       }
   }
 }
@@ -410,4 +428,17 @@
   display: flex;
   flex-direction: column;
 }
+
+v-carousel{
+    max-width:958px; 
+    max-height:364px;
+  }
+
+@media only screen and (max-width: 480px) {
+  v-carousel{
+    max-width:480px; 
+    max-height:200px;
+  }
+}
+
 </style>
