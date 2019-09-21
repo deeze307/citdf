@@ -1,5 +1,6 @@
 const express = require('express');
 const Axios = require('axios');
+const CircularJSON = require('circular-json');
 var cors = require('cors');
 const bcrypt = require('bcryptjs')
 const Request = require('request');
@@ -35,45 +36,211 @@ app.get('/', (req, res, next) => {
   });
 });
 
-app.get('/matriculados',(req,res,next) => {
+app.get('/matriculados',(req,res) => {
   // Obtengo Todos los tramites
-  let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
-  let limit = +req.query.pageSize || 5;
-  let offset = 0;
+  // // let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
+  // // let limit = +req.query.pageSize || 5;
+  // // let offset = 0;
   let where = {
     [Op.and]: [
-      {user_login: {
+      {user_id:{
+        [Op.notIn]:[1,2,353]
+        }
+      },
+      {meta_value: {
         [Op.not]: 'citdf'
         }
       },
-      {user_login: {
+      {meta_value: {
         [Op.not]: 'dmaidana'
         }
       }
       ,
-      {user_login: {
+      {meta_value: {
         [Op.not]: 'secretaria'
+        }
+      },
+      {meta_key: {
+        [Op.regexp]: '^[A-Z a-z]'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'rich_editing'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'syntax_highlighting'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'comment_shortcuts'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'admin_color'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'use_ssl'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'show_admin_bar_front'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'locale'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'wp_user_level'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'dismissed_wp_pointers'
+        }
+      },
+      {meta_key:{
+        [Op.not]:'wp_capabilities'
         }
       }
     ]
   };
-  db.wp_users.findAll({
-    attributes: ['ID','user_login','user_nicename','user_email','user_url','user_status','display_name'],
+  
+  db.wp_usermeta.findAll({
+    attributes: ['umeta_id','user_id','meta_key','meta_value'],
     // limit: count,
-    // offset: 0,
+    // offset: null,
     where: where,
-    order: [
-      ["display_name", "Asc"]
-    ]
+    // order: [
+    //   ["ID", "Asc"]
+    // ]
   })
   .then(mat => {
-    assignACF(mat).then(matriculados =>{
-      console.log("matriculados: ",matriculados);
+    let usuarios = [];
+    let u_temp;
+    mat.map(usuario =>{
+      if(usuario.user_id !== u_temp){
+        u_temp = usuario.user_id;
+        usuarios.push({ID:usuario.user_id});
+      }
+    });
+    
+    let matriculados = usuarios.map(usuario =>{
+      mat.map(m => {
+        if(m.user_id === usuario.ID){
+          if(m.meta_key ==="first_name"){
+            usuario.first_name = m.meta_value
+          }
+          if(m.meta_key ==="last_name"){
+            usuario.last_name = m.meta_value
+          }
+          if(m.meta_key ==="user_email"){
+            usuario.user_email = m.meta_value
+          }
+          if(m.meta_key ==="user_url"){
+            usuario.user_url = m.meta_value
+          }
+          if(m.meta_key ==="display_name"){
+            usuario.display_name = m.meta_value
+          }
+          if(m.meta_key ==="description"){
+            usuario.description = m.meta_value
+          }
+          if(m.meta_key ==="res"){
+            usuario.res = m.meta_value
+          }
+          if(m.meta_key ==="titulo_profesional"){
+            usuario.titulo_profesional = m.meta_value
+          }
+          if(m.meta_key ==="universidad"){
+            usuario.universidad = m.meta_value
+          }
+          if(m.meta_key ==="promocion"){
+            usuario.promocion = m.meta_value
+          }
+          if(m.meta_key ==="documento_numero"){
+            usuario.documento_nro= m.meta_value
+          }
+          if(m.meta_key ==="ciudad"){
+            usuario.ciudad= m.meta_value
+          }
+          if(m.meta_key ==="telefono"){
+            usuario.telefono = m.meta_value
+          }
+          if(m.meta_key ==="direccion"){
+            usuario.direccion= m.meta_value
+          }
+          if(m.meta_key ==="apt"){
+            usuario.apt = m.meta_value
+          }
+          if(m.meta_key ==="perfil_de_facebook"){
+            usuario.perfil_de_facebook = m.meta_value
+          }
+          if(m.meta_key ==="perfil_de_linkedin"){
+            usuario.perfil_de_linkedin= m.meta_value
+          }
+          if(m.meta_key ==="habilitado"){
+            if(m.meta_value == 1){
+              usuario.habilitado = true
+            }else{
+              usuario.habilitado = false
+            }
+          }
+          if(m.meta_key ==="newsletter"){
+            if(m.meta_value == 1){
+              usuario.newsletter = true
+            }else{
+              usuario.newsletter = false
+            }
+          }
+        }
+      });
+    })
+    res.status(200).json({
+      ok:true,
+      payload:usuarios
+    });
+  })
+  .catch(function(error){
+    res.status(400).json({
+      ok:false,
+      error:error
+    });
+  });
+});
+
+app.post('/matriculados',(req,res) => {
+  let body = req.body;
+  db.users.update({
+    userId: req.body.userId,
+    documentoNro : req.body.documentoNro,
+    valor : req.body.valor,
+    tramite: req.body.tramite,
+    nota: req.body.nota,
+    status: req.body.status
+  }, {
+    where: {
+      id: req.params.id
+    }
+  }).then(result => {
+    if (result === 0) {
+      res.status(404).json({
+        ok: false,
+        err: 'El tramite no existe'
+      });
+    } else {
       res.status(200).json({
         ok: true,
-        payload: matriculados,
+        msg: `El tramite ha sido actualizado`
       });
+    }
+  }).catch(Sequelize.ValidationError, function(msg) {
+    return res.status(422).json({
+      message: msg.errors
     });
+  }).catch(function(err) {
+    return res.status(400).json({ message: "issues trying to connect to database" });
   });
 });
 
@@ -237,38 +404,6 @@ app.delete('/:id', /*mdAuthentication.verifyToken,*/ (req, res) => {
         return res.status(400).json({ message: "Ocurrió un error al intentar eliminar el Usuario" });
       });
 });
-
-async function assignACF(mat){
-  try{
-    const promises = mat.map( async m => {
-      let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+m.ID;
-      return await Axios.get(uri).then((req) =>{
-        let custom_fields = req.data.acf;
-        return {
-          ID: m.ID,
-          user_login: m.user_login,
-          user_nicename: m.user_nicename,
-          user_email: m.user_email,
-          user_url: m.user_url,
-          user_status: m.user_status,
-          display_name: m.display_name,
-          custom_fields : custom_fields
-        };
-      }).catch((err) => {
-        return {error: err};
-      });
-    });
-
-    // Espero a que terminen todas las promesas
-    const matriculados = await Promise.all(promises);
-    return matriculados;
-  }catch(err) {
-    return err
-  };
-  
-
-  
-}
 
 
 module.exports = app;
