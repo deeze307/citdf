@@ -132,6 +132,9 @@ app.get('/matriculados',(req,res) => {
           if(m.meta_key ==="first_name"){
             usuario.first_name = m.meta_value
           }
+          if(m.meta_key ==="matricula"){
+            usuario.matricula = m.meta_value
+          }
           if(m.meta_key ==="last_name"){
             usuario.last_name = m.meta_value
           }
@@ -140,9 +143,6 @@ app.get('/matriculados',(req,res) => {
           }
           if(m.meta_key ==="user_url"){
             usuario.user_url = m.meta_value
-          }
-          if(m.meta_key ==="display_name"){
-            usuario.display_name = m.meta_value
           }
           if(m.meta_key ==="description"){
             usuario.description = m.meta_value
@@ -159,7 +159,7 @@ app.get('/matriculados',(req,res) => {
           if(m.meta_key ==="promocion"){
             usuario.promocion = m.meta_value
           }
-          if(m.meta_key ==="documento_numero"){
+          if(m.meta_key ==="documento_nro"){
             usuario.documento_nro= m.meta_value
           }
           if(m.meta_key ==="ciudad"){
@@ -196,6 +196,7 @@ app.get('/matriculados',(req,res) => {
           }
         }
       });
+      usuario.display_name = usuario.last_name + " " + usuario.first_name;
     })
     res.status(200).json({
       ok:true,
