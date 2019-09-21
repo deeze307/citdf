@@ -18,6 +18,58 @@
             v-model="ciudadMatriculado"
           ></v-select>
         </v-flex>
+        <v-flex xs12 sm12 md2 lg2 xl2 class="ml-5 mr-2">
+          <v-row justify="center">
+            <v-dialog v-model="dialogNuevoMatriculado" persistent max-width="600px">
+              <template v-slot:activator="{ on }">
+                <v-btn color="success" dark v-on="on">Agregar Matriculado</v-btn>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">User Profile</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Nombres" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Apellidos" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Email*" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Password*" type="password" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-select
+                          :items="['0-17', '18-29', '30-54', '54+']"
+                          label="Age*"
+                          required
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-autocomplete
+                          :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                          label="Interests"
+                          multiple
+                        ></v-autocomplete>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                  <div class="flex-grow-1"></div>
+                  <v-btn color="blue darken-1" text @click="dialogNuevoMatriculado = false">Close</v-btn>
+                  <v-btn color="blue darken-1" text @click="dialogNuevoMatriculado = false">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-row>
+        </v-flex>
         <!-- <v-flex xs12 sm12 md2 lg2 xl2>
           <v-select
             :items="['Ushuaia','Tolhuin','Rio Grande']"
@@ -33,9 +85,6 @@
               name    = "Lista de Matriculados.xls">
           <v-btn color="default" small> <v-icon left>cloud_download</v-icon> Descargar Lista</v-btn>
           </download-excel>
-        </v-flex>
-        <v-flex xs12 sm12 md3 lg3 xl3 offset-md1>
-          <v-btn color="success" small>Agregar Matriculado</v-btn>
         </v-flex>
       </v-layout>
       <v-layout align-center justify-space-around row fill-height>
@@ -161,6 +210,7 @@ export default {
       pageNumber:0,
       pageSize:20,
       dialogMatriculado:false,
+      dialogNuevoMatriculado:false,
       editedIndex: -1,
       editedItem:{
         display_name:'',
