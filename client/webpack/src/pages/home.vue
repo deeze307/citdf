@@ -24,6 +24,7 @@
     <v-container justify-center>
       <v-layout align-center justify-space-around row>
         <v-carousel 
+          id="carousel"
           cycle
           show-arrows-on-hover
           hide-delimiter-background
@@ -429,13 +430,13 @@
   flex-direction: column;
 }
 
-v-carousel{
+#carousel{
     max-width:958px; 
     max-height:364px;
   }
 
 @media only screen and (max-width: 480px) {
-  v-carousel{
+  #carousel{
     max-width:480px; 
     max-height:200px;
   }
