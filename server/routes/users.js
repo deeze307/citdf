@@ -208,7 +208,7 @@ app.get('/matriculados',(req,res) => {
     })
     res.status(200).json({
       ok:true,
-      payload:[usuarios.length,usuarios]
+      payload:usuarios
     });
   })
   .catch(function(error){
