@@ -122,7 +122,15 @@ app.get('/matriculados',(req,res) => {
     mat.map(usuario =>{
       if(usuario.user_id !== u_temp){
         u_temp = usuario.user_id;
-        usuarios.push({ID:usuario.user_id});
+        let alreadyUser = false;
+        usuarios.map(us =>{
+          if(us.ID === usuario.user_id){
+            alreadyUser = true;
+          }
+        })
+        if(!alreadyUser){
+          usuarios.push({ID:usuario.user_id});
+        }
       }
     });
     
@@ -200,7 +208,7 @@ app.get('/matriculados',(req,res) => {
     })
     res.status(200).json({
       ok:true,
-      payload:usuarios
+      payload:[usuarios.length,usuarios]
     });
   })
   .catch(function(error){
