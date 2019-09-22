@@ -11,18 +11,25 @@
             append-icon="search"
           ></v-text-field>
         </v-flex>
-        <v-flex xs12 sm12 md2 lg2 xl2 class="ml-5 mr-2">
+        <v-flex xs12 sm12 md1 lg2 xl2 class="ml-5 mr-1">
           <v-select
             :items="['Todos','Ushuaia','Tolhuin','Rio Grande']"
             label="Ciudad"
             v-model="ciudadMatriculado"
           ></v-select>
         </v-flex>
+        <v-flex xs12 sm12 md2 lg2 xl2 class="mr-1">
+          <v-select
+            :items="titulos"
+            label="Titulo Profesional"
+            v-model="tituloMatriculado"
+          ></v-select>
+        </v-flex>
         <v-flex v-if="loggedAsAdmin" xs12 sm12 md2 lg2 xl2 class="ml-5 mr-2">
           <v-row justify="center">
             <v-dialog v-model="dialogNuevoMatriculado" persistent max-width="600px">
               <template v-slot:activator="{ on }">
-                <v-btn color="success" dark v-on="on">Agregar Matriculado</v-btn>
+                <v-btn color="success" dark v-on="on" small>Nuevo Matriculado</v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -70,12 +77,6 @@
             </v-dialog>
           </v-row>
         </v-flex>
-        <!-- <v-flex xs12 sm12 md2 lg2 xl2>
-          <v-select
-            :items="['Ushuaia','Tolhuin','Rio Grande']"
-            label="Titulo Profesional"
-          ></v-select>
-        </v-flex> -->
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
           <download-excel
@@ -200,11 +201,59 @@ export default {
         { text: 'Estado', value: 'habilitado' , sortable: true, align: 'center', width:'5%' },
         { text: 'Ver Detalle', value: 'detalle' , sortable: false, align: 'center', width:'5%' }
       ],
+      titulos:[
+        "Todos",
+        "Arquitecto",
+        "Bioingeniero",
+        "Especialista en Seguridad, Higiene y Protección Ambiental",
+        "Ingeniero Aeronáutico",
+        "Ingeniero Agrónomo",
+        "Ingeniero Ambiental",
+        "Ingeniero Biomédico",
+        "Ingeniero Bioquímico",
+        "Ingeniero Civíl",
+        "Ingeniero Electricista",
+        "Ingeniero Eléctrico",
+        "Ingeniero Eléctrico Electrónico",
+        "Ingeniero Electromecánico",
+        "Ingeniero Electromecánico - Orientación Electricista",
+        "Ingeniero Electrónico",
+        "Ingeniero en Alimentos",
+        "Ingeniero en Computación",
+        "Ingeniero en Construcciones",
+        "Ingeniero en Electrónica",
+        "Ingeniero en Electrónica y Telecomunicaciones",
+        "Ingeniero en Gestión de Siniestros y Seguridad Ambiental",
+        "Ingeniero en Informática",
+        "Ingeniero en la Industria de la Madera",
+        "Ingeniero en Recursos Hídricos",
+        "Ingeniero en Recursos Naturales Renovables",
+        "Ingeniero en Recursos Naturales y Medio Ambiente",
+        "Ingeniero en Seguridad Ambiental",
+        "Ingeniero en Seguridad e Higiene en el Trabajo",
+        "Ingeniero en Sistemas",
+        "Ingeniero en Sistemas de Computación",
+        "Ingeniero en Sistemas de Información",
+        "Ingeniero en Sistemas Informáticos",
+        "Ingeniero en Telecomunicaciones",
+        "Ingeniero en Vías de Comunicación",
+        "Ingeniero Forestal",
+        "Ingeniero Industrial",
+        "Ingeniero Mecánico",
+        "Ingeniero Mecánico Aeronáutico",
+        "Ingeniero Mecánico Electricista",
+        "Ingeniero Metalúrgico",
+        "Ingeniero Pesquero",
+        "Ingeniero Químico",
+        "Ingeniero en Industrias de la Alimentación",
+        "Ingeniero de Sonido"
+      ],
       loggedAsAdmin:false,
       matriculadosResult:[],
       matriculadosOrigen:[],
       buscarMatriculado:'',
-      ciudadMatriculado:'',
+      tituloMatriculado:'Todos',
+      ciudadMatriculado:'Todos',
       count:0,
       pages:0,
       pageNumber:0,
@@ -245,19 +294,20 @@ export default {
       
     }),
     created:function(){
-      let params={};
-      this.matriculadosResult=[];
+      let params={ciudad:this.ciudadMatriculado,titulo_profesional:this.tituloMatriculado};
+      this.matriculadosOrigen=[];
       // this.isAdmin();
       // let params = {
       //   pageNumber:this.pageNumber,
       //   pageSize:this.pageSize
       // }
       store.dispatch('MATRICULADOS_retrieveAll',params);
-      store.dispatch('LOGIN_API_fetchUser');
+      store.dispatch('LOGIN_API_fetchUserRemember');
     
     },
     computed:{
       matriculados(){
+        this.matriculadosOrigen = store.state.matriculados.items;
         this.matriculadosResult = store.state.matriculados.items;
         return store.state.matriculados.items;
       },
@@ -269,22 +319,36 @@ export default {
           this.isAdmin(usuario.slug);
         }
         return usuario;
+      },
+      logged() {
+        this.verifyUserData();
+        return store.state.login_api.loggedIn;
       }
     },
     watch:{
       matriculados(val){
-        if(val.payload && !this.matriculadosOrigen.payload){
-          this.matriculadosOrigen = val;
-        }
-        if(val.payload.length > 0){
+        if(val.payload){
+          this.matriculadosResult = val;
           this.loading = false
         }
+      },
+      matriculadosOrigen(){
+        console.log("reasignando origen");
       },
       dialog (val) {
         val || this.close()
       },
       ciudadMatriculado(){
-        this.filterMatriculados();
+        this.loading = true;
+        let params = {ciudad:this.ciudadMatriculado, titulo_profesional:this.tituloMatriculado};
+        store.dispatch('MATRICULADOS_retrieveAll',params);
+        // this.filterMatriculados();
+      },
+      tituloMatriculado(){
+        this.loading = true;
+        let params = {ciudad:this.ciudadMatriculado, titulo_profesional:this.tituloMatriculado};
+        store.dispatch('MATRICULADOS_retrieveAll',params);
+        // this.filterMatriculados();
       },
       user(val){
         if(val.user){
@@ -295,46 +359,52 @@ export default {
       }
     },
     methods:{
-        showMatriculado(matriculado){
-          let vm = this;
-          vm.editedIndex = this.$store.state.matriculados.items.payload.indexOf(matriculado)
-          vm.editedItem = Object.assign({}, matriculado)
-          vm.dialogMatriculado = true
-        },
-        close() {
-          this.dialogMatriculado = false
-          setTimeout(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
-          }, 300)
-        },
-        filterMatriculados(){
-          this.loading = true;
-
-          if(this.ciudadMatriculado === "Todos"){
-            // this.matriculadosResult.payload = this.matriculadosOrigen.payload;
-            this.loading = false;
-          }else if(this.ciudadMatriculado !== ""){
-            let filtered = [];
-            this.matriculadosResult.payload.map(mPayload =>{
-              // console.log("este es el payload",mPayload);
-              if(mPayload.ciudad === this.ciudadMatriculado){
-                filtered.push(mPayload);
-              }
-            })
-            this.matriculadosResult.payload = filtered;
-            this.loading = false;
-          }
-          console.log("Seleccionado: "+this.ciudadMatriculado + "|"+this.matriculadosOrigen.payload.length);
-        },
-        isAdmin(matriculado){
-          let vm = this;
-          if(matriculado === 'citdf' || matriculado === 'secretaria'){
-            vm.loggedAsAdmin = true;
-          }else{
-            vm.loggedAsAdmin = false;
-          }
+      verifyUserData(){
+         return (_.has(this.user.user,'firstName') && this.user.user.firstName.length > 1) ? true : false;
+      },
+      showMatriculado(matriculado){
+        let vm = this;
+        vm.editedIndex = this.$store.state.matriculados.items.payload.indexOf(matriculado)
+        vm.editedItem = Object.assign({}, matriculado)
+        vm.dialogMatriculado = true
+      },
+      close() {
+        this.dialogMatriculado = false
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        }, 300)
+      },
+      filterMatriculados(){
+        this.loading = true;
+        let params={ciudad:this.ciudadMatriculado};
+        if(this.ciudadMatriculado === "Todos"){
+          store.dispatch('MATRICULADOS_retrieveAll',params);
+          console.log("Origen: "+this.matriculadosOrigen.payload.length);
+          // this.matriculadosResult.payload = this.matriculadosOrigen.payload;
+          this.loading = false;
+        }else if(this.ciudadMatriculado !== ""){
+          let filtered = [];
+          let temp = this.matriculadosResult;
+          temp.payload.map(mPayload =>{
+            // console.log("este es el payload",mPayload);
+            if(mPayload.ciudad === this.ciudadMatriculado){
+              filtered.push(mPayload);
+            }
+          })
+          this.matriculadosResult.payload = filtered;
+          this.loading = false;
         }
+        console.log("Seleccionado: "+this.ciudadMatriculado + "|"+this.matriculadosOrigen.payload.length);
+      },
+      isAdmin(matriculado){
+        let vm = this;
+        if(matriculado === 'citdf' || matriculado === 'secretaria'){
+          vm.loggedAsAdmin = true;
+        }else{
+          vm.loggedAsAdmin = false;
+        }
+      }
     }
 }
 </script>

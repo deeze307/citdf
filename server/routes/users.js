@@ -38,7 +38,7 @@ app.get('/', (req, res, next) => {
 
 app.get('/matriculados',(req,res) => {
   // Obtengo Todos los tramites
-  // // let { filter, ID, user_login, user_email, user_status, display_name, sortField, sortDirection } = req.query;
+  let { filter, ID, user_login, user_email, user_status, display_name, ciudad, titulo_profesional} = req.query;
   // // let limit = +req.query.pageSize || 5;
   // // let offset = 0;
   let where = {
@@ -206,6 +206,26 @@ app.get('/matriculados',(req,res) => {
       });
       usuario.display_name = usuario.last_name + " " + usuario.first_name;
     })
+
+    if(ciudad!=="" && ciudad!=="Todos"){
+      let filtered=[]
+      usuarios.map(u =>{
+        if(u.ciudad === ciudad){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+    if(titulo_profesional!=="" && titulo_profesional!=="Todos"){
+      let filtered=[]
+      usuarios.map(u =>{
+        if(u.titulo_profesional === titulo_profesional){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+
     res.status(200).json({
       ok:true,
       payload:usuarios
