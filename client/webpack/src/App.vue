@@ -420,8 +420,6 @@
     created(){
       store.dispatch('LOGIN_API_fetchUserRemember');
       store.dispatch('MENU_TOOLBAR_retrieveMenuItems');
-      // ESTO ES PARA MÁS ADELANTE
-      // store.dispatch('getAdministracionData');
     },
     methods: {
       logout() {

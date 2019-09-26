@@ -38,7 +38,7 @@ app.get('/', (req, res, next) => {
 
 app.get('/matriculados',(req,res) => {
   // Obtengo Todos los tramites
-  let { filter, ID, user_login, user_email, user_status, display_name, ciudad, titulo_profesional} = req.query;
+  let { ID, user_login, user_email, user_status, display_name, ciudad, titulo_profesional, documento_nro, admin} = req.query;
   // // let limit = +req.query.pageSize || 5;
   // // let offset = 0;
   let where = {
@@ -226,6 +226,29 @@ app.get('/matriculados',(req,res) => {
       usuarios = filtered;
     }
 
+    if(admin ==="" || admin == 'false'){
+      let filtered=[]
+      usuarios.map(u =>{
+        if(u.habilitado === true){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+
+    // if(documento_nro!==""){
+    //   console.log("Filtrando documento")
+    //   let filtered=[]
+    //   usuarios.map(u =>{
+    //     console.log(u.documento_nro +" | "+ documento_nro)
+    //     if(u.documento_nro === documento_nro){
+    //       console.log("Se encontró documento");
+    //       filtered.push(u)
+    //     }
+    //   })
+    //   usuarios = filtered;
+    // }
+
     res.status(200).json({
       ok:true,
       payload:usuarios
@@ -333,7 +356,7 @@ app.put('/:id', (req, res) => {
   }
   let body = req.body;
   // Primero actualizo datos de persona
-  wp.users().id(body.id).update({
+  wp.users().id(body.ID).update({
     name:body.firstName +" "+body.lastName,
     description: body.description,
     url:body.url
@@ -379,6 +402,64 @@ app.put('/:id', (req, res) => {
     })
   })
 });
+
+app.put('/matriculados/:id', (req, res) => {
+  console.log("actualizando usuario!!!");
+  if (req.headers.authorization){
+    wp.setHeaders('Authorization',req.headers.authorization);
+  }
+  let body = req.body;
+  console.log("Body: ",body)
+  // Primero actualizo datos de persona
+  wp.users().id(body.ID).update({
+    name:body.firstName +" "+body.lastName,
+    description: body.description,
+    url:body.url
+  }).then(data => {
+    // Despues actualizo datos de custom_fields
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
+    let apt = "";
+    if(body.apt && body.apt!==""){
+      body.apt.map(a =>{
+        if(apt ===""){
+          apt = apt+a;
+        }else{
+          apt = apt+"\r\n"+a;
+        }
+      })
+    }
+    body.custom_fields.apt = apt;
+    Request({
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':req.headers.authorization
+      },
+      url: uri,
+      method: "POST",
+      json: true,   // <--Very important!!!
+      body: {fields:body.custom_fields}
+    }, function (error, response, body){
+      if(response.body.code){
+        return res.status(401).json({
+          ok: true,
+          error: response.body.message
+        });
+      }else{
+        return res.status(200).json({
+          ok: true,
+          user: data
+        });
+      }
+    });
+  }).catch(err =>{
+    console.log("Error: ",err);
+    return res.status(400).json({
+      ok:false,
+      error: err
+    })
+  })
+});
+
 
 app.post('/', (req, res, next) => {
     let body = req.body;
