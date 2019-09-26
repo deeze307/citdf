@@ -6,7 +6,7 @@ const module = {
   
   state: {
     // Flags
-    api_url:'http://localhost:3031',
+    api_url:'http://api-deeze.tk:3031',
     loginIsRunning: false,
     loggedIn: false,
     token: '',
