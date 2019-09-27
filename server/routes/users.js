@@ -167,6 +167,15 @@ app.get('/matriculados',(req,res) => {
           if(m.meta_key ==="promocion"){
             usuario.promocion = m.meta_value
           }
+          if(m.meta_key ==="titulo_profesional_2"){
+            usuario.titulo_profesional_2 = m.meta_value
+          }
+          if(m.meta_key ==="universidad_2"){
+            usuario.universidad_2 = m.meta_value
+          }
+          if(m.meta_key ==="promocion_2"){
+            usuario.promocion_2 = m.meta_value
+          }
           if(m.meta_key ==="documento_nro"){
             usuario.documento_nro= m.meta_value
           }
@@ -187,6 +196,9 @@ app.get('/matriculados',(req,res) => {
           }
           if(m.meta_key ==="perfil_de_linkedin"){
             usuario.perfil_de_linkedin= m.meta_value
+          }
+          if(m.meta_key ==="observaciones"){
+            usuario.observaciones= m.meta_value
           }
           if(m.meta_key ==="habilitado"){
             if(m.meta_value == 1){
@@ -236,18 +248,16 @@ app.get('/matriculados',(req,res) => {
       usuarios = filtered;
     }
 
-    // if(documento_nro!==""){
-    //   console.log("Filtrando documento")
-    //   let filtered=[]
-    //   usuarios.map(u =>{
-    //     console.log(u.documento_nro +" | "+ documento_nro)
-    //     if(u.documento_nro === documento_nro){
-    //       console.log("Se encontró documento");
-    //       filtered.push(u)
-    //     }
-    //   })
-    //   usuarios = filtered;
-    // }
+    if(documento_nro!==""){
+      let filtered=[]
+      usuarios.map(u =>{
+        console.log(u.documento_nro +" | "+ documento_nro)
+        if(u.documento_nro === documento_nro){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
 
     res.status(200).json({
       ok:true,
