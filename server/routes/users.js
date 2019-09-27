@@ -219,7 +219,7 @@ app.get('/matriculados',(req,res) => {
       usuario.display_name = usuario.last_name + " " + usuario.first_name;
     })
 
-    if(ciudad!=="" && ciudad!=="Todos"){
+    if(ciudad && ciudad!=="" && ciudad!=="Todos"){
       let filtered=[]
       usuarios.map(u =>{
         if(u.ciudad === ciudad){
@@ -228,7 +228,7 @@ app.get('/matriculados',(req,res) => {
       })
       usuarios = filtered;
     }
-    if(titulo_profesional!=="" && titulo_profesional!=="Todos"){
+    if(titulo_profesional && titulo_profesional!=="" && titulo_profesional!=="Todos"){
       let filtered=[]
       usuarios.map(u =>{
         if(u.titulo_profesional === titulo_profesional){
@@ -238,7 +238,7 @@ app.get('/matriculados',(req,res) => {
       usuarios = filtered;
     }
 
-    if(admin ==="" || admin == 'false'){
+    if(admin && admin ==="" || admin == 'false'){
       let filtered=[]
       usuarios.map(u =>{
         if(u.habilitado === true){
@@ -248,7 +248,7 @@ app.get('/matriculados',(req,res) => {
       usuarios = filtered;
     }
 
-    if(documento_nro!==""){
+    if(documento_nro && documento_nro!==""){
       let filtered=[]
       usuarios.map(u =>{
         console.log(u.documento_nro +" | "+ documento_nro)
