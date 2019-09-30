@@ -510,7 +510,8 @@ app.put('/matriculados/from_table/:id', (req, res) => {
       telefono: body.telefono,
       perfil_de_facebook: body.perfil_de_facebook,
       perfil_de_linkedin: body.perfil_de_linkedin,
-      habilitado: body.habilitado ? 1 : 0
+      habilitado: body.habilitado ? 1 : 0,
+      email: body.user_email,
     }
     let apt = "";
     if(body.apt && body.apt!==""){
