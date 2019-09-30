@@ -149,7 +149,10 @@ app.get('/matriculados',(req,res) => {
           if(m.meta_key ==="last_name"){
             usuario.last_name = m.meta_value
           }
-          if(m.meta_key ==="user_email"){
+          if(m.meta_key ==="email"){
+            usuario.user_email = m.meta_value
+          }
+          if(m.meta_key ==="user_email" && m.meta_key !==""){
             usuario.user_email = m.meta_value
           }
           if(m.meta_key ==="user_url"){
