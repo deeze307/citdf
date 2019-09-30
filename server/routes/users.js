@@ -140,6 +140,9 @@ app.get('/matriculados',(req,res) => {
           if(m.meta_key ==="first_name"){
             usuario.first_name = m.meta_value
           }
+          if(m.meta_key ==="nickname"){
+            usuario.nickname = m.meta_value
+          }
           if(m.meta_key ==="matricula"){
             usuario.matricula = m.meta_value
           }
@@ -413,8 +416,8 @@ app.put('/:id', (req, res) => {
   })
 });
 
+// Actualizo matriculado desde perfíl de matriculado
 app.put('/matriculados/:id', (req, res) => {
-  console.log("actualizando usuario!!!");
   if (req.headers.authorization){
     wp.setHeaders('Authorization',req.headers.authorization);
   }
@@ -428,6 +431,84 @@ app.put('/matriculados/:id', (req, res) => {
   }).then(data => {
     // Despues actualizo datos de custom_fields
     let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
+    let apt = "";
+    if(body.apt && body.apt!==""){
+      body.apt.map(a =>{
+        if(apt ===""){
+          apt = apt+a;
+        }else{
+          apt = apt+"\r\n"+a;
+        }
+      })
+    }
+    body.custom_fields.apt = apt;
+    Request({
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':req.headers.authorization
+      },
+      url: uri,
+      method: "POST",
+      json: true,   // <--Very important!!!
+      body: {fields:body.custom_fields}
+    }, function (error, response, body){
+      if(response.body.code){
+        return res.status(401).json({
+          ok: true,
+          error: response.body.message
+        });
+      }else{
+        return res.status(200).json({
+          ok: true,
+          user: data
+        });
+      }
+    });
+  }).catch(err =>{
+    console.log("Error: ",err);
+    return res.status(400).json({
+      ok:false,
+      error: err
+    })
+  })
+});
+
+// Actualizo matriculado desde tabla de matriculados
+app.put('/matriculados/from_table/:id', (req, res) => {
+  if (req.headers.authorization){
+    wp.setHeaders('Authorization',req.headers.authorization);
+  }
+  let body = req.body;
+  console.log("Body: ",body)
+  // Primero actualizo datos de persona
+  wp.users().id(body.ID).update({
+    nickname:body.nickname,
+    name:body.first_name +" "+body.last_name,
+    first_name: body.first_name,
+    last_name: body.last_name,
+    email: body.user_email,
+    description: body.description,
+    url:body.user_url,
+  }).then(data => {
+    // Despues actualizo datos de custom_fields
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
+    body.custom_fields = {
+      matricula: body.matricula,
+      res: body.res,
+      documento_nro: body.documento_nro,
+      titulo_profesional: body.titulo_profesional,
+      titulo_profesional_2: body.titulo_profesional_2,
+      promocion: body.promocion,
+      promocion_2: body.promocion_2,
+      universidad: body.universidad,
+      universidad_2: body.universidad_2,
+      ciudad: body.ciudad,
+      direccion: body.direccion,
+      telefono: body.telefono,
+      perfil_de_facebook: body.perfil_de_facebook,
+      perfil_de_linkedin: body.perfil_de_linkedin,
+      habilitado: body.habilitado ? 1 : 0
+    }
     let apt = "";
     if(body.apt && body.apt!==""){
       body.apt.map(a =>{

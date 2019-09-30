@@ -27,89 +27,128 @@
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex v-if="loggedAsAdmin" xs12 sm12 md1 lg1 xl1>
-            <v-dialog v-model="dialogNuevoMatriculado" persistent max-width="700px">
-              <template v-slot:activator="{ on }">
-                <v-btn color="light-blue" class="mr-2"  dark v-on="on" small rounded><v-icon class="ml-1" left>person_add</v-icon></v-btn>
-              </template>
+          <!-- <template v-slot:activator="{ on }"> -->
+            <v-btn color="light-blue" class="mr-2"  dark small rounded @click="toggleAdminMatriculado(true)"><v-icon class="ml-1" left>person_add</v-icon></v-btn>
+              <!-- </template> -->
+            <v-dialog v-model="dialogAdminMatriculado" persistent max-width="700px">
               <v-card>
                 <v-card-title>
-                  <span class="headline">Nuevo Matriculado</span>
+                  <span v-if="newItem" class="headline">Nuevo Matriculado</span>
+                  <span v-else class="headline">Editando Matriculado "{{editedItem.display_name}}"</span>
                 </v-card-title>
                 <v-card-text>
                   <v-container>
                     <v-row>
-                      <v-col cols="12" sm="6" md="5">
-                        <v-text-field v-model="form.username" label="Usuario" required></v-text-field>
+                      <v-col cols="12" sm="3" md="3" lg="3">
+                        <v-text-field v-model="editedItem.nickname" label="Usuario" readonly></v-text-field>
                       </v-col>
-                      <v-col cols="12" sm="6" md="5">
+                      <v-col cols="12" sm="6" md="5" v-if="newItem">
                         <v-text-field
-                          v-model="form.password"
+                          v-model="editedItem.password"
                           :append-icon="password_hidden ? 'visibility' : 'visibility_off'"
                           @click:append="() => (password_hidden = !password_hidden)"
                           :type="password_hidden ? 'password' : 'text'" 
                           label="Contraseña" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="form.nombres" label="Nombres" required></v-text-field>
+                        <v-text-field v-model="editedItem.first_name" label="Nombres" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="form.apellidos" label="Apellidos" required></v-text-field>
+                        <v-text-field v-model="editedItem.last_name" label="Apellidos" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="4" md="4">
                         <v-select
-                          v-model="form.ciudad"
+                          v-model="editedItem.ciudad"
                           :items="['Ushuaia','Tolhuin','Rio Grande']"
                           label="Ciudad"
                           required
                         ></v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="form.email" label="Email" required></v-text-field>
+                        <v-text-field v-model="editedItem.user_email" label="Email" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6">
                         <v-select
-                          v-model="form.titulo_profesional"
+                          v-model="editedItem.titulo_profesional"
                           :items="titulosForms"
                           label="Titulo Profesional"
                           required
                         ></v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="form.universidad" label="Universidad" required></v-text-field>
+                        <v-text-field v-model="editedItem.universidad" label="Universidad" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="form.promocion" type="number" min="1900" max="2030" label="Año de Promoción" required></v-text-field>
+                        <v-text-field v-model="editedItem.promocion" type="number" min="1900" max="2030" label="Año de Promoción" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field type="number" min="0" max="99999999" v-model="form.documento_nro" label="N° de Documento" required></v-text-field>
+                        <v-text-field type="number" min="0" max="99999999" v-model="editedItem.documento_nro" label="N° de Documento" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6">
                         <v-select
-                          v-model="form.titulo_profesional_2"
+                          v-model="editedItem.titulo_profesional_2"
                           :items="titulosForms"
                           label="Titulo Profesional 2"
                           required
                         ></v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="form.universidad_2" label="Universidad 2" required></v-text-field>
+                        <v-text-field v-model="editedItem.universidad_2" label="Universidad 2" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="form.promocion_2" label="Año de Promoción 2" required></v-text-field>
+                        <v-text-field v-model="editedItem.promocion_2" label="Año de Promoción 2" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm=6 md=4 lg=4>
-                        <v-text-field v-model="form.matricula" label="Matrícula N°" required></v-text-field>
+                        <v-text-field v-model="editedItem.matricula" label="Matrícula N°" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm=6 md=4 lg=4>
-                        <v-text-field v-model="form.res" label="Resolución N°" required></v-text-field>
+                        <v-text-field v-model="editedItem.res" label="Resolución N°" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm=6 md=4 lg=4>
+                        <v-text-field v-model="editedItem.telefono" label="Teléfono" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm=6 md=4 lg=4>
+                        <v-text-field v-model="editedItem.direccion" label="Dirección" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm=6 md=4 lg=4>
+                        <v-text-field v-model="editedItem.user_url" label="URL de Sitio Web" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm=6 md=4 lg=4>
+                        <v-text-field v-model="editedItem.perfil_de_facebook" label="Perfíl Facebook" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm=6 md=4 lg=4>
+                        <v-text-field v-model="editedItem.perfil_de_linkedin" label="Perfíl LinkedIn" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm=12 md=12 lg=12>
+                        <v-textarea 
+                          v-model="editedItem.apt" 
+                          label="Aptitudes"
+                          counter="300"
+                          maxlength="300"
+                          required></v-textarea>
+                      </v-col>
+                      <v-col cols="12" sm=12 md=12 lg=12>
+                        <v-textarea 
+                          v-model="editedItem.observaciones" 
+                          label="Observaciónes."
+                          counter="200"
+                          maxlength="200"
+                          required></v-textarea>
+                      </v-col>
+                      <v-col cols="12" sm=6 md=4 lg=4>
+                        <v-switch
+                          v-model="editedItem.habilitado"
+                          label="Habilitado"
+                        ></v-switch>
                       </v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
                   <div class="flex-grow-1"></div>
-                  <v-btn color="blue darken-1" text @click="dialogNuevoMatriculado = false">Cancelar</v-btn>
-                  <v-btn color="green darken-1" text @click="createMatriculado">Crear</v-btn>
+                  <v-btn color="red darken-1" text @click="dialogAdminMatriculado = false">Cancelar</v-btn>
+                  <v-btn v-if="newItem" color="green darken-1" :loading="saving" text @click="createMatriculado">Crear</v-btn>
+                  <v-btn v-else color="green darken-1" :loading="saving" text @click="updateMatriculado">Actualizar</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -158,13 +197,18 @@
                         <div><span><strong>N° de Matricula:</strong></span> {{ editedItem.matricula }}</div>
                         <div><span><strong> N° de Documento:</strong></span> {{ editedItem.documento_nro }}</div>
                         <div><span><strong> Título Profesional:</strong></span> {{ editedItem.titulo_profesional }}</div>
+                        <div><span><strong> Año de Promoción:</strong></span> {{ editedItem.promocion }}</div>
+                        <div><span><strong> Universidad:</strong></span> {{ editedItem.universidad }}</div>
+                        <div><span><strong> Título Profesional 2:</strong></span> {{ editedItem.titulo_profesional_2 }}</div>
+                        <div><span><strong> Año de Promoción 2:</strong></span> {{ editedItem.promocion_2 }}</div>
+                        <div><span><strong> Universidad 2:</strong></span> {{ editedItem.universidad_2 }}</div>
                         <div><span><strong> Ciudad:</strong></span> {{ editedItem.ciudad }}</div>
                         <div><span><strong> Email:</strong></span> {{ editedItem.user_email }}</div>
                         <div><span><strong> Dirección:</strong></span> {{ editedItem.direccion }}</div>
                         <div><span><strong> Teléfono:</strong></span> {{ editedItem.telefono }}</div>
-                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.facebook_profile }}</div>
-                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.linkedin_profile }}</div>
-                        <div><span><strong> Sitio Web:</strong></span> {{ editedItem.user_url }}</div>
+                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.perfil_de_facebook }}</div>
+                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.perfil_de_linkedin }}</div>
+                        <div><span><strong> URL de Sitio Web:</strong></span> {{ editedItem.user_url }}</div>
                         <div><span><strong> Aptitudes:</strong></span> {{ editedItem.apt }}</div>
                         <div><span><strong> Acerca de:</strong></span> {{ editedItem.description }}</div>
                         <div v-if="loggedAsAdmin">
@@ -333,15 +377,11 @@ export default {
       pageNumber:0,
       pageSize:20,
       dialogMatriculado:false,
-      dialogNuevoMatriculado:false,
+      dialogAdminMatriculado:false,
       editedIndex: -1,
+      newItem:false,
       editedItem:{
-        display_name:'',
-        matricula:'',
-        documento_nro:'',
-        titulo_profesional:'',
-        ciudad:'',
-        res:''
+        habilitado:true
       },
       defaultItem: {
         display_name:'',
@@ -448,7 +488,13 @@ export default {
         let vm = this;
         vm.editedIndex = this.$store.state.matriculados.items.payload.indexOf(matriculado)
         vm.editedItem = Object.assign({}, matriculado)
-        vm.dialogMatriculado = true
+        console.log(matriculado)
+        // Si es admin muestra el formulario de edición
+        if(vm.loggedAsAdmin){
+          vm.dialogAdminMatriculado = true
+        }else{ // de lo contrario muestra el modal con los datos fijos
+          vm.dialogMatriculado = true
+        }
       },
       close() {
         this.dialogMatriculado = false
@@ -459,22 +505,26 @@ export default {
       },
       createMatriculado(){
         this.saving = true;
-        store.dispatch('MATRICULADOS_retrieveAll',{documento_nro:this.form.documento_nro})
+        store.dispatch('MATRICULADOS_create')
         .then((response) => {
-          console.log(response.data)
+          console.log(response)
           this.saving = false;
         });
       },
-      update(matriculado){
+      toggleAdminMatriculado(newItem){
+        if(newItem){
+          this.editedItem={}
+          this.newItem = true
+        }else{
+          this.newItem = false
+        }
+        this.dialogAdminMatriculado = true
+      },
+      updateMatriculado(){
         let vm = this;
         vm.saving = true
-        matriculado.firstName = matriculado.first_name
-        matriculado.lastName = matriculado.last_name
-        matriculado.url = matriculado.user_url
-        matriculado.custom_fields={
-          habilitado:matriculado.habilitado
-        }
 
+        let matriculado = vm.editedItem
         let params = {ciudad:this.ciudadMatriculado, titulo_profesional:this.tituloMatriculado, admin:this.loggedAsAdmin};
         let payload = {matriculado,params}
         store.dispatch('MATRICULADOS_updateFromTable',payload).then(function(response){
