@@ -64,9 +64,9 @@ const module = {
               icon: "success",
               button: "Aceptar",
             });
-
             
             dispatch("MATRICULADOS_retrieveAll",payload.params);
+            return "ok"
           }else{
             swal({
               title: "Oops!!",
@@ -74,8 +74,9 @@ const module = {
               icon: "error",
               button: "Aceptar",
             });  
+            return "error";
           }
-          return "done";
+          
         })
         .catch(function (error){
           swal({

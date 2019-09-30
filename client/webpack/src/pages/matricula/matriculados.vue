@@ -30,7 +30,7 @@
           <!-- <template v-slot:activator="{ on }"> -->
             <v-btn color="light-blue" class="mr-2"  dark small rounded @click="toggleAdminMatriculado(true)"><v-icon class="ml-1" left>person_add</v-icon></v-btn>
               <!-- </template> -->
-            <v-dialog v-model="dialogAdminMatriculado" persistent max-width="700px">
+            <v-dialog v-model="dialogAdminMatriculado" max-width="700px">
               <v-card>
                 <v-card-title>
                   <span v-if="newItem" class="headline">Nuevo Matriculado</span>
@@ -146,9 +146,10 @@
                 </v-card-text>
                 <v-card-actions>
                   <div class="flex-grow-1"></div>
-                  <v-btn color="red darken-1" text @click="dialogAdminMatriculado = false">Cancelar</v-btn>
+                  <v-btn v-if="newItem" color="red darken-1" text @click="dialogAdminMatriculado = false">Cancelar</v-btn>
                   <v-btn v-if="newItem" color="green darken-1" :loading="saving" text @click="createMatriculado">Crear</v-btn>
-                  <v-btn v-else color="green darken-1" :loading="saving" text @click="updateMatriculado">Actualizar</v-btn>
+                  <v-btn v-if="!newItem" color="red darken-1" text @click="dialogAdminMatriculado = false">Cerrar</v-btn>
+                  <v-btn v-if="!newItem" color="green darken-1" :loading="saving" text @click="updateMatriculado">Actualizar</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -195,22 +196,22 @@
                     <v-container>
                       <v-col>
                         <div><span><strong>N° de Matricula:</strong></span> {{ editedItem.matricula }}</div>
-                        <div><span><strong> N° de Documento:</strong></span> {{ editedItem.documento_nro }}</div>
-                        <div><span><strong> Título Profesional:</strong></span> {{ editedItem.titulo_profesional }}</div>
-                        <div><span><strong> Año de Promoción:</strong></span> {{ editedItem.promocion }}</div>
-                        <div><span><strong> Universidad:</strong></span> {{ editedItem.universidad }}</div>
-                        <div><span><strong> Título Profesional 2:</strong></span> {{ editedItem.titulo_profesional_2 }}</div>
-                        <div><span><strong> Año de Promoción 2:</strong></span> {{ editedItem.promocion_2 }}</div>
-                        <div><span><strong> Universidad 2:</strong></span> {{ editedItem.universidad_2 }}</div>
-                        <div><span><strong> Ciudad:</strong></span> {{ editedItem.ciudad }}</div>
-                        <div><span><strong> Email:</strong></span> {{ editedItem.user_email }}</div>
-                        <div><span><strong> Dirección:</strong></span> {{ editedItem.direccion }}</div>
-                        <div><span><strong> Teléfono:</strong></span> {{ editedItem.telefono }}</div>
-                        <div><span><strong> Perfíl de Facebook:</strong></span> {{ editedItem.perfil_de_facebook }}</div>
-                        <div><span><strong> Perfíl de LinkedIn:</strong></span> {{ editedItem.perfil_de_linkedin }}</div>
-                        <div><span><strong> URL de Sitio Web:</strong></span> {{ editedItem.user_url }}</div>
-                        <div><span><strong> Aptitudes:</strong></span> {{ editedItem.apt }}</div>
-                        <div><span><strong> Acerca de:</strong></span> {{ editedItem.description }}</div>
+                        <div><span><strong>N° de Documento:</strong></span> {{ editedItem.documento_nro }}</div>
+                        <div><span><strong>Título Profesional:</strong></span> {{ editedItem.titulo_profesional }}</div>
+                        <div><span><strong>Año de Promoción:</strong></span> {{ editedItem.promocion }}</div>
+                        <div><span><strong>Universidad:</strong></span> {{ editedItem.universidad }}</div>
+                        <div><span><strong>Título Profesional 2:</strong></span> {{ editedItem.titulo_profesional_2 }}</div>
+                        <div><span><strong>Año de Promoción 2:</strong></span> {{ editedItem.promocion_2 }}</div>
+                        <div><span><strong>Universidad 2:</strong></span> {{ editedItem.universidad_2 }}</div>
+                        <div><span><strong>Ciudad:</strong></span> {{ editedItem.ciudad }}</div>
+                        <div><span><strong>Email:</strong></span> {{ editedItem.user_email }}</div>
+                        <div><span><strong>Dirección:</strong></span> {{ editedItem.direccion }}</div>
+                        <div><span><strong>Teléfono:</strong></span> {{ editedItem.telefono }}</div>
+                        <div><span><strong>Perfíl de Facebook:</strong></span> {{ editedItem.perfil_de_facebook }}</div>
+                        <div><span><strong>Perfíl de LinkedIn:</strong></span> {{ editedItem.perfil_de_linkedin }}</div>
+                        <div><span><strong>URL de Sitio Web:</strong></span> {{ editedItem.user_url }}</div>
+                        <div><span><strong>Aptitudes:</strong></span> {{ editedItem.apt }}</div>
+                        <div><span><strong>Acerca de:</strong></span> {{ editedItem.description }}</div>
                         <div v-if="loggedAsAdmin">
                           <v-switch
                             v-model="editedItem.habilitado"
@@ -491,6 +492,7 @@ export default {
         console.log(matriculado)
         // Si es admin muestra el formulario de edición
         if(vm.loggedAsAdmin){
+          vm.newItem = false
           vm.dialogAdminMatriculado = true
         }else{ // de lo contrario muestra el modal con los datos fijos
           vm.dialogMatriculado = true
@@ -509,6 +511,7 @@ export default {
         .then((response) => {
           console.log(response)
           this.saving = false;
+
         });
       },
       toggleAdminMatriculado(newItem){
@@ -522,12 +525,13 @@ export default {
       },
       updateMatriculado(){
         let vm = this;
-        vm.saving = true
+        this.saving = true
 
         let matriculado = vm.editedItem
         let params = {ciudad:this.ciudadMatriculado, titulo_profesional:this.tituloMatriculado, admin:this.loggedAsAdmin};
         let payload = {matriculado,params}
         store.dispatch('MATRICULADOS_updateFromTable',payload).then(function(response){
+          console.log(response)
           vm.saving = false;
         })
       },
