@@ -38,7 +38,7 @@ const module = {
           if(!params.documento_nro){
             commit("asignarMatriculados",matriculados);
           }else{
-            return response.data;
+            return response;
           }
 
         }).catch(error => {
@@ -55,7 +55,7 @@ const module = {
           }
         });
 
-        curl.put(`/users/matriculados/${payload.matriculado.ID}`,payload.matriculado)
+        curl.put(`/users/matriculados/from_table/${payload.matriculado.ID}`,payload.matriculado)
         .then(function(response){
           if(response.data.ok){
             swal({
