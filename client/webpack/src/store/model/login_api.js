@@ -98,7 +98,6 @@ const module = {
                     response.data.user.firstName = splitName[0] + " " + splitName[1];
                     response.data.user.lastName = splitName[2] + " " + splitName[3];
                   }
-                  response.data.user.firstName = splitName[0];
                 }
               }else{
                 response.data.user = {
