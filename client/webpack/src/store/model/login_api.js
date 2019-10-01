@@ -85,8 +85,21 @@ const module = {
               // handle success
               if(response.data.user){
                 let splitName = _.split(response.data.user.name,' ');
-                response.data.user.firstName = splitName[0];
-                response.data.user.lastName = splitName[1];
+                if(splitName.length <= 2){
+                  response.data.user.firstName = splitName[0];
+                  response.data.user.lastName = splitName[1];
+                }
+                else{
+                  if(splitName.length === 3){
+                    response.data.user.firstName = splitName[0] + " " + splitName[1];
+                    response.data.user.lastName = splitName[2];
+
+                  }else if(splitName.length === 4){
+                    response.data.user.firstName = splitName[0] + " " + splitName[1];
+                    response.data.user.lastName = splitName[2] + " " + splitName[3];
+                  }
+                  response.data.user.firstName = splitName[0];
+                }
               }else{
                 response.data.user = {
                   firstName:"",
