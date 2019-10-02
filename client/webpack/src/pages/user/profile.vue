@@ -16,37 +16,56 @@
               <v-layout column align-center>
                 <p class="title font-weight-thin">Información Básica</p>
               </v-layout>
-                <v-text-field
-                readonly
-                v-model="form.firstName"
-                label="Nombres"></v-text-field>
-                <v-text-field
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <v-text-field
+                  readonly
+                  v-model="form.name"
+                  label="Nombre"></v-text-field>
+                </v-flex>
+                <!-- <v-text-field
                 readonly
                 v-model="form.lastName"
-                label="Apellidos"></v-text-field>
-                <v-text-field
-                readonly
-                v-model="form.custom_fields.titulo_profesional"
-                label="Título Profesional"></v-text-field>
-                <v-text-field
-                readonly
-                v-model="form.custom_fields.matricula"
-                label="Matricula N°"></v-text-field>
-                <v-text-field
-                readonly
-                v-model="form.custom_fields.res"
-                label="Resolución N°"></v-text-field>
-                <v-flex xs12 sm6 md6 lg6 xl6 d-flex>
-                  <v-text-field 
+                label="Apellidos"></v-text-field> -->
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <v-text-field
+                  readonly
+                  v-model="form.custom_fields.titulo_profesional"
+                  label="Título Profesional"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm12 md12 lg12 xl12>
+                  <v-text-field
+                  readonly
+                  v-model="form.custom_fields.titulo_profesional_2"
+                  label="Título Profesional 2"></v-text-field>
+                </v-flex>
+                <v-row>
+                  <v-col cols="12" xs="12" sm="12" md="6" lg="6" xl="6">
+                    <v-text-field
+                    readonly
+                    v-model="form.custom_fields.matricula"
+                    label="Matricula N°"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" md="6" lg="6" xl="6">
+                    <v-text-field
+                    readonly
+                    v-model="form.custom_fields.res"
+                    label="Resolución N°"></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" xs="12" sm="12" md="6" lg="6" xl="6">
+                    <v-text-field 
                     readonly
                     v-model="form.custom_fields.documento_nro"
                     label="Documento Nro."></v-text-field>
-                </v-flex>
-                
-                <v-text-field
-                readonly
-                v-model="form.custom_fields.ciudad"
-                label="Localidad"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" xs="12" sm="12" md="6" lg="6" xl="6">
+                    <v-text-field
+                    readonly
+                    v-model="form.custom_fields.ciudad"
+                    label="Localidad"></v-text-field>
+                  </v-col>
+                </v-row>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -154,7 +173,7 @@ import router from '../../router'
       return{
         loading: false,
         form: {
-          avatar_urls: 'MALE_CAUCASIAN_BLOND_BEARD',
+          avatar_urls:['96'],
           custom_fields:{newsletter:false}
         },
         ciudades:[
@@ -184,7 +203,7 @@ import router from '../../router'
       },
       user() {
         console.log("Usuario: ",store.state.login_api.user);
-        if(store.state.login_api.user.firstName !== ""){
+        if(store.state.login_api.user.name !== ""){
           this.assignProfile();
         }
         return store.state.login_api.user
@@ -195,7 +214,7 @@ import router from '../../router'
     watch:{
       dialog(){},
       user(val){
-        if(val.user.firstName !== ""){
+        if(val.user.name !== ""){
           this.assignProfile();
         }
       }
