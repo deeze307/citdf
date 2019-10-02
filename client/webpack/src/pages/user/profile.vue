@@ -98,14 +98,20 @@
                   
                 </v-flex>
                 <v-flex xs12 sm12 md12 lg12 xl12 d-flex class="px-5">
-                  <v-select
+                  <!-- <v-select
                     v-model="form.custom_fields.apt"
                     :items="aptitudes"
                     label="Aptitudes"
                     multiple
                     chips
                     persistent-hint
-                  ></v-select>
+                  ></v-select> -->
+                  <v-textarea
+                  v-model="form.custom_fields.apt"
+                  label="Aptitudes"
+                  hint="Aptitudes que considere relevantes"
+                  counter="200"
+                  ></v-textarea>
                 </v-flex>
                 <v-flex xs12 sm12 md12 lg12 xl12 d-flex class="px-5">
                   <v-textarea

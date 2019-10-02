@@ -379,15 +379,15 @@ app.put('/:id', (req, res) => {
   }).then(data => {
     // Despues actualizo datos de custom_fields
     let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
-    let apt = "";
-    body.custom_fields.apt.map(a =>{
-      if(apt ===""){
-        apt = apt+a;
-      }else{
-        apt = apt+"\r\n"+a;
-      }
-    })
-    body.custom_fields.apt = apt;
+    // let apt = "";
+    // body.custom_fields.apt.map(a =>{
+    //   if(apt ===""){
+    //     apt = apt+a;
+    //   }else{
+    //     apt = apt+"\r\n"+a;
+    //   }
+    // })
+    // body.custom_fields.apt = apt;
     Request({
       headers:{
         'Content-Type':'application/json',
@@ -513,17 +513,17 @@ app.put('/matriculados/from_table/:id', (req, res) => {
       habilitado: body.habilitado ? 1 : 0,
       email: body.user_email,
     }
-    let apt = "";
-    if(body.apt && body.apt!==""){
-      body.apt.map(a =>{
-        if(apt ===""){
-          apt = apt+a;
-        }else{
-          apt = apt+"\r\n"+a;
-        }
-      })
-    }
-    body.custom_fields.apt = apt;
+    // let apt = "";
+    // if(body.apt && body.apt!==""){
+    //   body.apt.map(a =>{
+    //     if(apt ===""){
+    //       apt = apt+a;
+    //     }else{
+    //       apt = apt+"\r\n"+a;
+    //     }
+    //   })
+    // }
+    body.custom_fields.apt = body.apt;
     Request({
       headers:{
         'Content-Type':'application/json',
