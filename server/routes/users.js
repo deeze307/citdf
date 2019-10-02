@@ -372,13 +372,13 @@ app.put('/:id', (req, res) => {
   }
   let body = req.body;
   // Primero actualizo datos de persona
-  wp.users().id(body.ID).update({
+  wp.users().id(req.params.id).update({
     name:body.firstName +" "+body.lastName,
     description: body.description,
     url:body.url
   }).then(data => {
     // Despues actualizo datos de custom_fields
-    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+body.ID;
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
     // let apt = "";
     // body.custom_fields.apt.map(a =>{
     //   if(apt ===""){
