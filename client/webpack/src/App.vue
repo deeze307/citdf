@@ -248,7 +248,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" outlined color="white" small rounded>
-                Hola {{(_.has(user.user,'firstName')) ? user.user.firstName : ''}}
+                Hola {{(_.has(user.user,'firstName')) ? loginUserFirstName : ''}}
                 <v-icon>person</v-icon>
               </v-btn>
             </template>
@@ -323,18 +323,6 @@
       </v-flex>
     </v-layout>
     </v-footer>
-    <!-- <v-footer
-      height="auto"
-      color="primary lighten-1"
-    >
-      <v-flex
-        text-xs-center
-        white--text
-        xs12
-      >
-        &copy; 2019 — <strong>Colegio de Ingenieros de Tierra del Fuego Antártida e Islas del Atlántico Sur</strong> info@citdf.org.ar
-      </v-flex>
-    </v-footer> -->
   </v-app>
   
 </template>
@@ -357,6 +345,7 @@
         maintenanceMode: false,
         loginWorking:false,
         spinner:false,
+        loginUserFirstName:'',
         footerLinks:[
           {
             title:"Home",
@@ -433,7 +422,14 @@
         router.push(path);
       },
       verifyUserData(){
-         return (_.has(this.user.user,'firstName')) ? true : false;
+        if(_.has(this.user.user,'firstName')){
+          let Names = this.user.user.firstName.split(' ');
+          this.loginUserFirstName = Names[0];
+          return true;
+        }else{
+          this.loginUserFirstName = '';
+          return false;
+        };
       },
       checkAdmin(item){
         let isAdmin = true;
