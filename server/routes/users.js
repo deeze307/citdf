@@ -378,7 +378,7 @@ app.put('/:id', (req, res) => {
     url:body.url
   }).then(data => {
     // Despues actualizo datos de custom_fields
-    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+body.ID;
     // let apt = "";
     // body.custom_fields.apt.map(a =>{
     //   if(apt ===""){
@@ -494,7 +494,7 @@ app.put('/matriculados/from_table/:id', (req, res) => {
     url:body.user_url,
   }).then(data => {
     // Despues actualizo datos de custom_fields
-    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+req.params.id;
+    let uri = process.env.CITDF_WPAPI+"/acf/v3/users/"+body.ID;
     body.custom_fields = {
       matricula: body.matricula,
       res: body.res,
