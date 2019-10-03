@@ -2,6 +2,7 @@
 import matriculados from '@/pages/matricula/matriculados'
 import como_matricularse from '@/pages/matricula/como_matricularse'
 import aranceles from '@/pages/matricula/aranceles'
+import baja_suspension from '@/pages/matricula/baja_suspension'
 
 export default [
   {
@@ -15,5 +16,9 @@ export default [
   {
     path: '/aranceles',
     component: aranceles
+  },
+  {
+    path: '/baja-suspension',
+    component: baja_suspension
   },
 ]

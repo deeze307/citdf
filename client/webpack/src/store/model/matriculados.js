@@ -14,6 +14,13 @@ const module = {
           }
         }
       },
+      baja_suspension:{
+        info:{
+          content:{
+            rendered:""
+          }
+        }
+      },
     },
     getters: {
       
@@ -24,6 +31,9 @@ const module = {
       },
       asignarComoMatricularse(state,payload){
         state.como_matricularse = payload;
+      },
+      asignarBajaSuspension(state,payload){
+        state.baja_suspension = payload;
       }
     },
     actions: {
@@ -150,6 +160,27 @@ const module = {
           console.log(como_matricularse);
           
           commit("asignarComoMatricularse",como_matricularse);
+
+        }).catch(error => {
+          console.log("Error: ",error);
+        });
+      },
+      MATRICULADOS_retrieveBajaSuspension:function({commit,dispatch,state}){
+        const curl = axios.create({
+          baseURL: state.apiUrl,
+        });
+
+        // let params = {
+        //   pageNumber:pageNumber,
+        //   pageSize:pageSize
+        // };
+        // console.log("Params: ",params);
+
+        curl.get('/users/matriculados/baja-suspension').then(function(response){
+          let baja_suspension = response.data;
+          console.log(baja_suspension);
+          
+          commit("asignarBajaSuspension",baja_suspension);
 
         }).catch(error => {
           console.log("Error: ",error);
