@@ -318,9 +318,9 @@ export default {
         "Ingeniero Metalúrgico",
         "Ingeniero Pesquero",
         "Ingeniero Químico",
+        "Ingeniero Textíl"
       ],
       titulosForms:[
-        "Todos",
         "Arquitecto",
         "Bioingeniero",
         "Especialista en Seguridad, Higiene y Protección Ambiental",
@@ -366,6 +366,7 @@ export default {
         "Ingeniero Metalúrgico",
         "Ingeniero Pesquero",
         "Ingeniero Químico",
+        "Ingeniero Textíl"
       ],
       form:{},
       password_hidden: true,
