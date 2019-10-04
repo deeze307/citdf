@@ -273,7 +273,6 @@ export default {
         { text: 'Detalle', value: 'detalle' , sortable: false, align: 'center', width:'5%' }],
       titulos:[
         "Todos",
-        "Arquitecto",
         "Bioingeniero",
         "Especialista en Seguridad, Higiene y Protección Ambiental",
         "Especialista en Seguridad de Higiene en el Trabajo",
@@ -321,7 +320,7 @@ export default {
         "Ingeniero Textíl"
       ],
       titulosForms:[
-        "Arquitecto",
+        "N/A",
         "Bioingeniero",
         "Especialista en Seguridad, Higiene y Protección Ambiental",
         "Especialista en Seguridad de Higiene en el Trabajo",
