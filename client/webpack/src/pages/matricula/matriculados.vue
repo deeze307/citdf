@@ -40,7 +40,7 @@
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="3" md="3" lg="3">
-                        <v-text-field v-model="editedItem.nickname" label="Usuario" readonly></v-text-field>
+                        <v-text-field v-model="editedItem.nickname" label="Usuario" :readonly="newItem ? false : true"></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="5" v-if="newItem">
                         <v-text-field
@@ -65,7 +65,7 @@
                         ></v-select>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
-                        <v-text-field v-model="editedItem.user_email" label="Email" required></v-text-field>
+                        <v-text-field v-model="editedItem.user_email" label="Email" :rules="emailRules" required></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6">
                         <v-select
@@ -253,6 +253,10 @@ import axios from 'axios'
 
 export default {
     data:() => ({
+      emailRules: [
+        v => !!v || 'E-mail es requerido',
+        v => /.+@.+\..+/.test(v) || 'E-mail debe ser válido',
+      ],
       exportHeaders:{
         'Matricula': 'matricula',
         'Nombre Completo': 'display_name',
@@ -509,9 +513,11 @@ export default {
       },
       createMatriculado(){
         this.saving = true;
-        store.dispatch('MATRICULADOS_create')
+        this.editedItem.username = this.editedItem.nickname;
+        this.editedItem.email = this.editedItem.user_email;
+        this.editedItem.role = "matriculado";
+        store.dispatch('MATRICULADOS_create',this.editedItem)
         .then((response) => {
-          console.log(response)
           this.saving = false;
 
         });

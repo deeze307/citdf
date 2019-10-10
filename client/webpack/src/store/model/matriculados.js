@@ -4,6 +4,7 @@ import router from '../../router'
 const module = {
     state: {
       apiUrl: 'http://api-deeze.tk:3031',
+      // apiUrl: 'http://localhost:3031',
       items:{
         payload:[]
       },
@@ -133,16 +134,40 @@ const module = {
         })
         
       },
-      MATRICULADOS_create:function({},){
+      MATRICULADOS_create:function({commit,dispatch,state},form){
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
-        swal({
-          title: "Exito!",
-          text: "Matriculado Creado Exitosamente!",
-          icon: "success",
-          button: "Aceptar",
-        });
+        console.log("Formulario: ",form);
+        curl.post('/users/register',form)
+        .then(function(response){
+          console.log(response.data);
+          if(response.data.ok){
+            swal({
+              title: "Exito!",
+              text: "Matriculado Creado Exitosamente!",
+              icon: "success",
+              button: "Aceptar",
+            });
+            dispatch("MATRICULADOS_retrieveAll");
+          }else{
+            swal({
+              title: "Oops!!",
+              text: "No se pudo crear el matriculado.",
+              icon: "error",
+              button: "Aceptar",
+            });  
+          }
+        })
+        .catch(function (error){
+          console.log("Error:",error)
+          swal({
+            title: "Oops!!",
+            text: `No se pudo crear el matriculado: ${error}`,
+            icon: "error",
+            button: "Aceptar",
+          });
+        })
       },
       MATRICULADOS_retrieveComoMatricularse:function({commit,dispatch,state}){
         const curl = axios.create({
