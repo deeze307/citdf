@@ -565,30 +565,32 @@ app.put('/matriculados/from_table/:id', (req, res) => {
 });
 
 
-app.post('/', (req, res, next) => {
-    let body = req.body;
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(body.password, salt);
-    db.user.create({
-        email: body.email,
-        name: body.name,
-        lastname: body.lastname,
-        password: hash,
-        enabled:true,
-        rol: 1
-    }).then(userSaved => {
-        res.status(200).json({
-            ok: true,
-            user: userSaved,
-            userToken: req.user
-        });
-    }).catch(Sequelize.ValidationError, function(msg) {
-        return res.status(422).json({
-          message: msg.errors
-        });
-    }).catch(function(err) {
-        return res.status(400).json({ message: "Error al crear Usuario" });
-    });
+app.post('/register', (req, res, next) => {
+  let uriRegisterUser = process.env.CITDF_WPAPI+"/wp/v2/users/register";
+  let body = req.body;
+  Request({
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':req.headers.authorization
+    },
+    url: uriRegisterUser,
+    method: "POST",
+    json: true,   // <--Very important!!!
+    body: body
+  }, function (error, response, body){
+    if(response.body.code === 200){
+      return res.status(200).json({
+        ok: true,
+        user: response.data
+      });
+      
+    }else{
+      return res.status(response.body.code).json({
+        ok: false,
+        error: response.body.message
+      });
+    }
+  });
 });
 
 app.delete('/:id', /*mdAuthentication.verifyToken,*/ (req, res) => {
@@ -618,6 +620,5 @@ app.delete('/:id', /*mdAuthentication.verifyToken,*/ (req, res) => {
         return res.status(400).json({ message: "Ocurrió un error al intentar eliminar el Usuario" });
       });
 });
-
 
 module.exports = app;
