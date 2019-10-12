@@ -4,6 +4,7 @@ import router from '../../router'
 const module = {
     state: {
       apiUrl: 'http://api-deeze.tk:3031',
+      // apiUrl: 'http://localhost:3031',
       items:{
         payload:[]
       },
@@ -121,6 +122,24 @@ const module = {
           icon: "success",
           button: "Aceptar",
         });
+      },
+
+      TRAMITES_pagarMatricula:function({commit,dispatch,state}){
+        const curl = axios.create({
+          baseURL: state.apiUrl,
+        });
+        router.push({path:'/tramites/pay'});
+        // curl.post(`/tramites/pay`)
+        // .then(function(response){
+        //   if(response.data.ok){
+        //     console.log(response.data)
+        //   }else{
+        //     console.log("Error: ",response.data)  
+        //   }
+        // })
+        // .catch(function (error){
+        //   console.log(error);
+        // })
       },
 
       TRAMITES_retrieveLegajoMinimo:function({commit,dispatch,state}){

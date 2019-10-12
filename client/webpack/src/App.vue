@@ -4,7 +4,7 @@
       <v-app-bar
         app
         v-if="isMobile"
-        :color="menu_toolbar.header_color"
+        :color="menu_toolbar.header_color_web"
         dark
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"><v-icon>menu</v-icon></v-app-bar-nav-icon>
@@ -30,7 +30,7 @@
             light
           >
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" :color="menu_toolbar.header_color" small rounded>
+              <v-btn v-on="on" :color="menu_toolbar.header_color_web" small rounded>
                 Hola {{(_.has(user.user,'firstName')) ? user.user.firstName : ''}}
               </v-btn>
             </template>
@@ -55,7 +55,7 @@
 
       <v-navigation-drawer
         v-model="drawer"
-        :color="menu_toolbar.header_color"
+        :color="menu_toolbar.header_color_mobile"
         left
         absolute
         dark
@@ -65,7 +65,6 @@
           transition="slide-y-transition"
           offset-y
           bottom
-          open-on-hover
           dark
           v-for="item in menu_toolbar.items"
           :key="item.order"
@@ -78,19 +77,18 @@
                 v-if="!item.children"
                 :to="formatRoute(item.object_slug)"
               >
-              {{item.title}}
+              {{item.title.toUpperCase()}}
               </v-list-item>
 
               <!-- Si los elementos del menu tienen hijos -->
-              <v-btn
+              <v-list-item
                 v-if="item.children"
                 v-on="on"
-                small
                 text
-                class="mx-0"
+                class="my-0 tile"
               >
-              {{item.title}}
-              </v-btn>
+              {{item.title.toUpperCase()}}
+              </v-list-item>
             </v-list>
           </template>
           <v-list v-if="item.children">
@@ -140,8 +138,10 @@
       </v-navigation-drawer>
       
       <!-- FIN MENU DE NAVEGACION !-->
+      <!-- FIN Menu toolbar Mobile -->
+      
       <!-- Menu toolbar WEB !-->
-      <v-app-bar v-if="!isMobile" app :color="menu_toolbar.header_color" dark >
+      <v-app-bar v-if="!isMobile" app :color="menu_toolbar.header_color_web" dark >
         <a href="/"><img src="@/assets/citdf-logo-dark.png" alt="citdf"></a>
         <!-- <v-toolbar-title v-text="menu_toolbar.title" ></v-toolbar-title> -->
         <v-spacer></v-spacer>
@@ -292,37 +292,7 @@
         </v-content>
       </v-slide-y-transition>
       <!-- FIN CONTENIDO DE NAVEGACION !-->
-    <v-footer
-      height="auto"
-      color="primary"
-    >
-      <v-layout
-      justify-center
-      row
-      wrap
-    >
-      <v-btn
-        v-for="link in footerLinks"
-        :key="link.title"
-        color="white"
-        small
-        text
-        rounded
-        :to="link.url"
-      >
-        {{ link.title }}
-      </v-btn>
-      <v-flex
-        primary
-        py-1
-        text-center
-        white--text
-        xs12
-      >
-        &copy;2019 — <strong>Colegio de Ingenieros de Tierra del Fuego Antártida e Islas del Atlántico Sur</strong> info@citdf.org.ar
-      </v-flex>
-    </v-layout>
-    </v-footer>
+    <footer-component></footer-component>
   </v-app>
   
 </template>
@@ -332,10 +302,11 @@
   import MenuSidebar from './components/menu_sidebar'
   import UserSidebar from './components/user_sidebar'
   import login_api from './components/login_api'
+  import footerComponent from './components/index/footer'
 
 
   export default {
-    components :{ MenuSidebar, UserSidebar, login_api},
+    components :{ MenuSidebar, UserSidebar, login_api, footerComponent},
     data () {
       return {
         isMobile:true,
@@ -346,24 +317,6 @@
         loginWorking:false,
         spinner:false,
         loginUserFirstName:'',
-        footerLinks:[
-          {
-            title:"Home",
-            url: "/"
-          },
-          {
-            title:"Contacto",
-            url:"contacto"
-          },
-          {
-            title:"Lista de Matriculados",
-            url:"lista-de-matriculados"
-          },
-          {
-            title:"Links",
-            url:"links"
-          }
-        ],
         userItems: [
         { title: 'Mi Perfil', path:'/profile', admin:false},
         { title: 'Mis Trámites',path:'/tramites',admin:false},
