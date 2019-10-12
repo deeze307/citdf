@@ -96,7 +96,8 @@
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-          <v-btn color="blue darken-1" small dark disabled> <v-icon left>post_add</v-icon> Nuevo Págo</v-btn>
+          <v-btn color="blue darken-1" small dark @click="dialogPay = true" > <v-icon left>post_add</v-icon> Nuevo Págo</v-btn>
+          <dialog-pay :dialogPay="dialogPay" :user="user"></dialog-pay>
         </v-flex>
       </v-layout>
       <v-layout align-center justify-space-around row fill-height>
@@ -133,9 +134,11 @@
 
 <script>
 import axios from 'axios'
+import dialogPay from './components/dialogPay'
 
 export default {
     components:{
+      dialogPay
     },
     data () {
       return {
@@ -175,7 +178,7 @@ export default {
           createdAt:'',
         },
         dialogTramite:false,
-        dialogPago:false,
+        dialogPay:false,
         // apigw: process.env.TEU_API,
         page: 1,
         tramitesLoading:true,

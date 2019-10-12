@@ -6,7 +6,8 @@ import router from '../../router'
 const module = {
   state: {
     title: "CITDF",
-    header_color: 'primary',
+    header_color_web: 'primary',
+    header_color_mobile: 'accent',
     items:[]
   },
   mutations: {
