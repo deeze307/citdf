@@ -6,7 +6,6 @@ require('dotenv').config({path: __dirname + '/.env'})
 // require('dotenv').config({ path: require('find-config')('.env') });
 const node_env = process.env.NODE_ENV || 'production';
 const port = 3031;
-var mercadopago = require('mercadopago');
 
 // // Firebase
 // const admin = require('../node_modules/firebase-admin');
@@ -53,6 +52,7 @@ const novedadesRoutes = require('./routes/novedades');
 const colegioRoutes = require('./routes/colegio');
 const contactoRoutes = require('./routes/contacto');
 const tramitesRoutes = require('./routes/tramites');
+const pagosRoutes = require('./routes/pagos');
 const beneficiosRoutes = require('./routes/beneficios');
 const marcoLegalRoutes = require('./routes/marco_legal');
 const generalRoutes = require('./routes/generals');
@@ -66,6 +66,7 @@ app.use('/novedades',novedadesRoutes);
 app.use('/colegio',colegioRoutes);
 app.use('/contacto',contactoRoutes);
 app.use('/tramites',tramitesRoutes);
+app.use('/pagos',pagosRoutes);
 app.use('/beneficios',beneficiosRoutes);
 app.use('/marco_legal',marcoLegalRoutes);
 app.use('/general',generalRoutes);
@@ -91,15 +92,13 @@ sequelize
     console.error('No fue posible conectar con la base de datos:', err);
   });
 
-  // MercadoPago
+  // // MercadoPago
 
-  mercadopago.configure({
-    sandbox: true,
-    access_token: process.env.MERCADOPAGO_ACCESS_TOKEN
-  });
-  console.log(mercadopago.payment);
-
-  // /MercadoPago
+  // mercadopago.configure({
+  //   sandbox: true,
+  //   access_token: process.env.MERCADOPAGO_ACCESS_TOKEN
+  // });
+  // console.log(mercadopago.payment);
 
 app.listen(port, () => {
     console.log(`App corriendo en el puerto ${port}. | host: ${process.env.DB_HOST}`)

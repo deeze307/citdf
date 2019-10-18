@@ -25,6 +25,9 @@ export default {
       return {
       }
     },
+    mounted:function(){
+      window.scrollTo(0, 0)
+    },
     created:function(){
       this.verifyData();
     },

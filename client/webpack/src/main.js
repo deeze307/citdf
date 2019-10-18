@@ -67,7 +67,7 @@ Vue.filter('fechaSinHora', function(value) {
 
 Vue.filter('fechaConHora', function(value) {
   if (value) {
-    return moment(String(value)).format('DD/MM/YYYY hh:mm')
+    return moment(String(value)).format('DD/MM/YYYY HH:mm')
   }
 });
 

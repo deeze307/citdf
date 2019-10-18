@@ -105,6 +105,9 @@ export default {
         left: false,
       }
     },
+    mounted:function(){
+      window.scrollTo(0, 0)
+    },
     created: function(){
       store.dispatch('NOVEDADES_retrievePosts');
     },

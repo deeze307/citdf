@@ -163,7 +163,7 @@
                   v-if="!item.children"
                   x-small
                   text
-                  class="mx-0 px-1"
+                  class="mx-1 px-1"
                   :to="formatRoute(item.object_slug)"
                 >
                 {{item.title}}
@@ -175,7 +175,7 @@
                   v-on="on"
                   x-small
                   text
-                  class="mx-0 px-1"
+                  class="mx-1 px-1"
                 >
                 {{item.title}}
                 </v-btn>

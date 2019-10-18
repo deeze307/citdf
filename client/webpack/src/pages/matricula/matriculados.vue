@@ -196,6 +196,7 @@
                     <v-container>
                       <v-col>
                         <div><span><strong>N° de Matricula:</strong></span> {{ editedItem.matricula }}</div>
+                        <div><span><strong>N° de Resolución:</strong></span> {{ editedItem.res }}</div>
                         <div><span><strong>N° de Documento:</strong></span> {{ editedItem.documento_nro }}</div>
                         <div><span><strong>Título Profesional:</strong></span> {{ editedItem.titulo_profesional }}</div>
                         <div><span><strong>Año de Promoción:</strong></span> {{ editedItem.promocion }}</div>
@@ -259,13 +260,16 @@ export default {
       ],
       exportHeaders:{
         'Matricula': 'matricula',
+        'Res':'res',
         'Nombre Completo': 'display_name',
         'Documento Nro': 'documento_nro',
         'Título Profesional': 'titulo_profesional',
+        'Título Profesional 2': 'titulo_profesional_2',
         'Ciudad':'ciudad',
-        'Estado':'ciudad',
-        'Res':'res'
-        
+        'Dirección':'direccion',
+        'Teléfono':'telefono',
+        'User Email':'user_email',
+        'Habilitado':'habilitado',
       },
       headers:[{ text: 'N° de Matrícula', value: 'matricula' , sortable: true, align: 'center' , width:'5%'},
         { text: 'Nombre Completo', value: 'display_name' , sortable: true, align: 'center' , width:'35%'},
@@ -407,6 +411,9 @@ export default {
       details_loading: false
       
     }),
+    mounted:function(){
+      window.scrollTo(0, 0)
+    },
     created:function(){
       store.dispatch('LOGIN_API_fetchUserRemember');
       console.log("Es admin: "+this.loggedAsAdmin)

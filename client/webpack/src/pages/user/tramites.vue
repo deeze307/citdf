@@ -96,8 +96,7 @@
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-          <v-btn color="blue darken-1" small dark @click="dialogPay = true" > <v-icon left>post_add</v-icon> Nuevo Págo</v-btn>
-          <dialog-pay :dialogPay="dialogPay" :user="user"></dialog-pay>
+          <v-btn color="blue darken-1" small dark @click="goToPay" > <v-icon left>attach_money</v-icon> Nuevo Págo</v-btn>
         </v-flex>
       </v-layout>
       <v-layout align-center justify-space-around row fill-height>
@@ -124,6 +123,12 @@
                 <template v-slot:item.comprobante_url="{item}">
                   <v-btn small fab text color="light-blue"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
                 </template>
+                <template v-slot:item.factura_afip="{item}">
+                  <v-btn small fab text color="light-blue"><v-icon>eye</v-icon>{{item.factura_afip}}</v-btn>
+                </template>
+                <template v-slot:item.createdAt="{item}">
+                  {{ item.createdAt | fechaConHora }}
+                </template>
             </v-data-table>
         </v-flex>
         <!-- ./Datatable -->
@@ -133,12 +138,11 @@
 </template>
 
 <script>
+import router from '../../router'
 import axios from 'axios'
-import dialogPay from './components/dialogPay'
 
 export default {
     components:{
-      dialogPay
     },
     data () {
       return {
@@ -150,9 +154,12 @@ export default {
           { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
         ],
         headersPagos: [
-          { text: 'Periodo', value: 'periodo' , sortable: true, align: 'center' , width:'5%'},
-          { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'30%'},
-          { text: 'comprobante', value: 'comprobante_url' , sortable: true, align: 'center' , width:'10%'},
+          { text: '#ID', value: 'id' , sortable: true, align: 'center' , width:'10%'},
+          { text: '#Ticket N°', value: 'pago_id' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Descripción', value: 'description' , sortable: true, align: 'center' , width:'30%'},
+          { text: 'Valor', value: 'transaction_amount' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Comprobante', value: 'comprobante_url' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Factura', value: 'factura_afip' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Fecha de Pago', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
         ],
         buscarTramite:'',
@@ -178,7 +185,6 @@ export default {
           createdAt:'',
         },
         dialogTramite:false,
-        dialogPay:false,
         // apigw: process.env.TEU_API,
         page: 1,
         tramitesLoading:true,
@@ -187,8 +193,11 @@ export default {
         error_message: '',
       }
     },
+    mounted:function(){
+      window.scrollTo(0, 0)
+    },
     created: function(){
-      
+          store.dispatch("PAGOS_retrieveAll")
     },
     computed:{
       tramites(){
@@ -237,12 +246,8 @@ export default {
             this.editedIndex = -1
           }, 300)
         },
-        closeDialogPago(){
-          this.dialogPago = false;
-          setTimeout(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
-          }, 300)
+        goToPay(){
+          router.push('/tramites/pagos')
         }
     }
 }
