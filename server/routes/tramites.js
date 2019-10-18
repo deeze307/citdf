@@ -15,9 +15,6 @@ const wp = new WPAPI({
 })
 const app = express();
 
-// SDK de Mercado Pago
-const mercadopago = require ('mercadopago');
-
 app.use(cors());
 
 app.get('/', (req, res, next) => {
@@ -151,33 +148,34 @@ app.get('/encomienda-de-tareas', (req, res, next) => {
   });
 });
 
-
-// Pagos con MercadoPago  
-app.post('/pay',(req,res,next) =>{
-  // Agrega credenciales
-  mercadopago.configure({
-    access_token: 'APP_USR-2144863141546388-101105-62db2588bae4fb9776cac2c831c22536-322514048'
+app.post('/',(req,res,next) =>{
+  console.log("REquest:",req);
+  db.tramites.create({
+    userId: req.body.userId,
+    documentoNro : req.body.documentoNro,
+    valor : req.body.valor,
+    tramite: req.body.tramite,
+    nota: req.body.nota,
+    status: req.body.status
+  }).then(result => {
+    if (result === 0) {
+      res.status(404).json({
+        ok: false,
+        err: 'El tramite pudo ser creado'
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        msg: `El tramite ha sido creado`
+      });
+    }
+  }).catch(Sequelize.ValidationError, function(msg) {
+    return res.status(422).json({
+      message: msg.errors
+    });
+  }).catch(function(err) {
+    return res.status(400).json({ message: err });
   });
-
-  let preference = {
-    items: [
-      {
-        title: 'Mi producto',
-        unit_price: 1,
-        quantity: 1,
-      }
-    ]
-  }
-
-  mercadopago.preferences.create(preference)
-  .then(function(response){
-    // Este valor reemplazará el string "$$init_point$$" en tu HTML
-    global.init_point = response.body.init_point;
-    console.log(response)
-  }).catch(function(error){
-    console.log(error);
-  });
-
 })
 
 module.exports = app;

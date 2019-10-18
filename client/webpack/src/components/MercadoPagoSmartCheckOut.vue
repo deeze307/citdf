@@ -1,13 +1,10 @@
 
 <template>
     <div>
-        <form action="/tramites/pay" method="POST">
-            <script
-            type="application/javascript"
-            src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-            data-preference-id="1">
-            </script>
-        </form>
+        <a mp-mode="dftl" href="https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=322514048-09ac6f8b-c37f-461b-bb51-64f51aac52b4" name="MP-payButton" class='blue-ar-m-ov-none'>Pagar</a>
+        <script type="application/javascript">
+        (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
+        </script>
     </div>
 </template>
 

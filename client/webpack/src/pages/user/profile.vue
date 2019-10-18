@@ -210,6 +210,7 @@ import router from '../../router'
       }
     },
     mounted(){
+      window.scrollTo(0, 0)
     },
     watch:{
       dialog(){},

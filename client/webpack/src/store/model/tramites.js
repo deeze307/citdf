@@ -115,31 +115,39 @@ const module = {
         })
         
       },
-      TRAMITES_create:function({},tramite){
-        swal({
-          title: "Exito!",
-          text: "Trámite Creado Exitosamente!",
-          icon: "success",
-          button: "Aceptar",
-        });
-      },
-
-      TRAMITES_pagarMatricula:function({commit,dispatch,state}){
+      TRAMITES_create:function({commit,dispatch,state},tramite){
         const curl = axios.create({
-          baseURL: state.apiUrl,
+          baseURL: state.apiUrl
         });
-        router.push({path:'/tramites/pay'});
-        // curl.post(`/tramites/pay`)
-        // .then(function(response){
-        //   if(response.data.ok){
-        //     console.log(response.data)
-        //   }else{
-        //     console.log("Error: ",response.data)  
-        //   }
-        // })
-        // .catch(function (error){
-        //   console.log(error);
-        // })
+
+        curl.post(`/tramites`,tramite)
+        .then(function(response){
+          if(response.data.ok){
+            swal({
+              title: "Exito!",
+              text: "Trámite creado Exitosamente!",
+              icon: "success",
+              button: "Aceptar",
+            });
+            dispatch("TRAMITES_retrieveAll");
+          }else{
+            swal({
+              title: "Oops!!",
+              text: "No se pudo crear el trámite.",
+              icon: "error",
+              button: "Aceptar",
+            });  
+          }
+        })
+        .catch(function (error){
+          swal({
+            title: "Oops!!",
+            text: `No se pudo crear el trámite: ${error}`,
+            icon: "error",
+            button: "Aceptar",
+          });
+        })
+        dispatch("TRAMITES_retrieveAll");
       },
 
       TRAMITES_retrieveLegajoMinimo:function({commit,dispatch,state}){
