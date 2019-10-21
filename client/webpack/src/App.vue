@@ -275,9 +275,9 @@
         <v-container fill-height>
           <v-layout column justify-center align-center>
             <v-progress-circular
-              :size="70"
+              :size="50"
               :width="7"
-              color="orange"
+              color="primary"
               indeterminate
               v-if="spinner"
             ></v-progress-circular>

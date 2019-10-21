@@ -37,7 +37,7 @@
             v-for="(item,i) in carouselItems"
             :key="i"
           >
-            <img :src="item.src" style="width:auto;height:auto;"/>
+            <img :src="item.src" :style="carouselStyle"/>
           </v-carousel-item>
               
         </v-carousel>
@@ -149,7 +149,7 @@
             <v-flex xs12 sm12 md12 lg12 xl12 class="mb-3" v-for="(novedad, index) in novedades" :key="index">
               <v-hover v-slot:default="{ hover }">
                 <v-card :elevation="hover ? 12 : 5" :height=novedadesHeight>
-                  <v-card-title class="mb-0 pb-0" style="height:80px;">
+                  <v-card-title class="mb-0 pb-0" :style="novedadesTitleStyles">
                     <h3 style="color:#0277BD;" class=".subheading font-weight-light">{{novedad.title.rendered}}</h3>
                   </v-card-title>
                   <v-card-text class="mb-0 pt-0" style="height:140px;">
@@ -336,6 +336,8 @@
     data(){
       return{
         novedadesHeight:280,
+        novedadesTitleStyles:'',
+        carouselStyle:'',
         bolsaTrabajoHeight:350,
         parallaxHeight:200,
         isMobile:false,
@@ -415,8 +417,14 @@
         if(window.innerWidth <= 480){
           this.isMobile = true;
           this.parallaxHeight = 160;
+          this.novedadesHeight = "auto";
+          this.bolsaTrabajoHeight = "auto";
+          this.novedadesTitleStyles = "height:auto;"
+          this.carouselStyle = "width:"+window.innerWidth+"px;height:auto;"
         }else{
           this.parallaxHeight = 200;
+          this.novedadesTitleStyles = "height:80px;"
+          this.carouselStyle = "width:auto;height:auto;"
           this.isMobile = false;
         }
       }

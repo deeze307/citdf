@@ -5,7 +5,7 @@
         <v-container fill-height>
           <v-layout column justify-center align-center>
             <v-progress-circular
-              :size="70"
+              :size="50"
               :width="7"
               color="primary"
               indeterminate
@@ -195,7 +195,7 @@ export default {
   {
     /* background: #282c2dad; */
     box-shadow: none;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     width: auto;
     color: whitesmoke;
   }

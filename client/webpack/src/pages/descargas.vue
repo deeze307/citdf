@@ -4,7 +4,7 @@
         <v-container fill-height>
           <v-layout column justify-center align-center>
             <v-progress-circular
-              :size="70"
+              :size="50"
               :width="7"
               color="primary"
               indeterminate
@@ -69,7 +69,7 @@ export default {
         spinner:true,
         tab: null,
         items: [
-          'Jornadas 2016-09', 'Jornadas 2017-06-13','Jornadas 2017-06-27','Jornadas 2017-09-21'
+          'Jornadas 2016-09', 'Jornadas 2017-06-13','Jornadas 2017-06-27','Jornadas 2017-09-21','Manuales'
         ],
       }
     },

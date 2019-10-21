@@ -19,16 +19,17 @@ app.get('/', (req, res, next) => {
     wp.pages().slug('jornadas-2017-06-13').then(function(jornadas_2017_06_13){
       wp.pages().slug('jornadas-2017-06-27').then(function(jornadas_2017_06_27){
         wp.pages().slug('jornadas-2017-09-21').then(function(jornadas_2017_09_21){
-          console.log("jornadas 2016-09: ",jornadas_2016_09);
-          console.log("jornadas 2017-06-13: ",jornadas_2017_06_13);
-          console.log("jornadas 2017-06-27: ",jornadas_2017_06_27);
-          console.log("jornadas 2017-09-21: ",jornadas_2017_09_21);
-          jornadas_2016_09 = jornadas_2016_09[0];
-          jornadas_2017_06_13 = jornadas_2017_06_13[0];
-          jornadas_2017_06_27 = jornadas_2017_06_27[0];
-          jornadas_2017_09_21 = jornadas_2017_09_21[0];
-          let response = [jornadas_2016_09,jornadas_2017_06_13,jornadas_2017_06_27,jornadas_2017_09_21];
-          return res.status(200).json({info: response});
+          wp.pages().slug('manuales').then(function(manuales){
+            jornadas_2016_09 = jornadas_2016_09[0];
+            jornadas_2017_06_13 = jornadas_2017_06_13[0];
+            jornadas_2017_06_27 = jornadas_2017_06_27[0];
+            jornadas_2017_09_21 = jornadas_2017_09_21[0];
+            manuales = manuales[0];
+            let response = [jornadas_2016_09,jornadas_2017_06_13,jornadas_2017_06_27,jornadas_2017_09_21,manuales];
+            return res.status(200).json({info: response});
+          }).catch(function(err){
+            return res.status(400).json({error : "Jornadas 2017-09-21:"+err});
+          });
         }).catch(function(err){
           return res.status(400).json({error : "Jornadas 2017-09-21:"+err});
         });
