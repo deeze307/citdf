@@ -117,11 +117,33 @@
               nextIcon: 'mdi-plus'
             }"
             >
+                <template v-slot:top>
+                  <v-dialog v-model="dialogTicket" max-width="400px">
+                    <v-card text-center>
+                      <v-card-title>
+                        <span class="title" text-center>Comprobante de Pago  #{{ticketItem.id}} <v-icon>receipt</v-icon></span>
+                      </v-card-title>
+                      <v-card-text>
+                        <div><span><strong>Ticket de Transacción:</strong></span> {{ ticketItem.pago_id }}</div>
+                        <div><span><strong>Concepto:</strong></span> {{ ticketItem.description }}</div>
+                        <div><span><strong>Monto:</strong></span>$ {{ ticketItem.transaction_amount }}</div>
+                        <div><span><strong>Nro Documento:</strong></span> {{ ticketItem.documento_nro }}</div>
+                        <div><span><strong>Medio de Pago:</strong></span> {{ ticketItem.medio_pago }}</div>
+                        <div><span><strong>Url factura Afip:</strong></span> {{ ticketItem.factura_afip }}</div>
+                        <div><span><strong>Fecha de Pago:</strong></span> {{ ticketItem.createdAt | fechaConHora }}</div>
+                      </v-card-text>
+                      <v-card-actions>
+                        <div class="flex-grow-1"></div>
+                        <v-btn color="blue darken-1" text @click="closeDialogTicket">Aceptar</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </template> 
                 <template v-slot:item.status="{item}">
                   <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
                 </template>
                 <template v-slot:item.comprobante_url="{item}">
-                  <v-btn small fab text color="light-blue"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
+                  <v-btn small fab text color="light-blue" @click="showTicket(item)"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
                 </template>
                 <template v-slot:item.factura_afip="{item}">
                   <v-btn small fab text color="light-blue"><v-icon>eye</v-icon>{{item.factura_afip}}</v-btn>
@@ -167,6 +189,7 @@ export default {
         count:0,
         pages:0,
         dialog:false,
+        dialogTicket:false,
         editedIndex: -1,
         editedItem:{
           id:'',
@@ -175,6 +198,16 @@ export default {
           nota:'',
           status:'',
           createdAt:'',
+        },
+        ticketItem:{
+          id:'',
+          pago_id:'',
+          descripcion:'',
+          transaction_amount:'',
+          documento_nro:'',
+          factura_afip:'',
+          medio_pago:'',
+          createdAt:''
         },
         defaultItem: {
           id:'',
@@ -246,8 +279,19 @@ export default {
             this.editedIndex = -1
           }, 300)
         },
+        closeDialogTicket () {
+          this.dialogTicket = false;
+          // setTimeout(() => {
+          //   this.ticketItem = Object.assign({}, this.defaultItem)
+          //   this.editedIndex = -1
+          // }, 300)
+        },
         goToPay(){
           router.push('/tramites/pagos')
+        },
+        showTicket(item){
+          this.ticketItem = item;
+          this.dialogTicket = true
         }
     }
 }

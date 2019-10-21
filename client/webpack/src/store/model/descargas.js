@@ -4,6 +4,8 @@ import axios from 'axios'
 
 const module = {
   state: {
+    apiUrl: 'http://api-deeze.tk:3031',
+      // apiUrl: 'http://localhost:3031',
     items:[
       {content:{rendered:""}},
       {content:{rendered:""}},
@@ -29,7 +31,7 @@ const module = {
   actions: {
     DESCARGAS_retrieveDescargas: function({commit,dispatch,state}){
       const curl = axios.create({
-        baseURL: 'http://api-deeze.tk:3031'
+        baseURL: state.apiUrl
       });
       curl.get('/descargas')
         .then(function(descargas) {
