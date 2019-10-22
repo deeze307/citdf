@@ -148,22 +148,21 @@
             </v-flex>
             <v-flex xs12 sm12 md12 lg12 xl12 class="mb-3" v-for="(novedad, index) in novedades" :key="index">
               <v-hover v-slot:default="{ hover }">
-                <v-card :elevation="hover ? 12 : 5" :height=novedadesHeight>
-                  <v-card-title class="mb-0 pb-0" :style="novedadesTitleStyles">
+                <v-card :elevation="hover ? 12 : 5" :height=novedadesStyle.cardHeight>
+                  <v-card-title class="mb-0 pb-0" :style="novedadesStyle.title">
                     <h3 style="color:#0277BD;" class=".subheading font-weight-light">{{novedad.title.rendered}}</h3>
                   </v-card-title>
-                  <v-card-text class="mb-0 pt-0" style="height:140px;">
+                  <v-card-text class="mb-0 pt-0" :style="novedadesStyle.body">
                     <span style="color:#0277BD;" class="caption">{{novedad.date | fechaSinHora}}</span>
                     <div class="job_desc pt-3" v-html="novedad.content.rendered.substring(0,400) + ' [...]'"></div>
                   </v-card-text>
                   <v-card-actions id="create" class="">
                     <v-spacer></v-spacer>
-                    <social-sharing url="http://citdf.org"
-                      title="Colegio de Ingenieros de Tierra del Fuego"
+                    <social-sharing url="http://www.citdf.org.ar/#/novedades"
+                      :title=novedad.title.rendered
                       :description=novedad.excerpt.rendered
                       :quote=novedad.excerpt.rendered
                       hashtags="CITDF"
-                      twitter-user="citdf"
                       inline-template>
                       <div>
                         <v-speed-dial
@@ -241,8 +240,8 @@
             
           <v-flex xs12 sm12 md3 lg3 xl3 class="mb-3" v-for="(bolsa, i) in bolsaTrabajo" :key="i">
             <v-hover v-slot:default="{ hover }">
-              <v-card :elevation="hover ? 12 : 5" :height=bolsaTrabajoHeight class="flexcard">
-                <v-card-title class="mb-2 pb-0">
+              <v-card :elevation="hover ? 12 : 5" :height=bolsaTrabajoStyle.cardHeight class="flexcard">
+                <v-card-title class="mb-2 pb-0" :style="bolsaTrabajoStyle.title">
                   <h3 style="color:#0277BD;" class=".subheading font-weight-light">{{bolsa.title.rendered}}</h3>
                 </v-card-title>
                 <v-card-text class="mb-0 pt-1 pb-1 grow">
@@ -251,12 +250,11 @@
                 </v-card-text>  
                 <v-card-actions id="create" class="pa-3">
                   <v-spacer></v-spacer>
-                  <social-sharing url="http://citdf.org"
-                      title="Colegio de Ingenieros de Tierra del Fuego"
+                  <social-sharing url="http://www.citdf.org.ar/#/bolsa-de-trabajo"
+                      :title=bolsa.title.rendered
                       :description=bolsa.excerpt.rendered
                       :quote=bolsa.excerpt.rendered
                       hashtags="CITDF"
-                      twitter-user="citdf"
                       inline-template>
                     <div>
                       <v-speed-dial
@@ -335,10 +333,10 @@
   export default {
     data(){
       return{
-        novedadesHeight:280,
-        novedadesTitleStyles:'',
+        
         carouselStyle:'',
-        bolsaTrabajoHeight:350,
+        novedadesStyle:[],
+        bolsaTrabajoStyle:[],
         parallaxHeight:200,
         isMobile:false,
         fab: false,
@@ -417,15 +415,29 @@
         if(window.innerWidth <= 480){
           this.isMobile = true;
           this.parallaxHeight = 160;
-          this.novedadesHeight = "auto";
-          this.bolsaTrabajoHeight = "auto";
-          this.novedadesTitleStyles = "height:auto;"
+
+          this.novedadesStyle.cardHeight = "auto"
+          this.novedadesStyle.title = "height:auto;"
+          this.novedadesStyle.body = "height:auto;"
+
+          this.bolsaTrabajoStyle.cardHeight = "auto"
+          this.bolsaTrabajoStyle.title = "height:auto;"
+          this.bolsaTrabajoStyle.body = "height:auto;"
+
           this.carouselStyle = "width:"+window.innerWidth+"px;height:auto;"
         }else{
-          this.parallaxHeight = 200;
-          this.novedadesTitleStyles = "height:80px;"
-          this.carouselStyle = "width:auto;height:auto;"
           this.isMobile = false;
+          this.parallaxHeight = 200;
+
+          this.novedadesStyle.cardHeight = 280
+          this.novedadesStyle.title = "height:80px;"
+          this.novedadesStyle.body = "height:140px;"
+
+          this.bolsaTrabajoStyle.cardHeight = 350
+          this.bolsaTrabajoStyle.title = "height:80px;"
+          this.bolsaTrabajoStyle.body = "height:140px;"
+          
+          this.carouselStyle = "width:auto;height:auto;"
         }
       }
   }
