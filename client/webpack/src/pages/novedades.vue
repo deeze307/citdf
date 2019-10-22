@@ -7,22 +7,21 @@
           </v-flex>
           <v-flex xs12 sm12 md12 lg12 xl12 class="mb-3" v-for="(novedad, index) in novedades" :key="index">
             <v-hover v-slot:default="{ hover }">
-              <v-card :elevation="hover ? 12 : 5" height=280>
-                <v-card-title class="mb-0 pb-0" style="height:80px;">
+              <v-card :elevation="hover ? 12 : 5" :height=novedadesStyle.cardHeight>
+                <v-card-title class="mb-0 pb-0" :style="novedadesStyle.title">
                   <h3 style="color:#0277BD;" class=".subheading font-weight-light">{{novedad.title.rendered}}</h3>
                 </v-card-title>
-                <v-card-text class="mb-0 pt-0" style="height:140px;">
+                <v-card-text class="mb-0 pt-0" :style="novedadesStyle.body">
                   <span style="color:#0277BD;" class="caption">{{novedad.date | fechaSinHora}}</span>
                   <div class="job_desc pt-3" v-html="novedad.content.rendered.substring(0,400) + ' [...]'"></div>
                 </v-card-text>
                 <v-card-actions id="create" class="">
                   <v-spacer></v-spacer>
-                  <social-sharing url="http://citdf.org"
-                      title="Colegio de Ingenieros de Tierra del Fuego"
+                  <social-sharing url="http://www.citdf.org.ar/#/novedades"
+                      :title=novedad.title.rendered
                       :description=novedad.excerpt.rendered
                       :quote=novedad.excerpt.rendered
                       hashtags="CITDF"
-                      twitter-user="citdf"
                       inline-template>
                     <div>
                       <v-speed-dial
@@ -103,9 +102,12 @@ export default {
         right: true,
         bottom: true,
         left: false,
+        novedadesStyle:[],
+        isMobile:false,
       }
     },
     mounted:function(){
+      this.onResize()
       window.scrollTo(0, 0)
     },
     created: function(){
@@ -131,6 +133,22 @@ export default {
       irNovedad(novedad) {
         store.dispatch('NOVEDADES_goWithSelected',novedad);
         router.push('novedades/detalle');
+      },
+      onResize(){
+        if(window.innerWidth <= 480){
+          this.isMobile = true;
+
+          this.novedadesStyle.cardHeight = "auto"
+          this.novedadesStyle.title = "height:auto;"
+          this.novedadesStyle.body = "height:auto;"
+
+        }else{
+          this.isMobile = false;
+
+          this.novedadesStyle.cardHeight = 280
+          this.novedadesStyle.title = "height:80px;"
+          this.novedadesStyle.body = "height:140px;"
+        }
       }
     }
 }
