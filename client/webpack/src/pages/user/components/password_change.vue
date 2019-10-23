@@ -2,7 +2,7 @@
 <div class="text-center">
     <v-dialog
       v-model="dialogChangePassword"
-      width="500"
+      width="350"
     >
       <template v-slot:activator="{ on }">
         <v-btn

@@ -583,50 +583,18 @@ app.put('/password_change/:id', (req, res) => {
     json: true,   // <--Very important!!!
     body: body
     }, function (error, response, body){
-      if(response.body.code === 200){
+      if(response.body.id){
         return res.status(200).json({
           ok: true,
-          user: response.data
+          user: response.body
         });
-        
       }else{
-        return res.status(response.body.code).json({
+        return res.status(400).json({
           ok: false,
-          error: response.body.message
+          error: error
         });
       }
     });
-  
-  // wp.users().id(userId).update({
-  //   password:body.password
-  // }).then(data => {
-  //   console.log("Response: ",data);
-  //   if(data.body){
-  //     let response = data.body;
-  //     if(response.code){
-  //       return res.status(401).json({
-  //         ok: true,
-  //         error: data.body.message
-  //       });
-  //     }else{
-  //       return res.status(200).json({
-  //         ok: true,
-  //         user: data
-  //       });  
-  //     }
-  //   }else{
-  //     return res.status(200).json({
-  //       ok: true,
-  //       user: data
-  //     });
-  //   }
-  // }).catch(err =>{
-  //   console.log("Error: ",err);
-  //   return res.status(400).json({
-  //     ok:false,
-  //     error: err
-  //   })
-  // })
 });
 
 app.post('/register', (req, res, next) => {
