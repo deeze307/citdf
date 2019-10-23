@@ -30,11 +30,12 @@
                     label="Ingrese su nueva contraseña"
                     v-model="form.password"
                     type="password"
+                    autofocus
                     required
                 ></v-text-field>
                 <v-text-field
                     ref="rePassword"
-                    label="Ingrese su clave"
+                    label="Repita su nueva contraseña"
                     v-model="form.rePassword"
                     :rules="[comparePasswords]"
                     type="password"
@@ -79,7 +80,7 @@ export default {
         user(){},
         showDialog(val){
             if(!val){
-                this.dialogChangePassword = false;
+                this.resetPasswordForm()
             }
         },
         changingPassword(val){
@@ -109,7 +110,12 @@ export default {
             }else{
                 return true
             }
-        }   
+        },
+        resetPasswordForm(){
+            this.form.password = '';
+            this.form.rePassword = '';
+            this.dialogChangePassword = false;
+        }
     }
 }
 </script>
