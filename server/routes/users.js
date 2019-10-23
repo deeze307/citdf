@@ -571,36 +571,62 @@ app.put('/password_change/:id', (req, res) => {
   }
   let body = req.body;
   let userId = req.params.id;
-  wp.users().id(userId).update({
-    password:body.password
-  }).then(data => {
-    console.log("Response: ",data);
-    if(data.body){
-      let response = data.body;
-      if(response.code){
-        return res.status(401).json({
-          ok: true,
-          error: data.body.message
-        });
-      }else{
+  let uriPasswordChange = process.env.CITDF_WPAPI+"/wp/v2/users/"+userId;
+  
+  Request({
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':req.headers.authorization
+    },
+    url: uriPasswordChange,
+    method: "PUT",
+    json: true,   // <--Very important!!!
+    body: body
+    }, function (error, response, body){
+      if(response.body.code === 200){
         return res.status(200).json({
           ok: true,
-          user: data
-        });  
+          user: response.data
+        });
+        
+      }else{
+        return res.status(response.body.code).json({
+          ok: false,
+          error: response.body.message
+        });
       }
-    }else{
-      return res.status(200).json({
-        ok: true,
-        user: data
-      });
-    }
-  }).catch(err =>{
-    console.log("Error: ",err);
-    return res.status(400).json({
-      ok:false,
-      error: err
-    })
-  })
+    });
+  
+  // wp.users().id(userId).update({
+  //   password:body.password
+  // }).then(data => {
+  //   console.log("Response: ",data);
+  //   if(data.body){
+  //     let response = data.body;
+  //     if(response.code){
+  //       return res.status(401).json({
+  //         ok: true,
+  //         error: data.body.message
+  //       });
+  //     }else{
+  //       return res.status(200).json({
+  //         ok: true,
+  //         user: data
+  //       });  
+  //     }
+  //   }else{
+  //     return res.status(200).json({
+  //       ok: true,
+  //       user: data
+  //     });
+  //   }
+  // }).catch(err =>{
+  //   console.log("Error: ",err);
+  //   return res.status(400).json({
+  //     ok:false,
+  //     error: err
+  //   })
+  // })
 });
 
 app.post('/register', (req, res, next) => {
