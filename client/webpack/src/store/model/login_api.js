@@ -12,6 +12,7 @@ const module = {
     loggedIn: false,
     token: '',
     showDialog:false,
+    dialogChangePassword:false,
     fetchUserIsRunning: false,
     user:{
       firstName:'',
@@ -258,6 +259,57 @@ const module = {
     },
     LOGIN_API_retrieveToken: function(){
       return localStorage.getItem('CITDF_LOGIN_API_TOKEN');
+    },
+    LOGIN_API_changePassword: function({commit,dispatch,state},data){
+      state.fetchUserIsRunning = true;
+
+      const curl = axios.create({
+        baseURL: state.api_url,
+        headers:{
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
+          'Access-Control-Allow-Credentials' : true
+        }
+      });
+
+      // Header con token
+      curl.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+
+      curl.put('/users/password_change/'+data.id,data.password)
+        .then(function (response) {
+          // handle success
+          if(response.data.ok){
+            swal({
+              title: "Exito!",
+              text: "Contraseña cambiada Exitosamente!",
+              icon: "success",
+              button: "Aceptar",
+            });
+            state.fetchUserIsRunning = false
+            state.dialogChangePassword = false
+          }else{
+            swal({
+              title: "Oops!",
+              text: "Ocurrió un error al intentar actualizar la contraseña",
+              icon: "danger",
+              button: "Aceptar",
+            });
+            state.fetchUserIsRunning = false;
+            state.dialogChangePassword = false
+          }
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+          swal({
+            title: "Oops!",
+            text: "Ocurrió un error: "+error,
+            icon: "danger",
+            button: "Aceptar",
+          });
+          state.fetchUserIsRunning = false;
+          state.dialogChangePassword = false
+        });
     }
   }
 };

@@ -67,7 +67,7 @@
                   </v-col>
                 </v-row>
             </v-card-text>
-            <password-change></password-change>
+            <password-change :user_id="user.id"></password-change>
           </v-card>
         </v-flex>
         <v-flex xs12 sm12 md8 lg8 xl8 class="mx-5">
@@ -170,7 +170,7 @@ import router from '../../router'
 import passwordChange from './components/password_change'
 
   export default {
-    components:[passwordChange],
+    components:{ passwordChange },
     data(){
       return{
         loading: false,
