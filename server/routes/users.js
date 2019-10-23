@@ -564,6 +564,44 @@ app.put('/matriculados/from_table/:id', (req, res) => {
   })
 });
 
+// Cambio de contraseña de usuario
+app.put('/password_change/:id', (req, res) => {
+  if (req.headers.authorization){
+    wp.setHeaders('Authorization',req.headers.authorization);
+  }
+  let body = req.body;
+  let userId = req.params.id;
+  wp.users().id(userId).update({
+    password:body.password
+  }).then(data => {
+    console.log("Response: ",data);
+    if(data.body){
+      let response = data.body;
+      if(response.code){
+        return res.status(401).json({
+          ok: true,
+          error: data.body.message
+        });
+      }else{
+        return res.status(200).json({
+          ok: true,
+          user: data
+        });  
+      }
+    }else{
+      return res.status(200).json({
+        ok: true,
+        user: data
+      });
+    }
+  }).catch(err =>{
+    console.log("Error: ",err);
+    return res.status(400).json({
+      ok:false,
+      error: err
+    })
+  })
+});
 
 app.post('/register', (req, res, next) => {
   let uriRegisterUser = process.env.CITDF_WPAPI+"/wp/v2/users/register";
