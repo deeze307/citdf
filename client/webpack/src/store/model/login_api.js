@@ -12,7 +12,7 @@ const module = {
     loggedIn: false,
     token: '',
     showDialog:false,
-    dialogChangePassword:false,
+    dialogChangePassword:true,
     fetchUserIsRunning: false,
     user:{
       firstName:'',
