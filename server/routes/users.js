@@ -572,7 +572,7 @@ app.put('/password_change/:id', (req, res) => {
   let body = req.body;
   let userId = req.params.id;
   let uriPasswordChange = process.env.CITDF_WPAPI+"/wp/v2/users/"+userId;
-  
+  console.log("Body:",body);
   Request({
     headers:{
       'Content-Type':'application/json',
