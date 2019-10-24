@@ -80,6 +80,7 @@ export default {
         user(){},
         showDialog(val){
             if(!val){
+                console.log("password cambiado")
                 this.resetPasswordForm()
             }
         },

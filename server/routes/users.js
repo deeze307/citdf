@@ -581,7 +581,7 @@ app.put('/password_change/:id', (req, res) => {
     url: uriPasswordChange,
     method: "PUT",
     json: true,   // <--Very important!!!
-    body: body
+    body: {password:body.password}
     }, function (error, response, body){
       if(response.body.id){
         return res.status(200).json({
@@ -589,6 +589,7 @@ app.put('/password_change/:id', (req, res) => {
           user: response.body
         });
       }else{
+        console.log(response);
         return res.status(400).json({
           ok: false,
           error: error
