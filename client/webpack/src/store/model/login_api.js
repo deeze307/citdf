@@ -275,7 +275,7 @@ const module = {
       // Header con token
       curl.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
 
-      curl.put('/users/password_change/'+data.id,data.password)
+      curl.put('/users/password_change/'+data.id,data)
         .then(function (response) {
           // handle success
           if(response.data.ok){
