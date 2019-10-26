@@ -90,20 +90,13 @@ app.get('/', (req, res, next) => {
 
 app.put('/:id', (req, res) => {
   console.log(req.body);
-  switch(req.body.status){
-    case "Pendiente" : req.body.status = 0;
-    case "En Proceso" : req.body.status = 1;
-    case "Completado" : req.body.status = 2;
-    case "Cancelado" : req.body.status = 3;
-  }
-
-  db.tramites.update({
-    userId: req.body.userId,
-    documentoNro : req.body.documentoNro,
-    valor : req.body.valor,
-    tramite: req.body.tramite,
-    nota: req.body.nota,
-    status: req.body.status
+  let payment = req.body;
+  db.pagos.update({
+    pago_id : payment.pago_id,
+    description : payment.description,
+    transaction_amount : payment.transaction_amount,
+    documento_nro : payment.documento_nro,
+    medio_pago : payment.medio_pago
   }, {
     where: {
       id: req.params.id
@@ -112,12 +105,12 @@ app.put('/:id', (req, res) => {
     if (result === 0) {
       res.status(404).json({
         ok: false,
-        err: 'El tramite no existe'
+        err: 'El pago no existe'
       });
     } else {
       res.status(200).json({
         ok: true,
-        msg: `El tramite ha sido actualizado`
+        msg: `El pago ha sido actualizado`
       });
     }
   }).catch(Sequelize.ValidationError, function(msg) {
@@ -128,6 +121,53 @@ app.put('/:id', (req, res) => {
     return res.status(400).json({ message: "issues trying to connect to database" });
   });
 });
+
+app.post('/register',(req,res,next) =>{
+  // Agrega credenciales
+  
+  let payment = req.body;
+  console.log("Req:",payment);
+
+  // si fué exitoso, genero el registro de vinculación
+  db.pagos.create({
+    pago_id : payment.pago_id,
+    description : payment.description,
+    transaction_amount : payment.transaction_amount,
+    documento_nro : payment.documento_nro,
+    medio_pago : payment.medio_pago
+  }).then(result =>{
+    res.status(200).json({
+      ok:true,
+      response : result
+    });
+  }).catch(function(error){
+    console.log(error);
+    res.status(500).json({
+      ok:false,
+      response : error
+    });
+  });
+})
+
+app.delete('/:id',(req,res) =>{
+  const id = req.params.id;
+
+  db.pagos.destroy({
+    where: {id: id}
+  })
+  .then(deleted =>{
+    res.status(200).json({
+      ok:true,
+      response : deleted
+    });
+  }).catch(function(error){
+    console.log(error);
+    res.status(500).json({
+      ok:false,
+      response : error
+    });
+  });
+})
 
 // Pagos con MercadoPago  
 app.post('/create',(req,res,next) =>{
@@ -155,33 +195,6 @@ app.post('/create',(req,res,next) =>{
       response : response
     });
     
-  }).catch(function(error){
-    console.log(error);
-    res.status(500).json({
-      ok:false,
-      response : error
-    });
-  });
-})
-
-app.post('/register',(req,res,next) =>{
-  // Agrega credenciales
-  
-  let payment = req.body;
-  console.log("Req:",payment);
-
-  // si fué exitoso, genero el registro de vinculación
-  db.pagos.create({
-    pago_id : payment.pago_id,
-    description : payment.description,
-    transaction_amount : payment.transaction_amount,
-    documento_nro : payment.documento_nro,
-    medio_pago : payment.medio_pago
-  }).then(result =>{
-    res.status(200).json({
-      ok:true,
-      response : result
-    });
   }).catch(function(error){
     console.log(error);
     res.status(500).json({
