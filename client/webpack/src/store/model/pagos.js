@@ -129,6 +129,74 @@ const module = {
         .catch(function (error){
           console.log(error);
         })
+      },
+      PAGOS_update:function({commit,dispatch,state},pago){
+        const curl = axios.create({
+          baseURL: state.apiUrl,
+        });
+
+        curl.put(`/pagos/${pago.id}`,pago)
+        .then(function(response){
+          if(response.data.ok){
+            swal({
+              title: "Exito!",
+              text: "Pago actualizado Exitosamente!",
+              icon: "success",
+              button: "Aceptar",
+            });
+            dispatch("PAGOS_retrieveAll");
+          }else{
+            swal({
+              title: "Oops!!",
+              text: "No se pudo actualizar el pago.",
+              icon: "error",
+              button: "Aceptar",
+            });  
+          }
+        })
+        .catch(function (error){
+          swal({
+            title: "Oops!!",
+            text: `No se pudo actualizar el pago: ${error}`,
+            icon: "error",
+            button: "Aceptar",
+          });
+        })
+        
+      },
+      PAGOS_delete:function({commit,dispatch,state},pago){
+        const curl = axios.create({
+          baseURL: state.apiUrl,
+        });
+
+        curl.delete(`/pagos/${pago.id}`)
+        .then(function(response){
+          if(response.data.ok){
+            swal({
+              title: "Exito!",
+              text: "Pago Eliminado Exitosamente!",
+              icon: "success",
+              button: "Aceptar",
+            });
+            dispatch("PAGOS_retrieveAll");
+          }else{
+            swal({
+              title: "Oops!!",
+              text: "No se pudo Eliminar el pago.",
+              icon: "error",
+              button: "Aceptar",
+            });  
+          }
+        })
+        .catch(function (error){
+          swal({
+            title: "Oops!!",
+            text: `No se pudo Eliminar el pago: ${error}`,
+            icon: "error",
+            button: "Aceptar",
+          });
+        })
+        
       }
     }
   };

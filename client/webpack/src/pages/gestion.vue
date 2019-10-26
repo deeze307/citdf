@@ -265,6 +265,7 @@
                               label="Seleccione el Medio de Pago"
                               v-model="nuevoPagoItem.medio_pago"
                               item-text="nombre"
+                              item-value="valor"
                               return-object
                               required
                             ></v-select>
@@ -303,24 +304,29 @@
                     <v-card-actions>
                       <div class="flex-grow-1"></div>
                       <v-btn color="red darken-1" text @click="closeDialogNuevoPago">Cancelar</v-btn>
-                      <v-btn color="blue darken-1" text :loading="inProcess" @click="registerPay()">Registrar</v-btn>
+                      <v-btn color="blue darken-1" v-if="!editarPago" text :loading="inProcess" @click="registerPay()">Registrar</v-btn>
+                      <v-btn color="blue darken-1" v-else text :loading="inProcess" @click="updatePay()">Actualizar</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
               </v-toolbar>
             </template>
-                <template v-slot:item.status="{item}">
-                  <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
-                </template>
-                <template v-slot:item.transaction_amount="{item}">
-                  $ {{ item.transaction_amount }}
-                </template>
-                <template v-slot:item.comprobante_url="{item}">
-                  <v-btn small fab text color="light-blue"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
-                </template>
-                <template v-slot:item.createdAt="{item}">
-                  {{ item.createdAt | fechaConHora }}
-                </template>
+              <template v-slot:item.status="{item}">
+                <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
+              </template>
+              <template v-slot:item.transaction_amount="{item}">
+                $ {{ item.transaction_amount }}
+              </template>
+              <template v-slot:item.comprobante_url="{item}">
+                <v-btn small fab text color="light-blue"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
+              </template>
+              <template v-slot:item.createdAt="{item}">
+                {{ item.createdAt | fechaConHora }}
+              </template>
+              <template v-slot:item.action="{item}">
+                <v-icon small class="mr-2" @click="editPay(item)">edit</v-icon>
+                <v-icon small @click="deletePay(item)">delete</v-icon>
+              </template>
             </v-data-table>
         </v-flex>
         <!-- ./Datatable -->
@@ -360,6 +366,7 @@ export default {
           { text: 'Comprobante', value: 'comprobante_url' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Factura', value: 'factura_afip' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Fecha de Pago', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
+          { text: 'Acciones', value: 'action' , sortable: true, align: 'center' , width:'15%'},
         ],
         headersTramitesExport:{
           "#ID" : "id",
@@ -406,6 +413,7 @@ export default {
         dialogTramite:false,
         dialogNuevoTramite:false,
         dialogRegistrarPago:false,
+        editarPago:false,
         editedIndex: -1,
         editedItem:{
           id:'',
@@ -565,6 +573,30 @@ export default {
           this.nuevoPagoItem.medio_pago = this.nuevoPagoItem.medio_pago.valor;
           store.dispatch("PAGOS_register",this.nuevoPagoItem);
           this.nuevoPagoItem = Object.assign({}, this.defaultItem);
+        },
+        editPay(pago){
+          this.nuevoPagoItem = pago
+          this.nuevoPagoItem.description = {
+            "nombre": pago.description,
+            "costo": 1000
+          }
+          this.nuevoPagoItem.medio_pago = {
+            "nombre":"",
+            "valor" : pago.medio_pago
+          }
+          this.editarPago = true
+          this.dialogRegistrarPago = true
+        },
+        updatePay(){
+          this.dialogRegistrarPago = false
+          this.editarPago = false
+          this.nuevoPagoItem.description = this.nuevoPagoItem.description.nombre;
+          this.nuevoPagoItem.medio_pago = this.nuevoPagoItem.medio_pago.valor;
+          store.dispatch("PAGOS_update",this.nuevoPagoItem)
+          this.nuevoPagoItem
+        },
+        deletePay(pago){
+          store.dispatch("PAGOS_delete",pago)
         },
         calculateCost(){
           
