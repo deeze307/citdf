@@ -191,21 +191,104 @@
       </v-flex>
       <v-layout row>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-        <v-text-field
-          v-model="buscarPago"
-          label="Buscar Pago"
-          append-icon="search"
-        ></v-text-field>
+          <v-text-field
+            v-model="buscarPago"
+            label="Buscar Pago"
+            append-icon="search"
+          ></v-text-field>
         </v-flex>
         <v-spacer></v-spacer>
-        <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-          <download-excel
-              :data   = "pagos.payload"
-              :fields = "headersPagosExport"
-              worksheet = "Pagos de Matriculados"
-              name    = "Pagos de Matriculados.xls">
-          <v-btn color="default" small> <v-icon left>cloud_download</v-icon> Descargar Pagos</v-btn>
-          </download-excel>
+        <v-spacer></v-spacer>
+        <v-flex xs12 sm12 md6 lg6 xl6 offset-md2 offset-lg2 offset-xl2>
+          <v-row>
+            <v-col cols="12" sm="12" md="4" lg="4" xl="4">
+              <download-excel
+                :data   = "pagos.payload"
+                :fields = "headersPagosExport"
+                worksheet = "Pagos de Matriculados"
+                name    = "Pagos de Matriculados.xls">
+              <v-btn color="default" small> <v-icon left>cloud_download</v-icon> Descargar Pagos</v-btn>
+              </download-excel>
+            </v-col>
+            <v-col cols="12" sm="12" md="4" lg="4" xl="4">
+              <v-dialog v-model="dialogRegistrarPago" max-width="500px">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="green darken-1" small dark v-on="on"> <v-icon left>attach_money</v-icon> Registrar Págo</v-btn>
+                </template>
+                <v-card text-center>
+                  <v-card-title>
+                    <span class="title" text-center>Registrar Pago</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <span class="font-weight-thin body-2">
+                        Registre los pagos que no se hayan realizado a través de esta plataforma
+                      </span>
+                      <v-row>
+                        <v-col cols="12" sm="12" md="12" lg="12" xl="12">
+                          <v-select
+                            :items="conceptoPago"
+                            label="Seleccione el Concepto de Pago"
+                            v-model="nuevoPagoItem.description"
+                            item-text="nombre"
+                            return-object
+                            required
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="12" md="12" lg="12" xl="12">
+                          <v-select
+                            :items="medioPago"
+                            label="Seleccione el Medio de Pago"
+                            v-model="nuevoPagoItem.medio_pago"
+                            item-text="nombre"
+                            item-value="valor"
+                            return-object
+                            required
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="5" md="5" lg="5" xl="5">
+                          <v-text-field 
+                            type="number"
+                            min="0"
+                            max="999999999" 
+                            v-model="nuevoPagoItem.documento_nro" 
+                            label="Nro de Documento"
+                            hint="Documento sin puntuaciones"
+                            required></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="7" md="7" lg="7" xl="7">
+                          <v-text-field 
+                            v-model="nuevoPagoItem.pago_id" 
+                            label="Ticket de Referencia"
+                            hint="Referencia de Transacción"
+                            required></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col cols="12" sm="6" md="6" lg="6" xl="6">
+                          <v-text-field 
+                            v-model="nuevoPagoItem.transaction_amount" 
+                            label="Monto Abonado"
+                            hint="Importe de transacción"
+                            required></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="red darken-1" text @click="closeDialogNuevoPago">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" v-if="!editarPago" text :loading="inProcess" @click="registerPay()">Registrar</v-btn>
+                    <v-btn color="blue darken-1" v-else text :loading="inProcess" @click="updatePay()">Actualizar</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-col>
+          </v-row>
+          
+          
         </v-flex>
       </v-layout>
       <v-layout align-center justify-space-around row fill-height>
@@ -226,7 +309,7 @@
               nextIcon: 'mdi-plus'
             }"
             >
-            <template v-slot:top>
+            <!-- <template v-slot:top>
               <v-toolbar flat color="white">
                 <v-toolbar-title>Pagos de Matriculados</v-toolbar-title>
                 <v-divider
@@ -235,99 +318,48 @@
                   vertical
                 ></v-divider>
                 <div class="flex-grow-1"></div>
-                <v-dialog v-model="dialogRegistrarPago" max-width="500px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn color="green darken-1" small dark v-on="on"> <v-icon left>attach_money</v-icon> Registrar Págo</v-btn>
-                  </template>
-                  <v-card text-center>
-                    <v-card-title>
-                      <span class="title" text-center>Registrar Pago</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <span class="font-weight-thin body-2">
-                          Registre los pagos que no se hayan realizado a través de esta plataforma
-                        </span>
-                        <v-row>
-                          <v-col cols="12" sm="12" md="12" lg="12" xl="12">
-                            <v-select
-                              :items="conceptoPago"
-                              label="Seleccione el Concepto de Pago"
-                              v-model="nuevoPagoItem.description"
-                              item-text="nombre"
-                              return-object
-                              required
-                            ></v-select>
-                          </v-col>
-                          <v-col cols="12" sm="12" md="12" lg="12" xl="12">
-                            <v-select
-                              :items="medioPago"
-                              label="Seleccione el Medio de Pago"
-                              v-model="nuevoPagoItem.medio_pago"
-                              item-text="nombre"
-                              item-value="valor"
-                              return-object
-                              required
-                            ></v-select>
-                          </v-col>
-                          <v-col cols="12" sm="5" md="5" lg="5" xl="5">
-                            <v-text-field 
-                              type="number"
-                              min="0"
-                              max="999999999" 
-                              v-model="nuevoPagoItem.documento_nro" 
-                              label="Nro de Documento"
-                              hint="Documento sin puntuaciones"
-                              required></v-text-field>
-                          </v-col>
-
-                          <v-col cols="12" sm="7" md="7" lg="7" xl="7">
-                            <v-text-field 
-                              v-model="nuevoPagoItem.pago_id" 
-                              label="Ticket de Referencia"
-                              hint="Referencia de Transacción"
-                              required></v-text-field>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col cols="12" sm="6" md="6" lg="6" xl="6">
-                            <v-text-field 
-                              v-model="nuevoPagoItem.transaction_amount" 
-                              label="Monto Abonado"
-                              hint="Importe de transacción"
-                              required></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <div class="flex-grow-1"></div>
-                      <v-btn color="red darken-1" text @click="closeDialogNuevoPago">Cancelar</v-btn>
-                      <v-btn color="blue darken-1" v-if="!editarPago" text :loading="inProcess" @click="registerPay()">Registrar</v-btn>
-                      <v-btn color="blue darken-1" v-else text :loading="inProcess" @click="updatePay()">Actualizar</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
+                
               </v-toolbar>
+            </template> -->
+            <template v-slot:top>
+              <v-dialog v-model="dialogTicket" max-width="400px">
+                <v-card text-center>
+                  <v-card-title>
+                    <span class="title" text-center>Comprobante de Pago  #{{ticketItem.id}} <v-icon>receipt</v-icon></span>
+                  </v-card-title>
+                  <v-card-text>
+                    <div><span><strong>Ticket de Transacción:</strong></span> {{ ticketItem.pago_id }}</div>
+                    <div><span><strong>Concepto:</strong></span> {{ ticketItem.description }}</div>
+                    <div><span><strong>Monto:</strong></span>$ {{ ticketItem.transaction_amount }}</div>
+                    <div><span><strong>Nro Documento:</strong></span> {{ ticketItem.documento_nro }}</div>
+                    <div><span><strong>Medio de Pago:</strong></span> {{ ticketItem.medio_pago }}</div>
+                    <div><span><strong>Url factura Afip:</strong></span> {{ ticketItem.factura_afip }}</div>
+                    <div><span><strong>Fecha de Pago:</strong></span> {{ ticketItem.createdAt | fechaConHora }}</div>
+                  </v-card-text>
+                  <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="blue darken-1" text @click="closeDialogTicket">Aceptar</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </template> 
+            <template v-slot:item.status="{item}">
+              <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
             </template>
-              <template v-slot:item.status="{item}">
-                <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
-              </template>
-              <template v-slot:item.transaction_amount="{item}">
-                $ {{ item.transaction_amount }}
-              </template>
-              <template v-slot:item.comprobante_url="{item}">
-                <v-btn small fab text color="light-blue"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
-              </template>
-              <template v-slot:item.createdAt="{item}">
-                {{ item.createdAt | fechaConHora }}
-              </template>
-              <template v-slot:item.action="{item}">
-                <v-icon small class="mr-2" @click="editPay(item)">edit</v-icon>
-                <v-icon small @click="deletePay(item)">delete</v-icon>
-              </template>
-            </v-data-table>
+            <template v-slot:item.transaction_amount="{item}">
+              $ {{ item.transaction_amount }}
+            </template>
+            <template v-slot:item.comprobante_url="{item}">
+              <v-btn small fab text color="light-blue" @click="showTicket(item)"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
+            </template>
+            <template v-slot:item.createdAt="{item}">
+              {{ item.createdAt | fechaConHora }}
+            </template>
+            <template v-slot:item.action="{item}">
+              <v-icon small class="mr-2" @click="editPay(item)">edit</v-icon>
+              <v-icon small @click="deletePay(item)">delete</v-icon>
+            </template>
+          </v-data-table>
         </v-flex>
         <!-- ./Datatable -->
         
@@ -413,6 +445,7 @@ export default {
         dialogTramite:false,
         dialogNuevoTramite:false,
         dialogRegistrarPago:false,
+        dialogTicket:false,
         editarPago:false,
         editedIndex: -1,
         editedItem:{
@@ -449,7 +482,16 @@ export default {
           dialogContent:[],
           icon:"visibility"
         },
-
+        ticketItem:{
+          id:'',
+          pago_id:'',
+          descripcion:'',
+          transaction_amount:'',
+          documento_nro:'',
+          factura_afip:'',
+          medio_pago:'',
+          createdAt:''
+        },
         // apigw: process.env.TEU_API,
         page: 1,
         tramitesLoading:false,
@@ -618,6 +660,13 @@ export default {
           this.snackbar = true
         }
       },
+      closeDialogTicket () {
+        this.dialogTicket = false;
+      },
+      showTicket(item){
+        this.ticketItem = item;
+        this.dialogTicket = true
+      }
     }
 }
 </script>
