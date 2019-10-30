@@ -23,7 +23,7 @@
             </tbody>
           </v-simple-table>
           <br>
-          <p>*Los profesionales que se matriculen en el tercer trimestre de cada año, desde el mes de Julio hasta Septiembre, abonarán el 50% del monto establecido para el concepto de Matrícula Anual. En tanto que los profesionales que se matriculen en el cuarto trimestre de cada año, desde Octubre hasta Diciembre, abonarán el 25% de la Matrícula Anual.</p>
+          <p>*Los profesionales que se inscriban en el tercer trimestre de cada año, desde el mes de Julio hasta Septiembre, abonarán el 50% del monto establecido para el concepto de Derecho Anual de Matriculación. En tanto que los profesionales que se inscriban en el cuarto trimestre de cada año, desde Octubre hasta Diciembre, abonarán el 25% del Derecho Anual de Matriculación.</p>
           <p><a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_101.pdf" rel="noopener" target="_blank">Resolución 101 (2/8/2017)</a></p>
           <p><a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_079.pdf" rel="noopener" target="_blank">Resolución 79 (22/10/2016)</a></p>
           <br>
@@ -47,13 +47,13 @@
             </tbody>
           </v-simple-table>
           <br>
-          <span style="color: #0b4c83;">DESCUENTOS: </span> Se realizará 10% para los matriculados que abonen su respectiva matrícula antes del 31 de marzo. Se realizará una bonificación del 20% en el pago de la matrícula 2020 para aquellos matriculados que participen activamente y efectivamente en las actividades propuestas por el Colegio. Dicha participación será evaluada en la última reunión del año 2019 del CONSEJO SUPERIOR para hacer efectivo el dicho descuento.
+          <span style="color: #0b4c83;">DESCUENTOS: </span> Se realizará 10% para los matriculados que abonen su respectivo Derecho Anual de Matriculación antes del 31 de marzo. Se realizará una bonificación del 20% en el pago del Derecho Anual de Matriculación 2020 para aquellos matriculados que participen activamente y efectivamente en las actividades propuestas por el Colegio. Dicha participación será evaluada en la última reunión del año 2019 del CONSEJO SUPERIOR para hacer efectivo el dicho descuento.
           <br>
           <br>
           <span style="color: #0b4c83;">INFORMACIÓN IMPORTANTE: </span>se comunica a los Matriculados que el pago de cualquier trámite a presentar ante el colegio deberá poseer como máximo fecha de un mes anterior a la presentación del mismo (Certificaciones, Encomiendas de tareas, etc.), por lo tanto no se recibirán transferencias o depósitos realizados con anterioridad al plazo establecido.
           <br>
           <br>
-          <span style="color: #0b4c83;">Para el retiro de la matrícula el profesional deberá entregar copia del talón de deposito o transferencia bancaria realizada.</span>
+          <span style="color: #0b4c83;">Para el retiro de la Credencial correspondiente, el profesional deberá entregar copia del talón de deposito o transferencia bancaria realizada.</span>
           <br>
           <br>
           <h3 class=".subheading font-weight-bold">FORMA DE PAGO</h3>
@@ -98,14 +98,14 @@ export default {
             cantidad: "5"
           },
           {
-            rubro:"Matrícula Anual",
+            rubro:"Derecho Anual de Matriculación",
             unidad: "Módulo",
             cantidad:"5"
           },
           {
             rubro:"Menos de 1 año de recibido",
             unidad:"",
-            cantidad:"bonificación del 50% en inscripción y matrícula anual (fecha de entrega del diploma)"
+            cantidad:"bonificación del 50% en inscripción y derecho anual de matriculación (fecha de entrega del diploma)"
           }
         ],
         valor_modulo:[
