@@ -1,29 +1,56 @@
 <template>
-    <v-container>
-      <v-flex xs12 sm12 md12 lg12 xl12 text-xs-center class="pt-2 pb-4">
-        <h1 class="display-2 font-weight-black" style="color:#263238">Misión y Visión</h1>
-      </v-flex>
-      <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-        <v-form>
-          <v-text-field
-            label="Buscar Matriculado"
-            append-icon="search"
-          ></v-text-field>
-        </v-form>
-      </v-flex>
-      
+    <v-container class="ml-0 mr-0" fluid>
       <v-layout align-center justify-space-around row fill-height>
-        
+        <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-2 pb-4">
+          <h1 class="display-2 font-weight-black" style="color:#263238">Departamentos por Especialidad</h1>
+        </v-flex>
+        <v-flex xs12 sm12 md6 lg6 xl6>
+          <p class="text-center">Los mismos se encuentran formados por profesionales matriculados del Colegio de Ingenieros de Tierra del Fuego.</p>
+          <hr class="mb-3">
+
+          <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento Ingeniería Civil y Construcciones</h3>
+          <p>
+            Representante Titular Interino: Ing. Ricardo Bianciotto<br>
+            Representante Suplente: A designar<br>
+            <br>
+            Área Construcciones<br>
+            Área Vías de Comunicación<br>
+            Área Hidráulica<br><br>
+            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_070.pdf" target="_blank">Resolución Nº 070. 16 de Julio de 2016</a>
+          </p>
+
+          <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento Electromecánica</h3>
+          <p>Representante Titular: Ing. Horacio Salvañá<br>
+          Representante Suplente: A designar<br>
+          Representante Área Eléctrica: Ing. Javier Sánchez<br>
+          Representante Área Mecánica: A designar<br>
+          Representante Área Electrónica: A designar<br>
+          Representante Área Industrial: A designar<br><br>
+          <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_072.pdf" target="_blank">Resolución Nº 072. 16 de Julio de 2016</a>
+          </p>
+
+          <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento de Ciencias Naturales</h3>
+          <p>
+            Representante Titular: A designar<br>
+            Representante Suplente: A designar<br><br>
+            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_071.pdf" target="_blank">Resolución Nº 071. 11 de Julio de 2016</a>
+          </p>
+
+          <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento de Sistemas</h3>
+          <p>
+            Representante Titular: Ing. Daniel Villanueva Quelín<br>
+            Representante Suplente: A designar<br><br>
+            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_073.pdf" target="_blank">Resolución Nº 073. 16 de Julio de 2016</a>
+          </p>
+
+          <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento de Seguridad e Higiene</h3>
+          <p>
+            Representante: Ing. Mónica Frías<br>
+            Representante Suplente: A designar<br><br>
+            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_116.pdf" target="_blank">Resolución Nº 116. 21 de Diciembre de 2017</a>
+          </p>
+        </v-flex>
       </v-layout>
-      <!-- Pagination -->
-      <p class="text-xs-center">
-          <v-pagination
-              v-model="page"
-              :length="response.last_page"
-              :total-visible="7"
-          />
-      </p>
-      <!-- ./Pagination -->
     </v-container>
 </template>
 

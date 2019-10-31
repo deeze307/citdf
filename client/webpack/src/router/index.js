@@ -14,6 +14,7 @@ import bolsa_trabajo from './bolsa-trabajo'
 import beneficios from './beneficios'
 import novedades from './novedades'
 import colegio from './colegio'
+import comisiones from './comisiones'
 import matricula from './matricula'
 import tramites from './tramites'
 import marco_legal from './marco_legal'
@@ -46,7 +47,7 @@ const baseRoutes = [
     component: descargas
   },
 ]
-let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,beneficios,matricula,tramites,marco_legal);
+let routes = baseRoutes.concat(user,novedades,bolsa_trabajo,colegio,comisiones,beneficios,matricula,tramites,marco_legal);
 export default new Router({
   routes
 })

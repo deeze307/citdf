@@ -1,24 +1,46 @@
 <template>
-    <v-container>
-      <v-flex xs12 sm12 md12 lg12 xl12 text-xs-center class="pt-2 pb-4">
-        <h1 class="display-2 font-weight-black" style="color:#263238">Comisiones Internas</h1>
-      </v-flex>
-      <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-        
-      </v-flex>
-      
+    <v-container class="ml-0 mr-0" fluid>
       <v-layout align-center justify-space-around row fill-height>
-        
+        <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-2 pb-4">
+          <h1 class="display-2 font-weight-black" style="color:#263238">Comisiones Internas</h1>
+        </v-flex>
+        <v-flex xs12 sm12 md6 lg6 xl6>
+          <p class="text-center">Las mismas se encuentran formadas por los profesionales del actual Consejo Superior y matriculados.</p>
+          <hr class="mb-3">
+
+          <h3 class=".subheading font-weight-bold mb-2">COMISIÓN I: De ejercicio profesional</h3>
+          <p>Ing. Zárate, Fabio<br>
+          Ing. Fried, Gustavo Roberto<br>
+          Ing. Domato, Marcelo<br>
+          Ing. Bianciotto, Ricardo</p>
+
+          <h3 class=".subheading font-weight-bold mb-2">COMISIÓN II: De habilitación profesional</h3>
+          <p>Zárate, Fabio Adrian<br>
+          Domato, Marcelo Fabián<br>
+          Fried, Gustavo Roberto</p>
+
+          <h3 class=".subheading font-weight-bold mb-2">COMISIÓN III: De relaciones Institucionales</h3>
+          <p>Obreque, Mónica Ester<br>
+          Cellamare, Antonio<br>
+          Haehnel, Guillermo Federico</p>
+
+          <h3 class=".subheading font-weight-bold mb-2">COMISIÓN IV: De defensa y promoción profesional</h3>
+          <p>Obreque, Mónica Ester<br>
+          Bianciotto, Ricardo Aníbal<br>
+          Fank, Vicente Antonio</p>
+
+          <h3 class=".subheading font-weight-bold mb-2">COMISIÓN V: De aranceles y honorarios</h3>
+          <p>Domato, Marcelo Fabián<br>
+          Fried, Gustavo Roberto<br>
+          Assenti, Carlos Leopoldo</p>
+
+          <h3 class=".subheading font-weight-bold mb-2">COMISIÓN VI: De programación de cursos y conferencias</h3>
+          <p>Fassi, Guillermo Raúl<br>
+          Caliva, Inés Alejandra<br>
+          Fornari, Sergio Alberto<br>
+          Fernández, Sergio Ariel</p>
+        </v-flex>
       </v-layout>
-      <!-- Pagination -->
-      <p class="text-xs-center">
-          <v-pagination
-              v-model="page"
-              :length="response.last_page"
-              :total-visible="7"
-          />
-      </p>
-      <!-- ./Pagination -->
     </v-container>
 </template>
 
