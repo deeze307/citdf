@@ -37,6 +37,31 @@ export default {
       return {
         resoluciones: [
           {
+            res: "165",
+            fecha: "07/10/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/10/Resolución-Nº165.pdf" target="_blank">Otorga M.P.N° 366  y otorga M.P. en Especialidad Adicional a M.P. 346.</a>'
+          },
+          {
+            res: "164",
+            fecha: "24/09/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/10/Resolución-Nº164.pdf" target="_blank">Aceptar solicitud para plan de cuotas MN°82.</a>'
+          },
+          {
+            res: "163",
+            fecha: "20/09/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/10/Resolución-Nº163.pdf" target="_blank">Aceptar solicitud para plan de cuotas MN°268.</a>'
+          },
+          {
+            res: "162",
+            fecha: "12/09/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/10/Resolución-Nº162.pdf" target="_blank">Otorga M.P.N° 364 y 365.</a>'
+          },
+          {
+            res: "161",
+            fecha: "22/08/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/10/Resolución-Nº161.pdf" target="_blank">Otorga M.P.N° 361, 362 y 363.</a>'
+          },
+          {
             res: "160",
             fecha: "13/08/2019",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/09/Resolución-Nº160.pdf" target="_blank">Modificar Art. N°1 de Resolución N° 108/2017.</a>'
