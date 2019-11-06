@@ -230,7 +230,7 @@ export default {
       window.scrollTo(0, 0)
     },
     created: function(){
-          store.dispatch("PAGOS_retrieveAll")
+          
     },
     computed:{
       tramites(){
@@ -244,6 +244,7 @@ export default {
         console.log("Usuario: ",usuario)
         if(usuario.user){
           store.dispatch("TRAMITES_retrieveAll",usuario.user.id)
+          store.dispatch("PAGOS_retrieveAll",usuario.user.custom_fields.documento_nro)
         };
         return usuario
       }
@@ -254,6 +255,7 @@ export default {
       },
       user(perfil){
         store.dispatch("TRAMITES_retrieveAll",perfil.user.id)
+        store.dispatch("PAGOS_retrieveAll",perfil.user.custom_fields.documento_nro)
       },
       pagos(){}
     },
