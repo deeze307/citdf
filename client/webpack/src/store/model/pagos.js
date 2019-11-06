@@ -114,6 +114,7 @@ const module = {
               icon: "success",
               button: "Aceptar",
             });
+            dispatch("PAGOS_retrieveAll",form.documento_nro);
           }else{
             console.log("Error: ",response.data)
             swal({

@@ -35,7 +35,7 @@
             :loading="tramitesLoading"
             loading-text="Cargando... espere por favor"
             :search="buscarTramite"
-            no-data-text="No hay datos"
+            no-data-text="No hay Trámites Registrados"
             class="elevation-1"
             :footer-props="{
               showFirstLastPage: true,
@@ -298,8 +298,9 @@
             :headers="headersPagos"
             :items="pagos.payload"
             :loading="pagosLoading"
+            loading-text="Cargando... espere por favor"
             :search="buscarPago"
-            no-data-text="No hay datos"
+            no-data-text="No hay Pagos Registrados"
             class="elevation-1"
             :footer-props="{
               showFirstLastPage: true,
@@ -494,7 +495,7 @@ export default {
         },
         // apigw: process.env.TEU_API,
         page: 1,
-        tramitesLoading:false,
+        tramitesLoading:true,
         pagosLoading:true,
         saving:false,
         loadingCategorias:false,
