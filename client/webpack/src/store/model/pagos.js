@@ -26,17 +26,17 @@ const module = {
     },
     actions: {
 
-      PAGOS_retrieveAll:function({commit,dispatch,state}){
+      PAGOS_retrieveAll:function({commit,dispatch,state},documentoNro=null){
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
 
-        // let params = "";
-        // if(userId){
-        //   params = {userId:userId};
-        // }
+        let params = "";
+        if(documentoNro){
+          params = {documento_nro:documentoNro};
+        }
 
-        curl.get('/pagos').then(function(response){
+        curl.get('/pagos',{params:params}).then(function(response){
           
           commit("asignarPagos",response.data);
 

@@ -28,34 +28,18 @@ app.use(cors());
 app.get('/', (req, res, next) => {
   // Obtengo Todos los tramites
   console.log(req.query);
-  let { filter } = req.query;
+  let { filter, documento_nro } = req.query;
   let limit = +req.query.pageSize || 5;
   let offset = 0;
   let count = 0;
-  // let where = {
-  //   [Op.and]: [
-  //     {id: {
-  //       [Op.like]: id !== undefined ? `${id}` : '%%'
-  //       }
-  //     },
-  //     {userId: {
-  //       [Op.like]: userId !== undefined ? `${userId}` : '%%'
-  //       }
-  //     },
-  //     {tramite: {
-  //       [Op.like]: tramite !== undefined ? `${tramite}` : '%%'
-  //       }
-  //     },
-  //     {status: {
-  //       [Op.like]: status !== undefined ? `${status}` : '%%'
-  //       }
-  //     },
-  //     {documentoNro: {
-  //       [Op.like]: documentoNro !== undefined ? `${documentoNro}` : '%%'
-  //       }
-  //     }
-  //   ]
-  // };
+  let where = {
+    [Op.and]: [
+      {documento_nro: {
+        [Op.like]: documento_nro !== undefined ? `${documento_nro}` : '%%'
+        }
+      }
+    ]
+  };
   
   db.pagos.findAndCountAll().then((data) => {
     let page = +req.query.pageNumber || 0;
@@ -66,7 +50,7 @@ app.get('/', (req, res, next) => {
         attributes: ['id','pago_id','description','transaction_amount','documento_nro','medio_pago','factura_afip','createdAt','updatedAt'],
         limit: limit,
         offset: offset,
-        // where: where,
+        where: where,
         order: [
           ["createdAt", "Desc"]
         ]
