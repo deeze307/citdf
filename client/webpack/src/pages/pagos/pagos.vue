@@ -47,7 +47,7 @@
                                 <v-text-field type="text" label="Mes de Expiración" id="cardExpirationMonth" v-model="pagosForm.cardExpirationMonth" placeholder="12"/>
                             </v-col>
                             <v-col cols="12" sm="3" md="3" lg="3" xl="3">
-                                <v-text-field type="text" label="Año de Expiración" id="cardExpirationYear" v-model="pagosForm.carExpirationYear" placeholder="2015"/>
+                                <v-text-field type="text" label="Año de Expiración" id="cardExpirationYear" v-model="pagosForm.cardExpirationYear" placeholder="2015"/>
                             </v-col>
                             <v-col cols="12" sm="3" md="3" lg="3" xl="3">
                                 <v-text-field type="text" label="Código de Seguridad" id="securityCode" v-model="pagosForm.securityCode" placeholder="123"/>
@@ -73,6 +73,14 @@
                                 <v-text-field label="N° Documento" v-model="pagosForm.docNumber" id="docNumber" placeholder="12345678" />
                             </v-col>
                         </v-row>
+                        <hr class="mt-5">
+                        <v-flex xs12 sm12 md12 lg12 xl12 class="mt-5">
+                            <p align="center">Los pagos a través de esta plataforma están siendo realizados por MercadoPago. Todas las promociones y/o intereses aplicados sobre los pagos son gestionados por MercadoPago.</p>
+                            <v-row align="center" justify="center">
+                                <v-img :src="require('@/assets/mercadopago_logo.png')" max-width="100" ></v-img>
+                            </v-row>
+
+                        </v-flex>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -112,6 +120,8 @@ export default {
             {"nombre":"Encomienda de Trámites","modulos":1,"costo":1},
             {"nombre":"Inscripción","modulos":5,"costo":1000},
             {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000}
+            // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
+            
         ]
     }),
     mounted() {
@@ -149,20 +159,12 @@ export default {
             Mercadopago.getIdentificationTypes();
         },
         startPay(){
-            // this.$store.state.pagos.pagosForm.cardNumber = "4540730020294188"
-            // this.$store.state.pagos.pagosForm.cardExpirationMonth = "12"
-            // this.$store.state.pagos.pagosForm.cardExpirationYear = "2021"
-            // this.$store.state.pagos.pagosForm.securityCode = "915"
-            // this.$store.state.pagos.pagosForm.email = "deeze.designs@gmail.com"
-            // this.$store.state.pagos.pagosForm.cardholderName = "DIEGO EZE MAIDANA"
-            // this.$store.state.pagos.pagosForm.docType = "DNI"
-            // this.$store.state.pagos.pagosForm.docNumber = "36176011"
-            // this.$store.state.pagos.pagosForm.docType = "DNI"
             this.$store.state.pagos.pagosForm.description = this.$store.state.pagos.pagosForm.tipo_pago.nombre
             this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.tipo_pago.costo
 
             this.$store.state.pagos.pagosForm.paymentMethodId = this.$store.state.pagos.pagosForm.paymentMethod.value
             let callback = this.$store.state.pagos.pagosForm
+            console.log("Formulario de Pagos:",this.$store.state.pagos.pagosForm)
             Mercadopago.createToken(this.$store.state.pagos.pagosForm,sdkResponseHandler.bind(callback))
             
         },
@@ -202,7 +204,11 @@ export default {
             }
             
             this.$store.state.pagos.pagosForm.tipo_pago.costo_modulo = valor_modulo;
-            this.$store.state.pagos.pagosForm.tipo_pago.costo = costo;
+             if(this.$store.state.pagos.pagosForm.tipo_pago.nombre === "Pago de Prueba"){
+                 this.$store.state.pagos.pagosForm.tipo_pago.costo = 1;
+             }else{
+                 this.$store.state.pagos.pagosForm.tipo_pago.costo = costo;
+             }
             this.showCosto = true;
         }
     }
@@ -212,7 +218,12 @@ function sdkResponseHandler(status, response) {
     console.log("sdkResponseHandler",response);
     
     if (status != 200 && status != 201) {
-        alert("verify filled data");
+        swal({
+            title: "Atención!",
+            text: "Por favor, verifique todos los campos nuevamente.",
+            icon: "warning",
+            button: "Aceptar",
+        });  
     }else{
         store.dispatch('PAGOS_create',response.id);
     }

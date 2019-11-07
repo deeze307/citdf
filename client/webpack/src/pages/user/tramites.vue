@@ -245,7 +245,7 @@ export default {
         let usuario = store.state.login_api.user;
         console.log("Usuario: ",usuario)
         if(usuario.user){
-          store.dispatch("TRAMITES_retrieveAll",usuario.user.id)
+          store.dispatch("TRAMITES_retrieveAll",usuario.user.custom_fields.documento_nro)
           store.dispatch("PAGOS_retrieveAll",usuario.user.custom_fields.documento_nro)
         };
         return usuario
@@ -256,7 +256,7 @@ export default {
         this.tramitesLoading=false;
       },
       user(perfil){
-        store.dispatch("TRAMITES_retrieveAll",perfil.user.id)
+        store.dispatch("TRAMITES_retrieveAll",perfil.user.custom_fields.documento_nro)
         store.dispatch("PAGOS_retrieveAll",perfil.user.custom_fields.documento_nro)
       },
       pagos(){

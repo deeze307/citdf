@@ -93,6 +93,12 @@
                                   hint="DNI sin puntuaciones"
                                   required></v-text-field>
                               </v-col>
+                              <v-col cols="12" sm="6" md="6" lg="6" xl="6" class="mr-0">
+                                <v-text-field
+                                  v-model="nuevoTramiteItem.nroRegistro" 
+                                  label="Nro de Registro"
+                                  required></v-text-field>
+                              </v-col>
                             </v-row>
                             <v-row>
                               <v-col cols="12" sm="8" md="8" lg="8" xl="8" class="ml-0">
@@ -383,8 +389,9 @@ export default {
       return {
         headersTramites: [
           { text: '#ID', value: 'id' , sortable: true, align: 'center' , width:'5%'},
+          { text: 'Nro Registro', value: 'nroRegistro' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Nro Documento', value: 'documentoNro' , sortable: true, align: 'center' , width:'5%'},
-          { text: 'Tramite', value: 'tramite' , sortable: true, align: 'center' , width:'30%'},
+          { text: 'Tramite', value: 'tramite' , sortable: true, align: 'center' , width:'25%'},
           { text: 'Monto', value: 'valor' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'20%'},
           { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
@@ -403,6 +410,7 @@ export default {
         ],
         headersTramitesExport:{
           "#ID" : "id",
+          "Nro Registro" : "nroRegistro",
           "Nro Documento" : "documentoNro",
           "Tramite" : "tramite",
           "Monto" : "valor",
