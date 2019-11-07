@@ -43,14 +43,14 @@ const module = {
       }
     },
     actions: {
-      TRAMITES_retrieveAll:function({commit,dispatch,state},userId=null){
+      TRAMITES_retrieveAll:function({commit,dispatch,state},documentoNro=null){
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
 
         let params = "";
-        if(userId){
-          params = {userId:userId};
+        if(documentoNro){
+          params = {documentoNro:documentoNro};
         }
 
         curl.get('/tramites',{params:params}).then(function(response){
