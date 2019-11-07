@@ -55,7 +55,7 @@ app.get('/', (req, res, next) => {
     offset = (page) * limit;
     count = data.count;
     db.tramites.findAll({
-        attributes: ['id','userId','tramite','nota','documentoNro','valor','status','createdAt','updatedAt'],
+        attributes: ['id','userId','tramite','nota','documentoNro', 'nroRegistro','valor','status','createdAt','updatedAt'],
         limit: limit,
         offset: offset,
         where: where,
@@ -153,6 +153,7 @@ app.post('/',(req,res,next) =>{
   db.tramites.create({
     userId: req.body.userId,
     documentoNro : req.body.documentoNro,
+    nroRegistro: req.body.nroRegistro,
     valor : req.body.valor,
     tramite: req.body.tramite,
     nota: req.body.nota,
