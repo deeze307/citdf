@@ -71,8 +71,8 @@ app.get('/', (req, res, next) => {
     return res.status(422).json({
       message: msg.errors
     });
-  }).catch(function(err) {
-    return res.status(400).json({ message: "Error al recuperar los pagos",err });
+  }).catch(Sequelize.DatabaseError,function(err) {
+    return res.status(400).json({ message: "Error al conectarse a la base de datos",err });
   });
 });
 
