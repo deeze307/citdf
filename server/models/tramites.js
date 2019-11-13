@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     nota: DataTypes.STRING,
     status: DataTypes.INTEGER,
     valor: DataTypes.INTEGER,
+    matriculaNro: DataTypes.STRING,
     documentoNro: DataTypes.INTEGER,
+    observaciones: DataTypes.STRING,
     nroRegistro:DataTypes.STRING
   }, {});
   tramites.associate = function(models) {

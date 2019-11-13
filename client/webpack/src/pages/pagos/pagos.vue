@@ -52,11 +52,14 @@
                             <v-col cols="12" sm="3" md="3" lg="3" xl="3">
                                 <v-text-field type="text" label="Código de Seguridad" id="securityCode" v-model="pagosForm.securityCode" placeholder="123"/>
                             </v-col>
+                            <v-col cols="12" sm="8" md="8" lg="8" xl="8">
+                                <v-text-field type="text" label="Titular de Tarjeta (tal y como figura en la tarjeta)" v-model="pagosForm.cardholderName" placeholder="TITULAR DE TARJETA"/>
+                            </v-col>
                             <v-col cols="12" sm="6" md="6" lg="6" xl="6">
                                 <v-text-field id="email" name="email" label="Email" type="email" v-model="pagosForm.email" placeholder="Ingrese su Email" required/>
                             </v-col>
-                            <v-col cols="12" sm="8" md="8" lg="8" xl="8">
-                                <v-text-field type="text" label="Titular de Tarjeta (tal y como figura en la tarjeta)" v-model="pagosForm.cardholderName" placeholder="TITULAR DE TARJETA"/>
+                            <v-col cols="12" sm="6" md="6" lg="4" xl="4">
+                                <v-text-field id="matriculaNro" name="matriculaNro" label="Matrícula N°" type="text" v-model="pagosForm.matriculaNro" placeholder="Ingrese su N° de matrícula" required/>
                             </v-col>
                             <!-- <input type="submit" value="Pay!" /> -->
                         </v-row>
@@ -71,6 +74,16 @@
                             </v-col>
                             <v-col cols="12" sm="4" md="4" lg="4" xl="4">
                                 <v-text-field label="N° Documento" v-model="pagosForm.docNumber" id="docNumber" placeholder="12345678" />
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" sm="6" md="6" lg="6" xl="6" class="px-3">
+                                <v-textarea
+                                v-model="pagosForm.observaciones"
+                                label="Observaciones"
+                                counter="200"
+                                maxlength="200"
+                                ></v-textarea>
                             </v-col>
                         </v-row>
                         <hr class="mt-5">

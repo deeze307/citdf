@@ -127,10 +127,12 @@
                       <v-card-text>
                         <div><span><strong>Ticket de Transacción:</strong></span> {{ ticketItem.pago_id }}</div>
                         <div><span><strong>Concepto:</strong></span> {{ ticketItem.description }}</div>
-                        <div><span><strong>Monto:</strong></span>$ {{ ticketItem.transaction_amount }}</div>
+                        <div><span><strong>Monto:</strong></span>${{ ticketItem.transaction_amount }}</div>
                         <div><span><strong>Nro Documento:</strong></span> {{ ticketItem.documento_nro }}</div>
+                        <div><span><strong>Nro Matrícula:</strong></span> {{ ticketItem.matriculaNro }}</div>
                         <div><span><strong>Medio de Pago:</strong></span> {{ ticketItem.medio_pago }}</div>
                         <div><span><strong>Url factura Afip:</strong></span> {{ ticketItem.factura_afip }}</div>
+                        <div><span><strong>Observaciones:</strong></span> {{ ticketItem.observaciones }}</div>
                         <div><span><strong>Fecha de Pago:</strong></span> {{ ticketItem.createdAt | fechaConHora }}</div>
                       </v-card-text>
                       <v-card-actions>
@@ -171,8 +173,9 @@ export default {
       return {
         headersTramites: [
           { text: 'N° Trámite', value: 'id' , sortable: true, align: 'center' , width:'10%'},
-          { text: 'Trámite', value: 'tramite' , sortable: true, align: 'center' , width:'50%'},
+          { text: 'Trámite', value: 'tramite' , sortable: true, align: 'center' , width:'40%'},
           { text: 'Nota', value: 'nota' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Observaciones', value: 'observaciones' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'15%'},
           { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
         ],
@@ -183,6 +186,7 @@ export default {
           { text: 'Valor', value: 'transaction_amount' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Comprobante', value: 'comprobante_url' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Factura', value: 'factura_afip' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Observaciones', value: 'observaciones' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Fecha de Pago', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
         ],
         buscarTramite:'',
@@ -206,8 +210,10 @@ export default {
           descripcion:'',
           transaction_amount:'',
           documento_nro:'',
+          matriculaNro:'',
           factura_afip:'',
           medio_pago:'',
+          observaciones:'',
           createdAt:''
         },
         defaultItem: {
