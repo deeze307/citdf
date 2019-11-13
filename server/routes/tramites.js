@@ -54,10 +54,10 @@ app.get('/', (req, res, next) => {
   };
   
   db.tramites.findAndCountAll().then((data) => {
-    let page = +req.query.pageNumber || 0;
-    let pages = Math.ceil(data.count / limit);
-    offset = (page) * limit;
-    count = data.count;
+    // let page = +req.query.pageNumber || 0;
+    // let pages = Math.ceil(data.count / limit);
+    // offset = (page) * limit;
+    // count = data.count;
     db.tramites.findAll({
         attributes: ['id','userId','tramite','nota','documentoNro', 'matriculaNro', 'nroRegistro','valor','status','observaciones','createdAt','updatedAt'],
         // limit: limit,
@@ -70,15 +70,15 @@ app.get('/', (req, res, next) => {
       .then(tramites => {
         res.status(200).json({
           ok: true,
-          payload: tramites,
-          count: count,
-          pages: pages
+          payload: tramites
         });
       });
   }).catch(Sequelize.ValidationError, function(msg) {
     return res.status(422).json({
       message: msg.errors
     });
+  }).catch(Sequelize.DatabaseError,function(err) {
+    return res.status(400).json({ message: "Error al conectarse a la base de datos",err });
   }).catch(function(err) {
     return res.status(400).json({ message: "Error al recuperar los trámites",err });
   });
