@@ -46,10 +46,10 @@ app.get('/', (req, res, next) => {
   };
   
   db.pagos.findAndCountAll().then((data) => {
-    let page = +req.query.pageNumber || 0;
-    let pages = Math.ceil(data.count / limit);
-    offset = (page) * limit;
-    count = data.count;
+    // let page = +req.query.pageNumber || 0;
+    // let pages = Math.ceil(data.count / limit);
+    // offset = (page) * limit;
+    // count = data.count;
     db.pagos.findAll({
         attributes: ['id','pago_id','description','transaction_amount','documento_nro','matriculaNro','medio_pago','factura_afip','observaciones','createdAt','updatedAt'],
         // limit: limit,
@@ -62,9 +62,7 @@ app.get('/', (req, res, next) => {
       .then(pagos => {
         res.status(200).json({
           ok: true,
-          payload: pagos,
-          count: count,
-          pages: pages
+          payload: pagos
         });
       });
   }).catch(Sequelize.ValidationError, function(msg) {
@@ -73,7 +71,8 @@ app.get('/', (req, res, next) => {
     });
   }).catch(Sequelize.DatabaseError,function(err) {
     return res.status(400).json({ message: "Error al conectarse a la base de datos",err });
-  });
+  }).catch(function(err) {
+    return res.status(400).json({ message: "Error al recuperar pagos",err });
 });
 
 app.put('/:id', (req, res) => {
