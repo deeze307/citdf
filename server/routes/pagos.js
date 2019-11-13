@@ -73,6 +73,7 @@ app.get('/', (req, res, next) => {
     return res.status(400).json({ message: "Error al conectarse a la base de datos",err });
   }).catch(function(err) {
     return res.status(400).json({ message: "Error al recuperar pagos",err });
+  });
 });
 
 app.put('/:id', (req, res) => {
