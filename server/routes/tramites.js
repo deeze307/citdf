@@ -20,8 +20,8 @@ app.use(cors());
 app.get('/', (req, res, next) => {
   // Obtengo Todos los tramites
   console.log(req.query);
-  let { filter, id, userId, tramite, status, documentoNro, sortField, sortDirection } = req.query;
-  let limit = +req.query.pageSize || 5;
+  let { filter, id, userId, tramite, status, documentoNro, matriculaNro, sortField, sortDirection } = req.query;
+  // let limit = +req.query.pageSize || 5;
   let offset = 0;
   let count = 0;
   let where = {
@@ -45,6 +45,10 @@ app.get('/', (req, res, next) => {
       {documentoNro: {
         [Op.like]: documentoNro !== undefined ? `${documentoNro}` : '%%'
         }
+      },
+      {matriculaNro: {
+        [Op.like]: matriculaNro !== undefined ? `${matriculaNro}` : '%%'
+        }
       }
     ]
   };
@@ -55,9 +59,9 @@ app.get('/', (req, res, next) => {
     offset = (page) * limit;
     count = data.count;
     db.tramites.findAll({
-        attributes: ['id','userId','tramite','nota','documentoNro', 'nroRegistro','valor','status','createdAt','updatedAt'],
-        limit: limit,
-        offset: offset,
+        attributes: ['id','userId','tramite','nota','documentoNro', 'matriculaNro', 'nroRegistro','valor','status','observaciones','createdAt','updatedAt'],
+        // limit: limit,
+        // offset: offset,
         where: where,
         order: [
           ["createdAt", "Desc"]
@@ -92,9 +96,11 @@ app.put('/:id', (req, res) => {
   db.tramites.update({
     userId: req.body.userId,
     documentoNro : req.body.documentoNro,
+    matriculaNro : req.body.matriculaNro,
     valor : req.body.valor,
     tramite: req.body.tramite,
     nota: req.body.nota,
+    observaciones : req.body.observaciones,
     status: req.body.status
   }, {
     where: {
@@ -153,10 +159,12 @@ app.post('/',(req,res,next) =>{
   db.tramites.create({
     userId: req.body.userId,
     documentoNro : req.body.documentoNro,
+    matriculaNro: req.body.matriculaNro,
     nroRegistro: req.body.nroRegistro,
     valor : req.body.valor,
     tramite: req.body.tramite,
     nota: req.body.nota,
+    observaciones : req.body.observaciones,
     status: req.body.status
   }).then(result => {
     if (result === 0) {

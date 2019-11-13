@@ -99,6 +99,20 @@
                                   label="Nro de Registro"
                                   required></v-text-field>
                               </v-col>
+                              <v-col cols="12" sm="6" md="6" lg="6" xl="6" class="mr-0">
+                                <v-text-field
+                                  v-model="nuevoTramiteItem.matriculaNro" 
+                                  label="Nro de Matrícula"
+                                  hint="Incluya el '0' a la izquierda de ser necesario"
+                                  required></v-text-field>
+                              </v-col>
+                              <v-flex xs12 sm12 md12 lg12 xl12 d-flex class="px-3">
+                                <v-textarea
+                                v-model="nuevoTramiteItem.observaciones"
+                                label="Observaciones"
+                                counter="100"
+                                ></v-textarea>
+                              </v-flex>
                             </v-row>
                             <v-row>
                               <v-col cols="12" sm="8" md="8" lg="8" xl="8" class="ml-0">
@@ -155,7 +169,7 @@
                 </v-chip>
               </template>
               <template v-slot:item.valor="{item}">
-                $ {{ item.valor }}
+                ${{ item.valor }}
               </template>
               <template v-slot:item.createdAt="{item}">
                 {{ item.createdAt | fechaSinHora }}
@@ -263,7 +277,7 @@
                             required></v-text-field>
                         </v-col>
 
-                        <v-col cols="12" sm="7" md="7" lg="7" xl="7">
+                        <v-col cols="12" sm="6" md="6" lg="6" xl="6">
                           <v-text-field 
                             v-model="nuevoPagoItem.pago_id" 
                             label="Ticket de Referencia"
@@ -272,13 +286,27 @@
                         </v-col>
                       </v-row>
                       <v-row>
-                        <v-col cols="12" sm="6" md="6" lg="6" xl="6">
+                        <v-col cols="12" sm="4" md="4" lg="4" xl="4">
+                          <v-text-field 
+                            v-model="nuevoPagoItem.matriculaNro" 
+                            label="Nro de Matrícula"
+                            hint="Incluya el '0' a la izquierda de ser necesario"
+                            required></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="4" md="4" lg="4" xl="4">
                           <v-text-field 
                             v-model="nuevoPagoItem.transaction_amount" 
                             label="Monto Abonado"
                             hint="Importe de transacción"
                             required></v-text-field>
                         </v-col>
+                        <v-flex xs12 sm12 md12 lg12 xl12 d-flex class="px-3">
+                          <v-textarea
+                          v-model="nuevoPagoItem.observaciones"
+                          label="Observaciones"
+                          counter="100"
+                          ></v-textarea>
+                        </v-flex>
                       </v-row>
                     </v-container>
                   </v-card-text>
@@ -337,10 +365,12 @@
                   <v-card-text>
                     <div><span><strong>Ticket de Transacción:</strong></span> {{ ticketItem.pago_id }}</div>
                     <div><span><strong>Concepto:</strong></span> {{ ticketItem.description }}</div>
-                    <div><span><strong>Monto:</strong></span>$ {{ ticketItem.transaction_amount }}</div>
+                    <div><span><strong>Monto:</strong></span>${{ ticketItem.transaction_amount }}</div>
                     <div><span><strong>Nro Documento:</strong></span> {{ ticketItem.documento_nro }}</div>
+                    <div><span><strong>Nro Matrícula:</strong></span> {{ ticketItem.matriculaNro }}</div>
                     <div><span><strong>Medio de Pago:</strong></span> {{ ticketItem.medio_pago }}</div>
                     <div><span><strong>Url factura Afip:</strong></span> {{ ticketItem.factura_afip }}</div>
+                    <div><span><strong>Observaciones:</strong></span> {{ ticketItem.observaciones }}</div>
                     <div><span><strong>Fecha de Pago:</strong></span> {{ ticketItem.createdAt | fechaConHora }}</div>
                   </v-card-text>
                   <v-card-actions>
@@ -354,7 +384,7 @@
               <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
             </template>
             <template v-slot:item.transaction_amount="{item}">
-              $ {{ item.transaction_amount }}
+              ${{ item.transaction_amount }}
             </template>
             <template v-slot:item.comprobante_url="{item}">
               <v-btn small fab text color="light-blue" @click="showTicket(item)"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
@@ -391,27 +421,32 @@ export default {
           { text: '#ID', value: 'id' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Nro Registro', value: 'nroRegistro' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Nro Documento', value: 'documentoNro' , sortable: true, align: 'center' , width:'5%'},
-          { text: 'Tramite', value: 'tramite' , sortable: true, align: 'center' , width:'25%'},
+          { text: 'Nro Matrícula', value: 'matriculaNro' , sortable: true, align: 'center' , width:'5%'},
+          { text: 'Tramite', value: 'tramite' , sortable: true, align: 'center' , width:'20%'},
           { text: 'Monto', value: 'valor' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'20%'},
+          { text: 'Obs.', value: 'observaciones' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
           { text: 'Gestionar', value: 'action' , sortable: false, align: 'center' , width:'10%'},
         ],
         headersPagos: [
           { text: '#ID', value: 'id' , sortable: true, align: 'center' , width:'5%'},
-          { text: '#Ticket N°', value: 'pago_id' , sortable: true, align: 'center' , width:'10%'},
-          { text: 'Nro Documento', value: 'documento_nro' , sortable: true, align: 'center' , width:'20%'},
-          { text: 'Concepto', value: 'description' , sortable: true, align: 'center' , width:'30%'},
-          { text: 'Monto', value: 'transaction_amount' , sortable: true, align: 'center' , width:'10%'},
-          { text: 'Comprobante', value: 'comprobante_url' , sortable: true, align: 'center' , width:'5%'},
+          { text: '#Ticket N°', value: 'pago_id' , sortable: true, align: 'center' , width:'5%'},
+          { text: 'Nro Documento', value: 'documento_nro' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Nro Matrícula', value: 'matriculaNro' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Concepto', value: 'description' , sortable: true, align: 'center' , width:'20%'},
+          { text: 'Monto', value: 'transaction_amount' , sortable: true, align: 'center' , width:'5%'},
+          { text: 'Comprobante', value: 'comprobante_url' , sortable: false, align: 'center' , width:'5%'},
           { text: 'Factura', value: 'factura_afip' , sortable: true, align: 'center' , width:'5%'},
+          { text: 'Obs.', value: 'observaciones' , sortable: true, align: 'center' , width:'5%'},
           { text: 'Fecha de Pago', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
-          { text: 'Acciones', value: 'action' , sortable: true, align: 'center' , width:'15%'},
+          { text: 'Acciones', value: 'action' , sortable: true, align: 'center' , width:'10%'},
         ],
         headersTramitesExport:{
           "#ID" : "id",
           "Nro Registro" : "nroRegistro",
           "Nro Documento" : "documentoNro",
+          "Nro Matrícula" : "matriculaNro",
           "Tramite" : "tramite",
           "Monto" : "valor",
           "Estado" : "status",
@@ -419,8 +454,9 @@ export default {
         },
         headersPagosExport:{
           "#ID" : "id",
-          "#Ticket" : "pago_id",
+          "#Ticket N°" : "pago_id",
           "Nro Documento" : "documento_nro",
+          "Nro Matrícula" : "matriculaNro",
           "Concepto" : "description",
           "Monto" : "transaction_amount",
           "Fecha de Pago" : "createdAt"

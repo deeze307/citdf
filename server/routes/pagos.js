@@ -28,14 +28,18 @@ app.use(cors());
 app.get('/', (req, res, next) => {
   // Obtengo Todos los tramites
   console.log(req.query);
-  let { filter, documento_nro } = req.query;
-  let limit = +req.query.pageSize || 5;
-  let offset = 0;
+  let { filter, documento_nro, matriculaNro } = req.query;
+  // let limit = +req.query.pageSize || 5;
+  // let offset = 0;
   let count = 0;
   let where = {
     [Op.and]: [
       {documento_nro: {
         [Op.like]: documento_nro !== undefined ? `${documento_nro}` : '%%'
+        }
+      },
+      {matriculaNro: {
+        [Op.like]: matriculaNro !== undefined ? `${matriculaNro}` : '%%'
         }
       }
     ]
@@ -47,9 +51,9 @@ app.get('/', (req, res, next) => {
     offset = (page) * limit;
     count = data.count;
     db.pagos.findAll({
-        attributes: ['id','pago_id','description','transaction_amount','documento_nro','medio_pago','factura_afip','createdAt','updatedAt'],
-        limit: limit,
-        offset: offset,
+        attributes: ['id','pago_id','description','transaction_amount','documento_nro','matriculaNro','medio_pago','factura_afip','observaciones','createdAt','updatedAt'],
+        // limit: limit,
+        // offset: offset,
         where: where,
         order: [
           ["createdAt", "Desc"]
@@ -80,7 +84,9 @@ app.put('/:id', (req, res) => {
     description : payment.description,
     transaction_amount : payment.transaction_amount,
     documento_nro : payment.documento_nro,
-    medio_pago : payment.medio_pago
+    matriculaNro : payment.matriculaNro,
+    medio_pago : payment.medio_pago,
+    observaciones : payment.observaciones
   }, {
     where: {
       id: req.params.id
@@ -118,7 +124,9 @@ app.post('/register',(req,res,next) =>{
     description : payment.description,
     transaction_amount : payment.transaction_amount,
     documento_nro : payment.documento_nro,
-    medio_pago : payment.medio_pago
+    matriculaNro : payment.matriculaNro,
+    medio_pago : payment.medio_pago,
+    observaciones : payment.observaciones
   }).then(result =>{
     res.status(200).json({
       ok:true,
@@ -168,9 +176,11 @@ app.post('/create',(req,res,next) =>{
       db.pagos.create({
         pago_id : response.body.id,
         description : response.body.description,
+        matriculaNro : response.body.matriculaNro,
         transaction_amount : +response.body.transaction_amount,
         documento_nro : response.body.payer.identification.number,
-        medio_pago : 'online'
+        medio_pago : 'online',
+        observaciones : response.body.observaciones
       }).then(result =>{
       })
     }
