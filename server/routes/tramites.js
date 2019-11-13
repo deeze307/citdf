@@ -27,27 +27,27 @@ app.get('/', (req, res, next) => {
   let where = {
     [Op.and]: [
       {id: {
-        [Op.like]: id !== undefined ? `${id}` : '%%'
+        [Op.like]: id ? `${id}` : '%%'
         }
       },
       {userId: {
-        [Op.like]: userId !== undefined ? `${userId}` : '%%'
+        [Op.like]: userId ? `${userId}` : '%%'
         }
       },
       {tramite: {
-        [Op.like]: tramite !== undefined ? `${tramite}` : '%%'
+        [Op.like]: tramite ? `${tramite}` : '%%'
         }
       },
       {status: {
-        [Op.like]: status !== undefined ? `${status}` : '%%'
+        [Op.like]: status ? `${status}` : '%%'
         }
       },
       {documentoNro: {
-        [Op.like]: documentoNro !== undefined ? `${documentoNro}` : '%%'
+        [Op.like]: documentoNro ? `${documentoNro}` : '%%'
         }
       },
       {matriculaNro: {
-        [Op.like]: matriculaNro !== undefined ? `${matriculaNro}` : '%%'
+        [Op.like]: matriculaNro ? `${matriculaNro}` : '%%'
         }
       }
     ]

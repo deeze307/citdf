@@ -35,11 +35,11 @@ app.get('/', (req, res, next) => {
   let where = {
     [Op.and]: [
       {documento_nro: {
-        [Op.like]: documento_nro !== undefined ? `${documento_nro}` : '%%'
+        [Op.like]: documento_nro ? `${documento_nro}` : '%%'
         }
       },
       {matriculaNro: {
-        [Op.like]: matriculaNro !== undefined ? `${matriculaNro}` : '%%'
+        [Op.like]: matriculaNro ? `${matriculaNro}` : '%%'
         }
       }
     ]
