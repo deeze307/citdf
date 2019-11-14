@@ -65,12 +65,16 @@
                     >
                       <v-card text-center>
                         <v-card-title>
-                          <span class="title" text-center>Registrar Nuevo Trámite</span>
+                          <span v-if="editarTramite" class="title" text-center>Editar Trámite N°{{nuevoTramiteItem.id   }}</span>
+                          <span v-else class="title" text-center>Registrar Nuevo Trámite</span>
                         </v-card-title>
                         <v-card-text>
                           <v-container>
                             <v-row>
-                              <span class="font-weight-thin body-2">
+                              <span v-if="editarTramite" class="font-weight-thin body-2">
+                                Edite el trámite solicitado
+                              </span>
+                              <span v-else class="font-weight-thin body-2">
                                 Registre los trámites solicitados por los matriculados
                               </span>
                               <v-col cols="12" sm="12" md="12" lg="12" xl="12">
@@ -128,7 +132,9 @@
                         <v-card-actions>
                           <div class="flex-grow-1"></div>
                           <v-btn color="red darken-1" text @click="closeDialogNuevoTramite">Cancelar</v-btn>
-                          <v-btn color="blue darken-1" text @click="createTramite(nuevoTramiteItem)" :disabled="!valid">Aceptar</v-btn>
+                          
+                          <v-btn v-if="!editarTramite" color="blue darken-1" text @click="createTramite(nuevoTramiteItem)" :disabled="!valid">Aceptar</v-btn>
+                          <v-btn v-else color="blue darken-1" text @click="updateTramite(nuevoTramiteItem)" :disabled="!valid">Actualizar</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-form>
@@ -168,6 +174,9 @@
                   <v-icon v-if="item.status === 'Pendiente'" small right>alarm</v-icon>
                 </v-chip>
               </template>
+              <template  v-slot:item.observaciones="{item}">
+                <v-btn v-if="item.observaciones && item.observaciones !== ''" small fab text color="blue" @click="showObservation(item)"><v-icon>visibility</v-icon></v-btn>
+              </template>
               <template v-slot:item.valor="{item}">
                 ${{ item.valor }}
               </template>
@@ -194,6 +203,10 @@
                     </v-list-item>
                     <v-list-item @click="showTramite(item)">
                       <v-list-item-title>Cancelar</v-list-item-title>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item @click="editTramite(item)">
+                      <v-list-item-title>Editar</v-list-item-title><v-icon>edit</v-icon>
                     </v-list-item>
                   </v-list>
                 </v-menu>
@@ -344,18 +357,6 @@
               nextIcon: 'mdi-plus'
             }"
             >
-            <!-- <template v-slot:top>
-              <v-toolbar flat color="white">
-                <v-toolbar-title>Pagos de Matriculados</v-toolbar-title>
-                <v-divider
-                  class="mx-4"
-                  inset
-                  vertical
-                ></v-divider>
-                <div class="flex-grow-1"></div>
-                
-              </v-toolbar>
-            </template> -->
             <template v-slot:top>
               <v-dialog v-model="dialogTicket" max-width="400px">
                 <v-card text-center>
@@ -379,6 +380,24 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+              <v-dialog v-model="dialogObservaciones" max-width="400px">
+                <v-card text-center>
+                  <v-card-title>
+                    <span class="title" text-center>Observaciones</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      "{{observacionItem.observaciones}}"
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="blue darken-1" text @click="closeDialogObservaciones">Aceptar</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </template> 
             <template v-slot:item.status="{item}">
               <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
@@ -389,6 +408,9 @@
             <template v-slot:item.comprobante_url="{item}">
               <v-btn small fab text color="light-blue" @click="showTicket(item)"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
             </template>
+            <template  v-slot:item.observaciones="{item}">
+                <v-btn v-if="item.observaciones && item.observaciones !== ''" small fab text color="blue" @click="showObservation(item)"><v-icon>visibility</v-icon></v-btn>
+              </template>
             <template v-slot:item.createdAt="{item}">
               {{ item.createdAt | fechaConHora }}
             </template>
@@ -488,12 +510,23 @@ export default {
         pages:0,
         dialog:false,
         dialogTramite:false,
+        dialogObservaciones:false,
         dialogNuevoTramite:false,
         dialogRegistrarPago:false,
         dialogTicket:false,
+        editarTramite:false,
         editarPago:false,
         editedIndex: -1,
         editedItem:{
+          id:'',
+          userId:'',
+          tramite:'',
+          nota:'',
+          valor:0,
+          status:'',
+          createdAt:''
+        },
+        observacionItem: {
           id:'',
           userId:'',
           tramite:'',
@@ -624,6 +657,7 @@ export default {
         },
         closeDialogNuevoTramite(create) {
           this.dialogNuevoTramite = false;
+          this.editarTramite = false
           setTimeout(() => {
             this.nuevoTramiteItem = Object.assign({}, this.defaultItem)
             this.editedIndex = -1
@@ -652,6 +686,19 @@ export default {
           item.nota = '';
           item.status = 1;
           store.dispatch("TRAMITES_create",item);
+          this.nuevoTramiteItem = Object.assign({}, this.defaultItem);
+        },
+        updateTramite(item){
+          console.log("A punto de actualizar",item)
+          this.dialogNuevoTramite = false;
+          if(item.status === "En Proceso"){
+            item.status = 1;
+          }else if(item.status === "Completar"){
+            item.status = 2;
+          }else if (item.status === "Cancelar"){
+            item.status = 3;
+          }
+          store.dispatch("TRAMITES_update",item);
           this.nuevoTramiteItem = Object.assign({}, this.defaultItem);
         },
         registerPay(){
@@ -708,9 +755,23 @@ export default {
       closeDialogTicket () {
         this.dialogTicket = false;
       },
+      closeDialogObservaciones () {
+        this.observacionItem = Object.assign({}, this.defaultItem);
+        this.dialogObservaciones = false;
+      },
       showTicket(item){
         this.ticketItem = item;
         this.dialogTicket = true
+      },
+      showObservation(item){
+        this.observacionItem = item;
+        this.dialogObservaciones = true
+      },
+      editTramite(item){
+        this.nuevoTramiteItem = item
+        this.editarTramite = true;
+        this.dialogNuevoTramite = true
+
       }
     }
 }

@@ -97,6 +97,7 @@ app.put('/:id', (req, res) => {
     userId: req.body.userId,
     documentoNro : req.body.documentoNro,
     matriculaNro : req.body.matriculaNro,
+    nroRegistro : req.body.nroRegistro,
     valor : req.body.valor,
     tramite: req.body.tramite,
     nota: req.body.nota,
