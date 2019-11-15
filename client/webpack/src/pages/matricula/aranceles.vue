@@ -56,9 +56,9 @@
           <span style="color: #0b4c83;">Para el retiro de la Credencial correspondiente, el profesional deberá entregar copia del talón de deposito o transferencia bancaria realizada.</span>
           <br>
           <br>
-          <h3 class=".subheading font-weight-bold">FORMA DE PAGO</h3>
+          <h3 class=".subheading font-weight-bold">FORMAS DE PAGO</h3>
           <br>
-          La forma de pago es a través de una transferencia electrónica a la cuenta del Colegio en el Banco Tierra del Fuego (ver cuenta en esta misma página).
+          A través de una transferencia electrónica a la cuenta del Colegio en el Banco Tierra del Fuego (ver cuenta en esta misma página).
           <br>
           <strong>Una vez efectuada la transferencia, el comprobante deberá remitirse al correo electrónico de la tesorería del Colegio <a href="mailto:tesoreria@citdf.org.ar">tesoreria@citdf.org.ar</a> con el formato nombreyapellido-numero de matricula-año (ejemplo: juanperez-035-2019).
           No se considerará pagada la matrícula si no se recibe el comprobante pago.</strong>
@@ -72,6 +72,13 @@
               CUIT: 30712472584<br>
               Cuenta: S 3 1 1 00000178653-00<br>
               CBU: 2680001301000001786531</strong>
+          <br>
+          <br>
+          <br>
+          A través de la plataforma de pagos de CITDF.
+          <br>
+          <br>
+          <strong>Se pueden realizar pagos ingresando con su usuario y contraseña provistos por el Colegio en la sección "Mis Trámites" y en el apartado "Mis pagos" puede generar un nuevo pago con tarjeta de débito o crédito.</strong>
         </v-flex>
       </v-layout>
       

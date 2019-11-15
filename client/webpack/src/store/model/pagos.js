@@ -52,25 +52,32 @@ const module = {
 
         commit("inProcess",true);
 
-        let form ={
-          token:token,
-          description:state.pagosForm.description,
-          transaction_amount:state.pagosForm.transaction_amount,
-          payment_method_id:state.pagosForm.payment_method_id,
-          installments:1,
-          payer:{
-              email:state.pagosForm.email,
-              identification:{
-                  type:state.pagosForm.docType,
-                  number:state.pagosForm.docNumber
-              }
-          }
+        let data = {
+          form: {
+            token:token,
+            description:state.pagosForm.description,
+            transaction_amount:state.pagosForm.transaction_amount,
+            payment_method_id:state.pagosForm.payment_method_id,
+            installments:1,
+            payer:{
+                email:state.pagosForm.email,
+                identification:{
+                    type:state.pagosForm.docType,
+                    number:state.pagosForm.docNumber
+                }
+            }
 
+          },
+          additional:{
+            pagoTitulo : state.pagosForm.pagoTitulo,
+            observaciones : state.pagosForm.observaciones,
+            matriculaNro : state.pagosForm.matriculaNro,
+          }
         }
 
         console.log("Pagos Form: ",state.pagosForm)
 
-        curl.post(`/pagos/create`,form)
+        curl.post(`/pagos/create`,data)
         .then(function(response){
           if(response.data.ok){
             console.log(response.data)
@@ -79,12 +86,14 @@ const module = {
               text: "Pago realizado Exitosamente!",
               icon: "success",
               button: "Aceptar",
-            });
+            }).then(() => {
+              router.push('/tramites')
+            })
           }else{
             console.log("Error: ",response.data)
             swal({
               title: "Oops!",
-              text: "No pudimos procesar tu pago!",
+              text: "No pudimos procesar tu pago!, intenta nuevamente más tarde.",
               icon: "error",
               button: "Aceptar",
             });  
