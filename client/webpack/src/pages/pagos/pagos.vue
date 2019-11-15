@@ -59,7 +59,7 @@
                                 <v-text-field id="email" name="email" label="Email donde recibirá el comprobante" type="email" v-model="pagosForm.email" placeholder="Ingrese su Email" required/>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" lg="4" xl="4">
-                                <v-text-field id="matriculaNro" name="matriculaNro" label="Matrícula N°" type="text" v-model="pagosForm.matriculaNro" readonly placeholder="Ingrese su N° de matrícula" required/>
+                                <v-text-field id="matriculaNro" name="matriculaNro" label="Matrícula N°" type="text" v-model="pagosForm.matriculaNro" placeholder="Ingrese su N° de matrícula" required/>
                             </v-col>
                             <!-- <input type="submit" value="Pay!" /> -->
                         </v-row>
@@ -73,7 +73,7 @@
                                 ></v-select>
                             </v-col>
                             <v-col cols="12" sm="4" md="4" lg="4" xl="4">
-                                <v-text-field label="N° Documento de Matriculado" v-model="pagosForm.docNumber" id="docNumber" readonly placeholder="12345678" />
+                                <v-text-field label="N° Documento de Matriculado" v-model="pagosForm.docNumber" id="docNumber" placeholder="12345678" />
                             </v-col>
                         </v-row>
                         <v-row>
