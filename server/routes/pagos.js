@@ -165,7 +165,8 @@ app.delete('/:id',(req,res) =>{
 app.post('/create',(req,res,next) =>{
   // Agrega credenciales
   
-  let payment = req.body;
+  let payment = req.body.form;
+  let additional = req.body.additional;
   console.log("Req:",payment);
 
   // Primero genero el pago en mercadopago
@@ -175,12 +176,12 @@ app.post('/create',(req,res,next) =>{
       // si fué exitoso, genero el registro de vinculación
       db.pagos.create({
         pago_id : response.body.id,
-        description : response.body.description,
-        matriculaNro : response.body.matriculaNro,
+        description : additional.pagoTitulo,
+        matriculaNro : additional.matriculaNro,
         transaction_amount : +response.body.transaction_amount,
         documento_nro : response.body.payer.identification.number,
         medio_pago : 'online',
-        observaciones : response.body.observaciones
+        observaciones : additional.observaciones
       }).then(result =>{
       })
     }

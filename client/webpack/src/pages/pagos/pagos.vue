@@ -41,7 +41,7 @@
                         </v-row>
                         <v-row>
                             <v-col cols="12" sm="5" md="5" lg="5" xl="5">
-                                <v-text-field label="N° Tarjeta (débito o crédito)" type="text" id="cardNumber" v-model="pagosForm.cardNumber" placeholder="4509 9535 6623 3704" required/>
+                                <v-text-field label="N° Tarjeta (débito o crédito)" type="text" id="cardNumber" v-mask="mascaraTarjeta" v-model="pagosForm.cardNumber" placeholder="4509 9535 6623 3704" required/>
                             </v-col>
                             <v-col cols="12" sm="3" md="3" lg="3" xl="3">
                                 <v-text-field type="text" label="Mes de Expiración" id="cardExpirationMonth" v-model="pagosForm.cardExpirationMonth" placeholder="12"/>
@@ -56,10 +56,10 @@
                                 <v-text-field type="text" label="Titular de Tarjeta (tal y como figura en la tarjeta)" v-model="pagosForm.cardholderName" placeholder="TITULAR DE TARJETA"/>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" lg="6" xl="6">
-                                <v-text-field id="email" name="email" label="Email" type="email" v-model="pagosForm.email" placeholder="Ingrese su Email" required/>
+                                <v-text-field id="email" name="email" label="Email donde recibirá el comprobante" type="email" v-model="pagosForm.email" placeholder="Ingrese su Email" required/>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" lg="4" xl="4">
-                                <v-text-field id="matriculaNro" name="matriculaNro" label="Matrícula N°" type="text" v-model="pagosForm.matriculaNro" placeholder="Ingrese su N° de matrícula" required/>
+                                <v-text-field id="matriculaNro" name="matriculaNro" label="Matrícula N°" type="text" v-model="pagosForm.matriculaNro" readonly placeholder="Ingrese su N° de matrícula" required/>
                             </v-col>
                             <!-- <input type="submit" value="Pay!" /> -->
                         </v-row>
@@ -73,7 +73,7 @@
                                 ></v-select>
                             </v-col>
                             <v-col cols="12" sm="4" md="4" lg="4" xl="4">
-                                <v-text-field label="N° Documento" v-model="pagosForm.docNumber" id="docNumber" placeholder="12345678" />
+                                <v-text-field label="N° Documento de Matriculado" v-model="pagosForm.docNumber" id="docNumber" readonly placeholder="12345678" />
                             </v-col>
                         </v-row>
                         <v-row>
@@ -111,8 +111,12 @@
 <script>
 import BtnMercadoPago from '../../components/MercadoPagoSmartCheckOut'
 import moment from 'moment'
+import { mask } from 'vue-the-mask'
 
 export default {
+    directives: {
+      mask,
+    },
     components:{ BtnMercadoPago },
     name:'pagos',
     data:() => ({
@@ -128,12 +132,13 @@ export default {
             {"nombre":"Amex","valor":"amex"},
             {"nombre":"Cabal","valor":"cabal"}
         ],
+        mascaraTarjeta:'#### #### #### ####',
         tipoPago:[
             {"nombre":"Certificación de Firma","modulos":1,"costo":1},
             {"nombre":"Encomienda de Trámites","modulos":1,"costo":1},
             {"nombre":"Inscripción","modulos":5,"costo":1000},
-            {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000}
-            // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
+            {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000},
+            {"nombre":"Pago de Prueba","modulos":1,"costo":1},
             
         ]
     }),
@@ -162,7 +167,13 @@ export default {
             }
         },
         user(val){
-            console.log(val)
+            if(val.user.acf){
+                this.$store.state.pagos.pagosForm.docNumber = val.user.acf.documento_nro
+                this.$store.state.pagos.pagosForm.matriculaNro = val.user.acf.matricula
+                this.$store.state.pagos.pagosForm.email = val.user.acf.email
+                
+                this.$forceUpdate()
+            }
         },
         pagosForm(){},
         inProcess(){}
@@ -172,10 +183,12 @@ export default {
             Mercadopago.getIdentificationTypes();
         },
         startPay(){
-            this.$store.state.pagos.pagosForm.description = this.$store.state.pagos.pagosForm.tipo_pago.nombre
+            this.$store.state.pagos.pagosForm.pagoTitulo = this.$store.state.pagos.pagosForm.description
+            this.$store.state.pagos.pagosForm.description = this.$store.state.pagos.pagosForm.tipo_pago.nombre +' | '+this.$store.state.login_api.user.user.firstName + this.$store.state.login_api.user.user.lastName + '-' + this.$store.state.pagos.pagosForm.matriculaNro + '-' + moment().year()
             this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.tipo_pago.costo
 
             this.$store.state.pagos.pagosForm.paymentMethodId = this.$store.state.pagos.pagosForm.paymentMethod.value
+            this.$store.state.pagos.pagosForm.cardholderName = this.$store.state.pagos.pagosForm.cardholderName.toUpperCase() 
             let callback = this.$store.state.pagos.pagosForm
             console.log("Formulario de Pagos:",this.$store.state.pagos.pagosForm)
             Mercadopago.createToken(this.$store.state.pagos.pagosForm,sdkResponseHandler.bind(callback))
