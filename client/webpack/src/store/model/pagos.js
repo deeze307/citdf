@@ -69,13 +69,13 @@ const module = {
 
           },
           additional:{
-            pagoTitulo : state.pagosForm.pagoTitulo,
-            observaciones : state.pagosForm.observaciones,
-            matriculaNro : state.pagosForm.matriculaNro,
+            pagoTitulo:state.pagosForm.pagoTitulo,
+            observaciones:state.pagosForm.observaciones,
+            matriculaNro:state.pagosForm.matriculaNro
           }
         }
 
-        console.log("Pagos Form: ",state.pagosForm)
+        // console.log("Pagos Form: ",data)
 
         curl.post(`/pagos/create`,data)
         .then(function(response){

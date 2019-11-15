@@ -134,11 +134,11 @@ export default {
         ],
         mascaraTarjeta:'#### #### #### ####',
         tipoPago:[
+            // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
             {"nombre":"Certificación de Firma","modulos":1,"costo":1},
             {"nombre":"Encomienda de Trámites","modulos":1,"costo":1},
             {"nombre":"Inscripción","modulos":5,"costo":1000},
             {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000}
-            // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
             
         ]
     }),
@@ -150,7 +150,7 @@ export default {
     },
     computed:{
         user(){
-            console.log(store.state.login_api.user)
+            // console.log(store.state.login_api.user)
             return store.state.login_api.user
         },
         pagosForm(){
@@ -168,9 +168,12 @@ export default {
         },
         user(val){
             if(val.user.acf){
+                // console.log("asignando")
                 this.$store.state.pagos.pagosForm.docNumber = val.user.acf.documento_nro
                 this.$store.state.pagos.pagosForm.matriculaNro = val.user.acf.matricula
                 this.$store.state.pagos.pagosForm.email = val.user.acf.email
+                this.$store.state.pagos.pagosForm.pagoTitulo = ''
+                this.$store.state.pagos.pagosForm.observaciones = ''
                 
                 this.$forceUpdate()
             }
@@ -183,14 +186,14 @@ export default {
             Mercadopago.getIdentificationTypes();
         },
         startPay(){
-            this.$store.state.pagos.pagosForm.pagoTitulo = this.$store.state.pagos.pagosForm.description
+            this.$store.state.pagos.pagosForm.pagoTitulo = this.$store.state.pagos.pagosForm.tipo_pago.nombre
             this.$store.state.pagos.pagosForm.description = this.$store.state.pagos.pagosForm.tipo_pago.nombre +' | '+this.$store.state.login_api.user.user.firstName + this.$store.state.login_api.user.user.lastName + '-' + this.$store.state.pagos.pagosForm.matriculaNro + '-' + moment().year()
             this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.tipo_pago.costo
 
             this.$store.state.pagos.pagosForm.paymentMethodId = this.$store.state.pagos.pagosForm.paymentMethod.value
             this.$store.state.pagos.pagosForm.cardholderName = this.$store.state.pagos.pagosForm.cardholderName.toUpperCase() 
             let callback = this.$store.state.pagos.pagosForm
-            console.log("Formulario de Pagos:",this.$store.state.pagos.pagosForm)
+            // console.log("Formulario de Pagos:",this.$store.state.pagos.pagosForm)
             Mercadopago.createToken(this.$store.state.pagos.pagosForm,sdkResponseHandler.bind(callback))
             
         },
