@@ -167,7 +167,7 @@ app.post('/create',(req,res,next) =>{
   
   let payment = req.body.form;
   let additional = req.body.additional;
-  console.log("Req:",payment);
+  console.log("Req:",req.body);
 
   // Primero genero el pago en mercadopago
   mercadopago.payment.create(payment)
