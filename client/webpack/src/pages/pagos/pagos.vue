@@ -137,8 +137,8 @@ export default {
             {"nombre":"Certificación de Firma","modulos":1,"costo":1},
             {"nombre":"Encomienda de Trámites","modulos":1,"costo":1},
             {"nombre":"Inscripción","modulos":5,"costo":1000},
-            {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000},
-            {"nombre":"Pago de Prueba","modulos":1,"costo":1},
+            {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000}
+            // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
             
         ]
     }),
