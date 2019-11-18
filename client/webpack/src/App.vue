@@ -395,7 +395,8 @@
             //     isAdmin = true;
             //   }
             // })
-            if(_.has(this.user.user,'slug') && (this.user.user.slug === 'citdf' || this.user.user.slug === 'dmaidana' || this.user.user.slug === 'secretaria')){
+            console.log(this.user.user)
+            if(_.has(this.user.user,'slug') && (this.user.user.slug === 'citdf' || this.user.user.slug === 'dmaidana' || _.startsWith(this.user.user.slug, 'secretaria') )){
               isAdmin = true;
             }
           // }

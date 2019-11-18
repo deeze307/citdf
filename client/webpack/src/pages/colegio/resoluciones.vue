@@ -1,5 +1,18 @@
 <template>
     <v-container class="ml-0 mr-0" fluid>
+      <v-dialog v-model="spinner" persistent content content-class="centered-dialog">
+        <v-container fill-height>
+          <v-layout column justify-center align-center>
+            <v-progress-circular
+              :size="50"
+              :width="7"
+              color="primary"
+              indeterminate
+              v-if="spinner"
+            ></v-progress-circular>
+          </v-layout>
+        </v-container>
+      </v-dialog>
       <v-layout align-center justify-space-around row fill-height>
         <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-2 pb-4">
           <h2 class="display-1 font-weight-black" style="color:#263238">Resoluciones</h2>
@@ -36,6 +49,16 @@ export default {
     data () {
       return {
         resoluciones: [
+          {
+            res: "167",
+            fecha: "30/10/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/11/Resolución-Nº167.pdf" target="_blank">Aceptar solicitud para plan de cuotas MN°217.</a>'
+          },
+          {
+            res: "166",
+            fecha: "28/10/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/11/Resolución-Nº166.pdf" target="_blank">Otorga M.P.N° 367.</a>'
+          },
           {
             res: "165",
             fecha: "07/10/2019",
@@ -862,7 +885,7 @@ export default {
             concepto: '<a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/10/CITDF_Resolucion_001.pdf" rel="noopener" target="_blank">Autoriza apertura Cuenta Corriente Banco Galicia. Autoriza firmantes esquema doble firma</a>'
           },
         ],
-        
+        spinner:false
       }
     },
     created:function(){

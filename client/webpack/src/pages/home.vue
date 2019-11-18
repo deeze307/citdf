@@ -37,7 +37,7 @@
             v-for="(item,i) in carouselItems"
             :key="i"
           >
-            <img :src="item.src" :style="carouselStyle"/>
+            <img :src="item.src" @click="carouselTouched" :style="carouselStyle"/>
           </v-carousel-item>
               
         </v-carousel>
@@ -399,6 +399,9 @@
         r.keys().forEach(key => (imgs[key] = require("@/assets/carousel"+key.substr(1)),
         this.carouselItems.push({src : imgs[key]})
         ))
+      },
+      carouselTouched(){
+        router.push('/novedades')
       },
       irBolsaTrabajo(bolsa) {
         store.dispatch('BOLSA_TRABAJO_goWithSelected',bolsa);
