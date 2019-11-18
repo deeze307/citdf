@@ -67,7 +67,8 @@ const module = {
 
         // Si no existe token... detiene el consumo del api
         if(state.token==null) {
-         return;
+          console.log("No posee Token")
+          return;
         }
 
         const curl = axios.create({
@@ -223,6 +224,7 @@ const module = {
         curl.get('/users/me')
           .then(function (response) {
             // handle success
+            console.log("Recuperando usuario: ",response.data.user)
             if(response.data.user){
               let splitName = _.split(response.data.user.name,' ');
               if(splitName.length <= 2){

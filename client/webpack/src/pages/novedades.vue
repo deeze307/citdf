@@ -1,5 +1,18 @@
 <template>
     <v-container>
+      <v-dialog v-model="spinner" persistent content content-class="centered-dialog">
+        <v-container fill-height>
+          <v-layout column justify-center align-center>
+            <v-progress-circular
+              :size="50"
+              :width="7"
+              color="primary"
+              indeterminate
+              v-if="spinner"
+            ></v-progress-circular>
+          </v-layout>
+        </v-container>
+      </v-dialog>
       <v-layout align-center justify-space-around row>
         <v-flex xs12 sm12 md8 lg8 xl8>
           <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-3 pb-3">
@@ -104,6 +117,7 @@ export default {
         left: false,
         novedadesStyle:[],
         isMobile:false,
+        spinner:true,
       }
     },
     mounted:function(){
@@ -127,7 +141,13 @@ export default {
       }
     },
     watch:{
-      novedades(){}
+      novedades(val){
+        console.log("novedades: ",val)
+
+        if(val.length > 0){
+          this.spinner = false;
+        }
+      }
     },
     methods:{
       irNovedad(novedad) {
@@ -155,5 +175,13 @@ export default {
 </script>
 
 <style>
-
+.dialog.centered-dialog,
+  .v-dialog.centered-dialog
+  {
+    /* background: #282c2dad; */
+    box-shadow: none;
+    border-radius: 6px;
+    width: auto;
+    color: whitesmoke;
+  }
 </style>
