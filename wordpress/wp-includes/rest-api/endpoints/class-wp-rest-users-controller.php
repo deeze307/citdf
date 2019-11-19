@@ -949,14 +949,18 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 			$response = wp_remote_get($url);
 			if(is_array($response)){
 				$custom_fields = json_decode( wp_remote_retrieve_body( $response ), true );
-				$splitted = explode('<br />',$custom_fields['acf']['apt']);
-				$data['custom_fields'] = $custom_fields['acf'];
 				$formated = array();
-				foreach($splitted as $item)
+				if(isset($custom_fields['acf']['apt']))
 				{
-					$item = str_replace("\r\n","",$item);
-					array_push($formated,$item);
+					$splitted = explode('<br />',$custom_fields['acf']['apt']);
+					$data['custom_fields'] = $custom_fields['acf'];
+					foreach($splitted as $item)
+					{
+						$item = str_replace("\r\n","",$item);
+						array_push($formated,$item);
+					}
 				}
+				
 				$data["custom_fields"]["user_email"] = $user->user_email;
 				$data["custom_fields"]["url"] = $user->url;
 				$data["custom_fields"]["name"] = $user->name;
