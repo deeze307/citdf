@@ -28,13 +28,16 @@ const module = {
   },
   mutations: {
     LOGIN_API_checkLocalStorage: function(state){
-      state.token = localStorage.getItem('CITDF_LOGIN_API_TOKEN');
+      let token = localStorage.getItem('CITDF_LOGIN_API_TOKEN')
+      console.log("checkLocalStorage: ",token)
+      state.token = token
       // if(state.token != '')
       // { state.loggedIn = true; }
     },
     LOGIN_API_updateToken: function(state, token){
-      state.token = token;
-      localStorage.setItem('CITDF_LOGIN_API_TOKEN',token);
+      state.token = token
+      localStorage.setItem('CITDF_LOGIN_API_TOKEN',token)
+      console.log("Actualizando Token: ",state.token)
     },
     LOGIN_API_running: function(state, running){
       state.loginIsRunning = running;
@@ -221,10 +224,11 @@ const module = {
         // Header con token
         curl.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
 
+
         curl.get('/users/me')
           .then(function (response) {
             // handle success
-            console.log("Recuperando usuario: ",response.data.user)
+            console.log("Recuperando usuario: ",response.data)
             if(response.data.user){
               let splitName = _.split(response.data.user.name,' ');
               if(splitName.length <= 2){
