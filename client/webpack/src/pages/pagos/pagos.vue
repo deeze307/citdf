@@ -135,10 +135,10 @@ export default {
         mascaraTarjeta:'#### #### #### ####',
         tipoPago:[
             // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
-            {"nombre":"Certificación de Firma","modulos":1,"costo":1},
-            {"nombre":"Encomienda de Trámites","modulos":1,"costo":1},
-            {"nombre":"Inscripción","modulos":5,"costo":1000},
-            {"nombre":"Derecho Anual de Matriculación","modulos":5,"costo":1000}
+            {"nombre":"Certificación de Firma","modulos":1,"costo":1200},
+            {"nombre":"Encomienda de Trámites","modulos":1,"costo":1200},
+            {"nombre":"Inscripción","modulos":5,"costo":1200},
+            {"nombre":"Derecho Anual de Colegiación","modulos":5,"costo":6000}
             
         ]
     }),
@@ -203,14 +203,14 @@ export default {
             let curDate = moment().format('YYYY-MM-DD');
             let user = this.$store.state.login_api.user.user;
 
-            if(moment(curDate).isBetween('2019-01-01','2019-03-21')){
-                valor_modulo = 1000;
-            }else if(moment(curDate).isBetween('2019-04-01','2019-06-30')){
-                valor_modulo = 1050;
-            }else if(moment(curDate).isBetween('2019-07-01','2019-09-30')){
-                valor_modulo = 1100;
-            }else if(moment(curDate).isBetween('2019-10-01','2019-12-31')){
-                valor_modulo = 1150;
+            if(moment(curDate).isBetween('2020-01-01','2020-03-21',null,'[]')){
+                valor_modulo = 1200;
+            }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+                valor_modulo = 1300;
+            }else if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
+                valor_modulo = 1400;
+            }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
+                valor_modulo = 1500;
             }
             
                 costo = valor_modulo * this.$store.state.pagos.pagosForm.tipo_pago.modulos;            
@@ -224,9 +224,9 @@ export default {
                 if(moment(curDate).diff(fechaPromocion,'months') < 12){
                     costo = costo * 0.5;
                 }else{
-                    if(moment(curDate).isBetween('2019-07-01','2019-09-30')){// Tercer Trimeste
+                    if(moment(curDate).isBetween('2020-07-01','2020-09-30')){// Tercer Trimeste
                     costo = costo - ((costo / 2) * 0.5);
-                    }else if(moment(curDate).isBetween('2019-10-01','2019-12-31')){// Cuarto Trimeste
+                    }else if(moment(curDate).isBetween('2020-10-01','2020-12-31')){// Cuarto Trimeste
                         costo = costo - ((costo / 2) * 0.75);
                     }
                 }
