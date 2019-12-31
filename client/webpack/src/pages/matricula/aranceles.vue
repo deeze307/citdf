@@ -67,7 +67,7 @@
             </tbody>
           </v-simple-table>
           <br>
-          <span style="color: #0b4c83;">DESCUENTOS: </span> Se realizará una bonificación del 20% en el pago del Derecho Anual de Colegiación 2020 para aquellos matriculados que participen activamente y efectivamente en las actividades propuestas por el Colegio. Dicha participación será evaluada en la última reunión del año 2019 del CONSEJO SUPERIOR para hacer efectivo el dicho descuento.
+          <span style="color: #0b4c83;">DESCUENTOS: </span> Se realizará una bonificación del 20% en el pago del Derecho Anual de Colegiación 2021 para aquellos matriculados que participen activamente y efectivamente en las actividades propuestas por el Colegio. Dicha participación será evaluada en la última reunión del año 2020 del CONSEJO SUPERIOR para hacer efectivo el dicho descuento.
           <br>
           <br>
           <span style="color: #0b4c83;">INFORMACIÓN IMPORTANTE: </span>se comunica a los Matriculados que el pago de cualquier trámite a presentar ante el colegio deberá poseer como máximo fecha de un mes anterior a la presentación del mismo (Certificaciones, Encomiendas de tareas, etc.), por lo tanto no se recibirán transferencias o depósitos realizados con anterioridad al plazo establecido.
