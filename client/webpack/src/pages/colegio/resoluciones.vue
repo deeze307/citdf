@@ -50,6 +50,21 @@ export default {
       return {
         resoluciones: [
           {
+            res: "170",
+            fecha: "29/11/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/01/Resolución-Nº170.pdf" target="_blank">Aceptar solicitud de omisión del pago de los periodo 2016 y 2017 por no ejercer la profesión en la provincia.</a>'
+          },
+          {
+            res: "169",
+            fecha: "20/11/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/01/Resolución-Nº169.pdf" target="_blank">Aceptar solicitud para plan de cuotas MN°279.</a>'
+          },
+          {
+            res: "168",
+            fecha: "08/11/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/01/Resolución-Nº168.pdf" target="_blank">Otorga M.P.N° 368 al 373.</a>'
+          },
+          {
             res: "167",
             fecha: "30/10/2019",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2019/11/Resolución-Nº167.pdf" target="_blank">Aceptar solicitud para plan de cuotas MN°217.</a>'
