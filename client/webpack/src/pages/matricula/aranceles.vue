@@ -24,8 +24,8 @@
           </v-simple-table>
           <br>
           <p>*Los profesionales que se inscriban en el tercer trimestre de cada año, desde el mes de Julio hasta Septiembre, abonarán el 50% del monto establecido para el concepto de Derecho Anual de Colegiación. En tanto que los profesionales que se inscriban en el cuarto trimestre de cada año, desde Octubre hasta Diciembre, abonarán el 25% del Derecho Anual de Colegiación.</p>
-          <p><a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_101.pdf" rel="noopener" target="_blank">Resolución 101 (2/8/2017)</a></p>
-          <p><a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_079.pdf" rel="noopener" target="_blank">Resolución 79 (22/10/2016)</a></p>
+          <p><a href="http://documentos.citdf.org.ar/2017/08/CITDF_Resolucion_101.pdf" rel="noopener" target="_blank">Resolución 101 (2/8/2017)</a></p>
+          <p><a href="http://documentos.citdf.org.ar/2014/09/CITDF_resolucion_079.pdf" rel="noopener" target="_blank">Resolución 79 (22/10/2016)</a></p>
           <br>
           <br>
           <h3 class=".subheading font-weight-bold">VALOR DEL DERECHO ANUAL DE COLEGIACIÓN 2020</h3>
