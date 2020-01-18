@@ -16,7 +16,7 @@
             Área Construcciones<br>
             Área Vías de Comunicación<br>
             Área Hidráulica<br><br>
-            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_070.pdf" target="_blank">Resolución Nº 070. 16 de Julio de 2016</a>
+            <a href="http://documentos.citdf.org.ar/2014/09/CITDF_resolucion_070.pdf" target="_blank">Resolución Nº 070. 16 de Julio de 2016</a>
           </p>
 
           <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento Electromecánica</h3>
@@ -26,28 +26,28 @@
           Representante Área Mecánica: A designar<br>
           Representante Área Electrónica: A designar<br>
           Representante Área Industrial: A designar<br><br>
-          <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_072.pdf" target="_blank">Resolución Nº 072. 16 de Julio de 2016</a>
+          <a href="http://documentos.citdf.org.ar/2014/09/CITDF_resolucion_072.pdf" target="_blank">Resolución Nº 072. 16 de Julio de 2016</a>
           </p>
 
           <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento de Ciencias Naturales</h3>
           <p>
             Representante Titular: A designar<br>
             Representante Suplente: A designar<br><br>
-            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_071.pdf" target="_blank">Resolución Nº 071. 11 de Julio de 2016</a>
+            <a href="http://documentos.citdf.org.ar/2014/09/CITDF_resolucion_071.pdf" target="_blank">Resolución Nº 071. 11 de Julio de 2016</a>
           </p>
 
           <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento de Sistemas</h3>
           <p>
             Representante Titular: Ing. Daniel Villanueva Quelín<br>
             Representante Suplente: A designar<br><br>
-            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2014/09/CITDF_resolucion_073.pdf" target="_blank">Resolución Nº 073. 16 de Julio de 2016</a>
+            <a href="http://documentos.citdf.org.ar/2014/09/CITDF_resolucion_073.pdf" target="_blank">Resolución Nº 073. 16 de Julio de 2016</a>
           </p>
 
           <h3 class=".subheading font-weight-bold mb-2 pt-4">Departamento de Seguridad e Higiene</h3>
           <p>
             Representante: Ing. Mónica Frías<br>
             Representante Suplente: A designar<br><br>
-            <a href="http://wordpress.citdf.org.ar/wp-content/uploads/2017/08/CITDF_Resolucion_116.pdf" target="_blank">Resolución Nº 116. 21 de Diciembre de 2017</a>
+            <a href="http://documentos.citdf.org.ar/2017/08/CITDF_Resolucion_116.pdf" target="_blank">Resolución Nº 116. 21 de Diciembre de 2017</a>
           </p>
         </v-flex>
       </v-layout>
