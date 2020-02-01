@@ -50,6 +50,66 @@ export default {
       return {
         resoluciones: [
           {
+            res: "182",
+            fecha: "26/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº182.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 342.</a>'
+          },
+          {
+            res: "181",
+            fecha: "26/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº181.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 258.</a>'
+          },
+          {
+            res: "180",
+            fecha: "18/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº180.pdf" target="_blank">Establece valores de módulo y matricula para el año 2020.</a>'
+          },
+          {
+            res: "179",
+            fecha: "18/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº179.pdf" target="_blank">Otorga M.P.N° 374, 375 y 376.</a>'
+          },
+          {
+            res: "178",
+            fecha: "16/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº178.pdf" target="_blank">Suspender M.P. N°244.</a>'
+          },
+          {
+            res: "177",
+            fecha: "13/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº177.pdf" target="_blank">Establecer plan de cuotas MN°123.</a>'
+          },
+          {
+            res: "176",
+            fecha: "11/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº176.pdf" target="_blank">Suspender M.P. N°154.</a>'
+          },
+          {
+            res: "175",
+            fecha: "11/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº175.pdf" target="_blank">Suspender M.P. N°106.</a>'
+          },
+          {
+            res: "174",
+            fecha: "11/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº174.pdf" target="_blank">Suspender M.P. N°337.</a>'
+          },
+          {
+            res: "173",
+            fecha: "11/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº173.pdf" target="_blank">Suspender M.P. N°313.</a>'
+          },
+          {
+            res: "172",
+            fecha: "11/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº172.pdf" target="_blank">Suspender M.P.N° 251.</a>'
+          },
+          {
+            res: "171",
+            fecha: "11/12/2019",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº171.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 271.</a>'
+          },
+          {
             res: "170",
             fecha: "29/11/2019",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/01/Resolución-Nº170.pdf" target="_blank">Aceptar solicitud de omisión del pago de los periodo 2016 y 2017 por no ejercer la profesión en la provincia.</a>'
