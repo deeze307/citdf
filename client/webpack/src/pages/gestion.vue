@@ -712,7 +712,7 @@ export default {
           this.nuevoPagoItem = pago
           this.nuevoPagoItem.description = {
             "nombre": pago.description,
-            "costo": 1000
+            "costo": 1200
           }
           this.nuevoPagoItem.medio_pago = {
             "nombre":"",
@@ -737,14 +737,14 @@ export default {
             let costo = 0;
             let curDate = moment().format('YYYY-MM-DD');
 
-            if(moment(curDate).isBetween('2019-01-01','2019-03-21')){
-                this.nuevoTramiteItem.valor = 1000;
-            }else if(moment(curDate).isBetween('2019-04-01','2019-06-30')){
-                this.nuevoTramiteItem.valor = 1050;
-            }else if(moment(curDate).isBetween('2019-07-01','2019-09-30')){
-                this.nuevoTramiteItem.valor = 1100;
-            }else if(moment(curDate).isBetween('2019-10-01','2019-12-31')){
-                this.nuevoTramiteItem.valor = 1150;
+            if(moment(curDate).isBetween('2020-01-01','2020-03-21',null,'[]')){
+                this.nuevoTramiteItem.valor = 1200;
+            }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+                this.nuevoTramiteItem.valor = 1300;
+            }else if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
+                this.nuevoTramiteItem.valor = 1400;
+            }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
+                this.nuevoTramiteItem.valor = 1500;
             }
         },
         validate () {
