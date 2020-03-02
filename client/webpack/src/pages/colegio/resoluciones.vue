@@ -50,6 +50,16 @@ export default {
       return {
         resoluciones: [
           {
+            res: "184",
+            fecha: "08/01/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº184.pdf" target="_blank">Otorga M.P.N° 377.</a>'
+          },
+          {
+            res: "183",
+            fecha: "02/01/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº183.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 344 y 359.</a>'
+          },
+          {
             res: "182",
             fecha: "26/12/2019",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº182.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 342.</a>'
@@ -57,7 +67,7 @@ export default {
           {
             res: "181",
             fecha: "26/12/2019",
-            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº181.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 258.</a>'
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº181.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 268.</a>'
           },
           {
             res: "180",
