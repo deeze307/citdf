@@ -180,7 +180,7 @@ export default {
       }
     },
     created:function(){
-      store.dispatch('COLEGIO_retrieveAutoridades');
+      // store.dispatch('COLEGIO_retrieveAutoridades');
     },
     computed:{
       // autoridades(){
@@ -193,9 +193,9 @@ export default {
       // }
     },
     methods:{
-      parseAutoridades(){
-        console.log("Parseando Autoridades",store.state.colegio.autoridades.content.rendered);
-      }
+      // parseAutoridades(){
+      //   console.log("Parseando Autoridades",store.state.colegio.autoridades.content.rendered);
+      // }
     }
 }
 </script>

@@ -349,7 +349,7 @@
     },
     created: function(){
       // store.commit('updateTitle',"SIEP | Servicio");
-      this.carouselImages(require.context("@/assets/carousel", true, /\.jpg$|\.png$/));
+      this.carouselImages(require.context("@/assets/carousel", true, /\.png$|\.jpg$|\.jpeg$/));
       store.dispatch('BOLSA_TRABAJO_retrievePosts',3);
       store.dispatch('NOVEDADES_retrievePosts',3);
     },
