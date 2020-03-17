@@ -50,6 +50,31 @@ export default {
       return {
         resoluciones: [
           {
+            res: "189",
+            fecha: "04/03/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/03/Resolución-Nº189.pdf" target="_blank">Aceptar solicitud de alta M.P.N° 359.</a>'
+          },
+          {
+            res: "188",
+            fecha: "27/02/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/03/Resolución-Nº188.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 229.</a>'
+          },
+          {
+            res: "187",
+            fecha: "12/02/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/03/Resolución-Nº187.pdf" target="_blank">Aceptar solicitud de baja M.P.N° 276.</a>'
+          },
+          {
+            res: "186",
+            fecha: "06/02/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/03/Resolución-Nº186.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 266.</a>'
+          },
+          {
+            res: "185",
+            fecha: "03/02/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/03/Resolución-Nº185.pdf" target="_blank">Otorga M.P.N° 378, 379 y 380.</a>'
+          },
+          {
             res: "184",
             fecha: "08/01/2020",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/02/Resolución-Nº184.pdf" target="_blank">Otorga M.P.N° 377.</a>'

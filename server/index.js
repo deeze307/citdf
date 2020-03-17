@@ -57,6 +57,7 @@ const beneficiosRoutes = require('./routes/beneficios');
 const marcoLegalRoutes = require('./routes/marco_legal');
 const generalRoutes = require('./routes/generals');
 const descargasRoutes = require('./routes/descargas');
+const matriculaRoutes = require('./routes/matricula');
 
 // LAS RUTAS
 app.use('/users', usersRoutes);
@@ -71,6 +72,7 @@ app.use('/beneficios',beneficiosRoutes);
 app.use('/marco_legal',marcoLegalRoutes);
 app.use('/general',generalRoutes);
 app.use('/descargas',descargasRoutes);
+app.use('/matricula',matriculaRoutes);
 
 app.get('/', (request, response) => {
   response.json({ info: 'VueJs, Node.js, Express, and WordPress-API' })
