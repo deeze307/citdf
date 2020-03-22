@@ -182,7 +182,7 @@ export default {
         mascaraTarjeta:'#### #### #### ####',
         mascaraMesAnio:'##/##',
         tipoPago:[
-            {"nombre":"Pago de Prueba","modulos":1,"costo":1},
+            // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
             {"nombre":"Certificación de Firma","modulos":1,"costo":1200},
             {"nombre":"Encomienda de Trámites","modulos":1,"costo":1200},
             {"nombre":"Inscripción","modulos":5,"costo":1200},
