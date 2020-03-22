@@ -84,14 +84,24 @@ const module = {
         .then(function(response){
           if(response.data.ok){
             console.log(response.data)
-            swal({
-              title: "Exito!",
-              text: "Pago realizado Exitosamente!",
-              icon: "success",
-              button: "Aceptar",
-            }).then(() => {
-              router.push('/tramites')
-            })
+            if(response.data.response.response.status ==="rejected"){
+              swal({
+                title: "Oops! No pudimos procesar su pago",
+                text: "Verifique que la tarjeta sea correcta y que posea Fondos Suficientes.",
+                icon: "error",
+                button: "Aceptar",
+              });
+            }else{
+              swal({
+                title: "Exito!",
+                text: "Pago realizado Exitosamente!",
+                icon: "success",
+                button: "Aceptar",
+              }).then(() => {
+                router.push('/tramites')
+              })
+            }
+            
           }else{
             console.log("Error eee: ",response.data)
             if(response.data.response.name == "MercadoPagoError"){
@@ -116,8 +126,8 @@ const module = {
               }
             }else{
               swal({
-                title: "Oops!",
-                text: "No pudimos procesar su pago!, verifique sus datos o intente nuevamente más tarde.",
+                title: "Oops! No pudimos procesar su pago",
+                text: "Verifique sus datos o intente nuevamente más tarde.",
                 icon: "error",
                 button: "Aceptar",
               });
@@ -128,8 +138,8 @@ const module = {
         })
         .catch(function (error){
           swal({
-            title: "Oops!",
-            text: "No pudimos procesar su pago!, verifique sus datos o intente nuevamente más tarde.",
+            title: "Oops! No pudimos procesar su pago",
+            text: "Verifique sus datos o intente nuevamente más tarde.",
             icon: "error",
             button: "Aceptar",
           });  
