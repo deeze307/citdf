@@ -10,7 +10,10 @@ const module = {
       },
       inProcess:false,
       pagosForm:{
-        docType:"DNI"
+        docType:"DNI",
+        installments:{
+          issuer:{}
+        }
       }
     },
     getters: {
@@ -57,8 +60,9 @@ const module = {
             token:token,
             description:state.pagosForm.description,
             transaction_amount:state.pagosForm.transaction_amount,
-            payment_method_id:state.pagosForm.payment_method_id,
-            installments:1,
+            payment_method_id:state.pagosForm.paymentMethodId,
+            // payment_type_id:state.pagosForm.paymentTypeId,
+            installments:state.pagosForm.installments,
             payer:{
                 email:state.pagosForm.email,
                 identification:{
@@ -75,34 +79,72 @@ const module = {
           }
         }
 
-        // console.log("Pagos Form: ",data)
-
+        console.log("Pagos Form: ",data)
         curl.post(`/pagos/create`,data)
         .then(function(response){
           if(response.data.ok){
             console.log(response.data)
-            swal({
-              title: "Exito!",
-              text: "Pago realizado Exitosamente!",
-              icon: "success",
-              button: "Aceptar",
-            }).then(() => {
-              router.push('/tramites')
-            })
+            if(response.data.response.response.status ==="rejected"){
+              swal({
+                title: "Oops! No pudimos procesar su pago",
+                text: "Verifique que la tarjeta sea correcta y que posea Fondos Suficientes.",
+                icon: "error",
+                button: "Aceptar",
+              });
+            }else{
+              swal({
+                title: "Exito!",
+                text: "Pago realizado Exitosamente!",
+                icon: "success",
+                button: "Aceptar",
+              }).then(() => {
+                router.push('/tramites')
+              })
+            }
+            
           }else{
-            console.log("Error: ",response.data)
-            swal({
-              title: "Oops!",
-              text: "No pudimos procesar tu pago!, intenta nuevamente más tarde.",
-              icon: "error",
-              button: "Aceptar",
-            });  
+            console.log("Error eee: ",response.data)
+            if(response.data.response.name == "MercadoPagoError"){
+              if(response.data.response.message == "Invalid operators users involved"){
+                swal({
+                  title: "Oops!",
+                  text: "No pudimos encontrar el email ingresado vinculado a ninguna cuenta en MercadoPago.",
+                  icon: "error",
+                  buttons: {
+                    cancel: "Cancelar",
+                    mercadopago: "Ir a MercadoPago",
+                  },
+                }).then((value) => {
+                  switch (value) {
+                    case "cancel":
+                      break;
+                    case "mercadopago":
+                      window.open = "https://www.mercadopago.com.ar/";
+                      break;
+                  }
+                });
+              }
+            }else{
+              swal({
+                title: "Oops! No pudimos procesar su pago",
+                text: "Verifique sus datos o intente nuevamente más tarde.",
+                icon: "error",
+                button: "Aceptar",
+              });
+            }  
           }
           commit("inProcess",false);
           return "done";
         })
         .catch(function (error){
-          console.log(error);
+          swal({
+            title: "Oops! No pudimos procesar su pago",
+            text: "Verifique sus datos o intente nuevamente más tarde.",
+            icon: "error",
+            button: "Aceptar",
+          });  
+          commit("inProcess",false);
+          console.log("Error catch",error);
         })
       },
 
