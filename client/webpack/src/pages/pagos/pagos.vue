@@ -284,7 +284,7 @@ export default {
             let curDate = moment().format('YYYY-MM-DD');
             let user = this.$store.state.login_api.user.user;
 
-            if(moment(curDate).isBetween('2020-01-01','2020-03-21',null,'[]')){
+            if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
                 valor_modulo = 1200;
             }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
                 valor_modulo = 1300;
@@ -293,7 +293,7 @@ export default {
             }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
                 valor_modulo = 1500;
             }
-            
+                console.log("valor modulo: "+valor_modulo)
                 costo = valor_modulo * this.$store.state.pagos.pagosForm.tipo_pago.modulos;            
 
             // Si se está abonando una nueva inscripción
@@ -325,19 +325,18 @@ export default {
                  this.processCardNumber(this.$store.state.pagos.pagosForm.cardNumber)
                 //  this.showCosto = false
              }
+             console.log("Costo: "+this.$store.state.pagos.pagosForm.tipo_pago.costo)
             // this.showCosto = true;
         },
         installmentHandler(status,response){
             if(response[0].payer_costs){
                 this.cuotas = response[0]
-                console.log("Cuotas:",this.cuotas)
             }
         }
     }
 }
 
 function sdkResponseHandler(status, response) {
-    console.log("sdkResponseHandler",response);
     
     if (status != 200 && status != 201) {
         swal({
