@@ -66,7 +66,7 @@
                                 </v-row>
                                 <v-row>
                                     <v-select
-                                    v-model="pagosForm.installments"
+                                    v-model="pagosForm.selectedInstallment"
                                     :items="cuotas.payer_costs"
                                     label="Seleccione Cantidad de Cuotas"
                                     item-text="recommended_message"
@@ -79,7 +79,7 @@
                         </v-row>
                         <v-row>
                             <v-col cols="12" sm="3" md="3" lg="3" xl="3">
-                                <v-text-field type="text" label="Mes y Año de Expiración" id="cardExpirationMonth" v-mask="mascaraMesAnio" v-model="pagosForm.cardExpirationMonth"  placeholder="12/21"/>
+                                <v-text-field type="text" label="Mes y Año de Expiración" id="cardExpirationMonth" v-mask="mascaraMesAnio" v-model="pagosForm.mesAnio"  placeholder="12/21"/>
                             </v-col>
                             <!-- <v-col cols="12" sm="3" md="3" lg="3" xl="3">
                                 <v-text-field type="text" label="Año de Expiración" id="cardExpirationYear" v-model="pagosForm.cardExpirationYear" placeholder="2015"/>
@@ -261,19 +261,20 @@ export default {
         startPay(){
             this.$store.state.pagos.pagosForm.pagoTitulo = this.$store.state.pagos.pagosForm.tipo_pago.nombre
             this.$store.state.pagos.pagosForm.description = this.$store.state.pagos.pagosForm.tipo_pago.nombre +' | '+this.$store.state.login_api.user.user.firstName + this.$store.state.login_api.user.user.lastName + '-' + this.$store.state.pagos.pagosForm.matriculaNro + '-' + moment().year()
-            this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.installments.total_amount
-            this.$store.state.pagos.pagosForm.installments = this.$store.state.pagos.pagosForm.installments.installments
+            this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.tipo_pago.costo
+            this.$store.state.pagos.pagosForm.installments = this.$store.state.pagos.pagosForm.selectedInstallment.installments
 
             // this.$store.state.pagos.pagosForm.paymentMethodId = this.$store.state.pagos.pagosForm.paymentMethod.value
             this.$store.state.pagos.pagosForm.cardholderName = this.$store.state.pagos.pagosForm.cardholderName.toUpperCase() 
             let callback = this.$store.state.pagos.pagosForm
             this.separateMonthYear()
-            // console.log("Formulario de Pagos:",this.$store.state.pagos.pagosForm)
+            // Redondear
+            // this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.transaction_amount.toFixed(2)
             Mercadopago.createToken(this.$store.state.pagos.pagosForm,sdkResponseHandler.bind(callback))
             
         },
         separateMonthYear(){
-            let splitted = _.split(this.$store.state.pagos.pagosForm.cardExpirationMonth,'/',2)
+            let splitted = _.split(this.$store.state.pagos.pagosForm.mesAnio,'/',2)
             this.$store.state.pagos.pagosForm.cardExpirationMonth = splitted[0]
             this.$store.state.pagos.pagosForm.cardExpirationYear = '20'+splitted[1]
 
@@ -293,7 +294,7 @@ export default {
             }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
                 valor_modulo = 1500;
             }
-                console.log("valor modulo: "+valor_modulo)
+                // console.log("valor modulo: "+valor_modulo)
                 costo = valor_modulo * this.$store.state.pagos.pagosForm.tipo_pago.modulos;            
 
             // Si se está abonando una nueva inscripción
@@ -325,7 +326,7 @@ export default {
                  this.processCardNumber(this.$store.state.pagos.pagosForm.cardNumber)
                 //  this.showCosto = false
              }
-             console.log("Costo: "+this.$store.state.pagos.pagosForm.tipo_pago.costo)
+            //  console.log("Costo: "+this.$store.state.pagos.pagosForm.tipo_pago.costo)
             // this.showCosto = true;
         },
         installmentHandler(status,response){

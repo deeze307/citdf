@@ -79,7 +79,7 @@ const module = {
           }
         }
 
-        console.log("Pagos Form: ",data)
+        // console.log("Pagos Form: ",data)
         curl.post(`/pagos/create`,data)
         .then(function(response){
           if(response.data.ok){
@@ -158,7 +158,7 @@ const module = {
         curl.post(`/pagos/register`,form)
         .then(function(response){
           if(response.data.ok){
-            console.log(response.data)
+            // console.log(response.data)
             swal({
               title: "Exito!",
               text: "Pago Registrado Exitosamente!",
