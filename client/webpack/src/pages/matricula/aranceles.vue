@@ -136,7 +136,7 @@ export default {
         valor_colegiacion:[
           {
             trimestre:"1er trimestre", 
-            fecha:"Hasta el 31 de Marzo",
+            fecha:"Hasta el 30 de Abril",
             valor: "$ 6000"
           },
           {
