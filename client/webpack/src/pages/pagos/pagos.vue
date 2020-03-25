@@ -286,12 +286,23 @@ export default {
             let user = this.$store.state.login_api.user.user;
 
             // Por emergencia sanitaria debido a COVID-19 se pospone el vencimiento del primer trimestre
-            // un mes más 
-            if(moment(curDate).isBetween('2020-01-01','2020-04-30',null,'[]')){
-                valor_modulo = 1200;
-            }else if(moment(curDate).isBetween('2020-05-01','2020-06-30',null,'[]')){
-                valor_modulo = 1300;
-            }else if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
+            // un mes más SOLO PARA DERECHO ANUAL DE COLEGIACIÓN 
+            if(this.$store.state.pagos.pagosForm.tipo_pago.nombre === 'Derecho Anual de Colegiación'){
+                if(moment(curDate).isBetween('2020-01-01','2020-04-30',null,'[]')){
+                    valor_modulo = 1200;
+                }else if(moment(curDate).isBetween('2020-05-01','2020-06-30',null,'[]')){
+                    valor_modulo = 1300;
+                }
+            }else{
+                if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
+                    valor_modulo = 1200;
+                }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+                    valor_modulo = 1300;
+                }
+            }
+
+            //Fuera del aplazo, se sigue con la fechas normales
+            if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
                 valor_modulo = 1400;
             }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
                 valor_modulo = 1500;
