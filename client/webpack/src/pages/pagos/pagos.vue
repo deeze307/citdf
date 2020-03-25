@@ -91,7 +91,7 @@
                                 <v-text-field type="text" label="Titular de Tarjeta (tal y como figura en la tarjeta)" v-model="pagosForm.cardholderName" placeholder="TITULAR DE TARJETA"/>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" lg="6" xl="6">
-                                <v-text-field id="email" name="email" label="Email donde recibirá el comprobante" hint="Deberá estar registrado en MercadoPago" type="email" v-model="pagosForm.email" placeholder="Ingrese su Email" required/>
+                                <v-text-field id="email" name="email" label="E-mail donde recibirá el comprobante" persistent-hint hint="El E-mail deberá estar registrado en MercadoPago" type="email" v-model="pagosForm.email" placeholder="Ingrese su Email" required/>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" lg="3" xl="3">
                                 <v-text-field id="matriculaNro" name="matriculaNro" label="Matrícula N°" type="text" v-model="pagosForm.matriculaNro" placeholder="Ingrese su N° de matrícula" required/>
@@ -285,9 +285,11 @@ export default {
             let curDate = moment().format('YYYY-MM-DD');
             let user = this.$store.state.login_api.user.user;
 
-            if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
+            // Por emergencia sanitaria debido a COVID-19 se pospone el vencimiento del primer trimestre
+            // un mes más 
+            if(moment(curDate).isBetween('2020-01-01','2020-04-30',null,'[]')){
                 valor_modulo = 1200;
-            }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+            }else if(moment(curDate).isBetween('2020-05-01','2020-06-30',null,'[]')){
                 valor_modulo = 1300;
             }else if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
                 valor_modulo = 1400;
