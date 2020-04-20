@@ -18,7 +18,7 @@ app.get('/', (req, res, next) => {
   // Obtengo Todos los sliders
   console.log(req.query);
   
-  db.pagos.findAll({
+  db.sliderimg.findAll({
     attributes: ['id','display_name','url'],
     where: {
       enabled: 1
