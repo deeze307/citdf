@@ -271,6 +271,7 @@ export default {
             // Redondear
             // this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.transaction_amount.toFixed(2)
             Mercadopago.createToken(this.$store.state.pagos.pagosForm,sdkResponseHandler.bind(callback))
+            // console.log(this.$store.state.pagos.pagosForm);
             
         },
         separateMonthYear(){
