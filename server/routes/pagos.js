@@ -199,4 +199,28 @@ app.post('/create',(req,res,next) =>{
   });
 })
 
+app.get('/customers/get',(req,res,next) =>{
+  // Agrega credenciales
+  
+  let customer = req.body.form;
+  console.log("Req:",req.body);
+  console.log(mercadopago.customers);
+
+  // Primero genero el pago en mercadopago
+  mercadopago.customers.get(customer)
+  .then(function(response){
+    res.status(200).json({
+      ok:true,
+      response : response
+    });
+    
+  }).catch(function(error){
+    console.log(error);
+    res.status(500).json({
+      ok:false,
+      response : error
+    });
+  });
+})
+
 module.exports = app;
