@@ -31,13 +31,13 @@
           next-icon="keyboard_arrow_right"
           prev-icon="keyboard_arrow_left"
           delimiter-icon="fiber_manual_record"
-          v-if="carouselItems.length > 0"
+          v-if="slider.payload.length > 0"
         >
           <v-carousel-item
-            v-for="(item,i) in carouselItems"
+            v-for="(item,i) in slider.payload"
             :key="i"
           >
-            <img :src="item.src" @click="carouselTouched" :style="carouselStyle"/>
+            <img :src="item.url" @click="carouselTouched" :style="carouselStyle"/>
           </v-carousel-item>
               
         </v-carousel>
@@ -349,7 +349,8 @@
     },
     created: function(){
       // store.commit('updateTitle',"SIEP | Servicio");
-      this.carouselImages(require.context("@/assets/carousel", true, /\.png$|\.jpg$|\.jpeg$/));
+      // this.carouselImages(require.context("@/assets/carousel", true, /\.png$|\.jpg$|\.jpeg$/));
+      store.dispatch('SLIDERS_retrieveSliderHomeItems');
       store.dispatch('BOLSA_TRABAJO_retrievePosts',3);
       store.dispatch('NOVEDADES_retrievePosts',3);
     },
@@ -372,6 +373,9 @@
       novedades(){
         return store.state.novedades.items;
       },
+      slider(){
+        return store.state.sliders.homeItems;
+      },
       bolsaTrabajoSelected:{
         get:function(){
           return store.state.bolsa_trabajo.selected;
@@ -391,7 +395,10 @@
     },
     watch: {
       bolsaTrabajo(){},
-      novedades(){}
+      novedades(){},
+      slider(items){
+        console.log("Sliders",items);
+      }
     },
     methods:{
       carouselImages(r) {
