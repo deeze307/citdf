@@ -58,6 +58,7 @@ const marcoLegalRoutes = require('./routes/marco_legal');
 const generalRoutes = require('./routes/generals');
 const descargasRoutes = require('./routes/descargas');
 const matriculaRoutes = require('./routes/matricula');
+const sliderRoutes = require('./routes/slider_img');
 
 // LAS RUTAS
 app.use('/users', usersRoutes);
@@ -73,6 +74,7 @@ app.use('/marco_legal',marcoLegalRoutes);
 app.use('/general',generalRoutes);
 app.use('/descargas',descargasRoutes);
 app.use('/matricula',matriculaRoutes);
+app.use('/slider_img',sliderRoutes);
 
 app.get('/', (request, response) => {
   response.json({ info: 'VueJs, Node.js, Express, and WordPress-API' })
