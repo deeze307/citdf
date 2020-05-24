@@ -38,7 +38,7 @@ app.get('/', (req, res, next) => {
 
 
 app.get('/como-matricularse', (req, res, next) => {
-  console.log("Params:",req.query);
+  console.log("JWT",req.headers);
   if (req.headers.authorization){
     wp.setHeaders('Authorization',req.headers.authorization);
   }

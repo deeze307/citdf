@@ -180,9 +180,9 @@ const module = {
         // };
         // console.log("Params: ",params);
 
-        curl.get('/users/matriculados/como-matricularse').then(function(response){
+        curl.get('/matricula/como-matricularse').then(function(response){
           let como_matricularse = response.data;
-          console.log(como_matricularse);
+          console.log("store.model.matriculados",como_matricularse);
           
           commit("asignarComoMatricularse",como_matricularse);
 
@@ -201,7 +201,7 @@ const module = {
         // };
         // console.log("Params: ",params);
 
-        curl.get('/users/matriculados/baja-suspension').then(function(response){
+        curl.get('/matricula/baja-suspension').then(function(response){
           let baja_suspension = response.data;
           console.log(baja_suspension);
           
