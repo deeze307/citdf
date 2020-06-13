@@ -4,7 +4,7 @@ import router from '../../router'
 const module = {
     state: {
       apiUrl: 'http://api-deeze.tk:3031',
-      // apiUrl: 'http://localhost:3031',
+      apiUrlDev: 'http://localhost:3031',
       items:{
         payload:[]
       },
@@ -138,10 +138,8 @@ const module = {
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
-        console.log("Formulario: ",form);
         curl.post('/users/register',form)
         .then(function(response){
-          console.log(response.data);
           if(response.data.ok){
             swal({
               title: "Exito!",
@@ -158,6 +156,7 @@ const module = {
               button: "Aceptar",
             });  
           }
+          return response.data.ok
         })
         .catch(function (error){
           console.log("Error:",error)
@@ -167,6 +166,7 @@ const module = {
             icon: "error",
             button: "Aceptar",
           });
+          return false
         })
       },
       MATRICULADOS_retrieveComoMatricularse:function({commit,dispatch,state}){

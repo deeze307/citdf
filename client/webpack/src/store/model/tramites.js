@@ -4,7 +4,7 @@ import router from '../../router'
 const module = {
     state: {
       apiUrl: 'http://api-deeze.tk:3031',
-      // apiUrl: 'http://localhost:3031',
+      apiUrlDev: 'http://localhost:3031',
       items:{
         payload:[]
       },
@@ -29,8 +29,10 @@ const module = {
     },
     mutations: {
       asignarTramites(state,payload){
-        console.log("asignarTramites: ",payload);
         state.items = payload;
+      },
+      inicializaTramites(state){
+        state.items = {}
       },
       asignarLegajoMinimo(state,payload){
         state.legajo_minimo = payload;
@@ -44,6 +46,7 @@ const module = {
     },
     actions: {
       TRAMITES_retrieveAll:function({commit,dispatch,state},documentoNro=null){
+        commit('inicializaTramites')
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
@@ -81,21 +84,30 @@ const module = {
           console.log("Error: ",error);
         });
       },
-      TRAMITES_update:function({commit,dispatch,state},tramite){
+      TRAMITES_update: async function({commit,dispatch,state},tramite){
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
 
-        curl.put(`/tramites/${tramite.id}`,tramite)
-        .then(function(response){
+        let updated = await curl.put(`/tramites/${tramite.id}`,tramite)
+        .then(response =>{
           if(response.data.ok){
-            swal({
-              title: "Exito!",
-              text: "Trámite actualizado Exitosamente!",
-              icon: "success",
-              button: "Aceptar",
-            });
-            dispatch("TRAMITES_retrieveAll");
+            if(tramite.file){
+              tramiteUpload = dispatch('TRAMITES_prepareToUpload',{tramite: tramite, response: response})
+                .then(res =>{
+                    return res
+                })
+              return tramiteUpload
+            }else{
+              swal({
+                title: "Exito!",
+                text: "Trámite actualizado Exitosamente!",
+                icon: "success",
+                button: "Aceptar",
+              });
+              dispatch("TRAMITES_retrieveAll");
+              return true
+            }
           }else{
             swal({
               title: "Oops!!",
@@ -103,6 +115,7 @@ const module = {
               icon: "error",
               button: "Aceptar",
             });  
+            return false
           }
         })
         .catch(function (error){
@@ -112,31 +125,43 @@ const module = {
             icon: "error",
             button: "Aceptar",
           });
+          return false
         })
-        
+        return updated
       },
-      TRAMITES_create:function({commit,dispatch,state},tramite){
+      TRAMITES_create: async function({commit,dispatch,state},tramite){
         const curl = axios.create({
           baseURL: state.apiUrl
         });
 
-        curl.post(`/tramites`,tramite)
-        .then(function(response){
+        let created = await curl.post(`/tramites`,tramite)
+        .then(response => {
           if(response.data.ok){
-            swal({
-              title: "Exito!",
-              text: "Trámite creado Exitosamente!",
-              icon: "success",
-              button: "Aceptar",
-            });
-            dispatch("TRAMITES_retrieveAll");
+            // AGREGO SUBIDA DE ARCHIVO SI EXISTE
+            if(tramite.file){
+              let tramiteUpload = dispatch('TRAMITES_prepareToUpload',{tramite: tramite, response: response})
+                .then(res =>{
+                  return res
+                })
+              return tramiteUpload
+            }else{ // SI NO HAY ARCHIVO, CREO EL TRÁMITE DIRECTAMENTE
+              swal({
+                title: "Exito!",
+                text: "Trámite creado Exitosamente!",
+                icon: "success",
+                button: "Aceptar",
+              });
+              dispatch("TRAMITES_retrieveAll");
+              return true
+            }
           }else{
             swal({
               title: "Oops!!",
               text: "No se pudo crear el trámite.",
               icon: "error",
               button: "Aceptar",
-            });  
+            }); 
+            return false
           }
         })
         .catch(function (error){
@@ -146,8 +171,109 @@ const module = {
             icon: "error",
             button: "Aceptar",
           });
+          return false
         })
-        dispatch("TRAMITES_retrieveAll");
+        return created
+      },
+
+      TRAMITES_prepareToUpload: async function({dispatch,state}, data){
+        const curl = axios.create({
+          baseURL: state.apiUrl
+        });
+        let tramite = data.tramite
+        let response = data.response
+        return dispatch("TRAMITES_upload",tramite.file[0]).then(async uploaded => {
+          if(uploaded != ""){
+            let updated = await curl.put(`/tramites/documento/${response.data.tramite.id}`,uploaded).then(resDocUpdated => {
+              if(resDocUpdated.data.ok){
+                /* ACÁ SE VA A ENVIAR EL QR POR CORREO AL MATRICULADO
+                  ENVÍA DESDE CORREO SECRETARIA.CITDF@GMAIL.COM
+                  REQUIERE: NOMBRE, CORREO, ID DE TRAMITE, TIPO DE TRAMITE Y URL AL ARCHIVO
+                */ 
+               // AGREGO CORREO PARA DEBUG
+                // tramite.matriculado.user_email = 'dmaidana01@gmail.com'
+               
+                let mailerData = {
+                  name: tramite.matriculado.first_name,
+                  to: tramite.matriculado.user_email,
+                  tid: response.data.tramite.id,
+                  type: tramite.tramite,
+                  fileUrl: uploaded.url,
+                  status: tramite.status
+                }
+                let status = ''
+                if(tramite.status === 1){
+                  status = 'creado'
+                }else if (tramite.status === 2){
+                  status = 'actualizado'
+                }
+                curl.post('/mailer/tramites',mailerData);
+                swal({
+                  title: "Exito!",
+                  text: `Trámite ${status} Exitosamente!`,
+                  icon: "success",
+                  button: "Aceptar",
+                });
+                dispatch("TRAMITES_retrieveAll");
+                return true
+              }else{
+                swal({
+                  title: "Oops!!",
+                  text: "No se pudo adjuntar el registro del archivo.",
+                  icon: "error",
+                  button: "Aceptar",
+                });
+                return false
+              }
+              
+            }).catch(function (error){
+              console.error(error)
+              return false
+            })
+            return updated
+          }else{
+            swal({
+              title: "Oops!!",
+              text: "No se pudo adjuntar el archivo.",
+              icon: "error",
+              button: "Aceptar",
+            });
+            console.log("No se pudo adjuntar el archivo")
+            return false
+          }
+        })
+      },
+
+      TRAMITES_upload:async function({commit,dispatch,state},file){
+        const curl = axios.create({
+          baseURL: state.apiUrl
+        });
+
+        var uploaded = {
+          ok:true,
+          url:""
+        }
+
+        const formData = new FormData();
+
+        formData.append("file", file);
+        var uploadedPost = await curl.post(`/upload/tramites`,formData)
+        .then(response => {
+          if(response.data.ok){
+            uploaded.url = response.data.file.url
+            return uploaded
+          }else{
+            console.error("ocurrió un error al importar el archivo")
+            uploaded.ok = false
+            return uploaded
+          }
+        })
+        .catch(error => {
+          console.log("err",error)
+          uploaded.ok = false
+          return uploaded
+        })
+        return uploadedPost
       },
 
       TRAMITES_retrieveLegajoMinimo:function({commit,dispatch,state}){

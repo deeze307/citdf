@@ -1674,7 +1674,7 @@ function wp_insert_user( $userdata ) {
 	$meta['last_name'] = apply_filters( 'pre_user_last_name', $last_name );
 
 	if ( empty( $userdata['display_name'] ) ) {
-		if ( $update ) {
+		if( $update ) {
 			$display_name = $user_login;
 		} elseif ( $meta['first_name'] && $meta['last_name'] ) {
 			/* translators: 1: first name, 2: last name */
@@ -2107,12 +2107,12 @@ All at ###SITENAME###
  * @return int|WP_Error The newly created user's ID or a WP_Error object if the user could not
  *                      be created.
  */
-function wp_create_user( $username, $password, $email = '' ) {
+function wp_create_user( $username, $password, $email = '') {
 	$user_login = wp_slash( $username );
 	$user_email = wp_slash( $email );
 	$user_pass  = $password;
 
-	$userdata = compact( 'user_login', 'user_email', 'user_pass' );
+	$userdata = compact( 'user_login', 'user_email', 'user_pass');
 	return wp_insert_user( $userdata );
 }
 

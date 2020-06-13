@@ -67,6 +67,9 @@
                     <v-icon v-if="item.status === 'Pendiente'" small right>alarm</v-icon>
                   </v-chip>
                 </template>
+                <template v-slot:item.docFileUrl="{item}">
+                  <v-btn v-if="item.docFileUrl" x-small :href="item.docFileUrl" target="_blank" fab color="primary"><v-icon>attach_file</v-icon></v-btn>
+                </template>
                 <template v-slot:item.createdAt="{item}">
                   {{ item.createdAt | fechaSinHora }}
                 </template>
@@ -173,10 +176,11 @@ export default {
       return {
         headersTramites: [
           { text: 'N° Trámite', value: 'id' , sortable: true, align: 'center' , width:'10%'},
-          { text: 'Trámite', value: 'tramite' , sortable: true, align: 'center' , width:'40%'},
+          { text: 'Trámite', value: 'tramite' , sortable: true, align: 'center' , width:'30%'},
           { text: 'Nota', value: 'nota' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Observaciones', value: 'observaciones' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'15%'},
+          { text: 'Adjunto', value: 'docFileUrl' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
         ],
         headersPagos: [

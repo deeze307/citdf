@@ -3,7 +3,7 @@
     "username": "wordpress",
     "password": "ingTDF.19",
     "database": "wordpress",
-    "host": "localhost",
+    "host": "api-deeze.tk",
     "dialect": "mysql",
     "SEED": "este-es-un-seed-dificil"
   },

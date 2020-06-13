@@ -29,7 +29,6 @@ const module = {
   mutations: {
     LOGIN_API_checkLocalStorage: function(state){
       let token = localStorage.getItem('CITDF_LOGIN_API_TOKEN')
-      console.log("checkLocalStorage: ",token)
       state.token = token
       // if(state.token != '')
       // { state.loggedIn = true; }
@@ -37,7 +36,6 @@ const module = {
     LOGIN_API_updateToken: function(state, token){
       state.token = token
       localStorage.setItem('CITDF_LOGIN_API_TOKEN',token)
-      console.log("Actualizando Token: ",state.token)
     },
     LOGIN_API_running: function(state, running){
       state.loginIsRunning = running;
@@ -45,7 +43,11 @@ const module = {
     LOGIN_API_updateUser: function(state, userData){
       
       state.user = userData;
-      state.loggedIn = true;
+      if(userData.user.firstName == ''){
+        state.loggedIn = false;
+      }else{
+        state.loggedIn = true;
+      }
     },
     LOGIN_API_fetchUserIsrunning: function(state, running){
       state.fetchUserIsRunning = running;
@@ -142,7 +144,6 @@ const module = {
 
         curl.post('/users/login', payload)
         .then(function (response) {
-          console.log('Login: ',response.data);
           if(response.data.user.token){
             // handle success
             if(response.data.user){
@@ -228,7 +229,6 @@ const module = {
         curl.get('/users/me')
           .then(function (response) {
             // handle success
-            console.log("Recuperando usuario: ",response.data)
             if(response.data.user){
               let splitName = _.split(response.data.user.name,' ');
               if(splitName.length <= 2){

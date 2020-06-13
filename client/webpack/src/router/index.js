@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 // Paginas
 import home from '@/pages/home'
-import gestion from '@/pages/gestion'
+import gestion from '@/pages/gestion/index'
 import contacto from '@/pages/contacto'
 import links from '@/pages/links'
 import honorarios from '@/pages/honorarios'

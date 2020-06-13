@@ -17,9 +17,35 @@ const app = express();
 
 app.use(cors());
 
+app.get('/legajo-minimo', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('legajo-minimo').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
+app.get('/certificacion-de-firma', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('certificacion-de-firma').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
+app.get('/encomienda-de-tareas', (req, res, next) => {
+  console.log("Params:",req.query);
+  wp.pages().slug('encomienda-de-tareas').then(function(response){
+    return res.status(200).json({info: response[0]});
+  }).catch(function(err){
+    return res.status(400).json({error : err});
+  });
+});
+
 app.get('/', (req, res, next) => {
   // Obtengo Todos los tramites
-  console.log(req.query);
   let { filter, id, userId, tramite, status, documentoNro, matriculaNro, sortField, sortDirection } = req.query;
   // let limit = +req.query.pageSize || 5;
   let offset = 0;
@@ -59,7 +85,7 @@ app.get('/', (req, res, next) => {
     // offset = (page) * limit;
     // count = data.count;
     db.tramites.findAll({
-        attributes: ['id','userId','tramite','nota','documentoNro', 'matriculaNro', 'nroRegistro','valor','status','observaciones','createdAt','updatedAt'],
+        attributes: ['id','userId','tramite','nota','documentoNro', 'matriculaNro', 'nroRegistro','valor','status','observaciones','docFileUrl','createdAt','updatedAt'],
         // limit: limit,
         // offset: offset,
         where: where,
@@ -116,6 +142,7 @@ app.put('/:id', (req, res) => {
     } else {
       res.status(200).json({
         ok: true,
+        tramite: result,
         msg: `El tramite ha sido actualizado`
       });
     }
@@ -128,47 +155,50 @@ app.put('/:id', (req, res) => {
   });
 });
 
-app.get('/legajo-minimo', (req, res, next) => {
-  console.log("Params:",req.query);
-  wp.pages().slug('legajo-minimo').then(function(response){
-    return res.status(200).json({info: response[0]});
-  }).catch(function(err){
-    return res.status(400).json({error : err});
+app.put('/documento/:id', (req, res) => {
+  console.log("Body paa actualizar",req.body.url)
+  db.tramites.update({
+    docFileUrl: req.body.url
+  }, {
+    where: {
+      id: req.params.id
+    }
+  }).then(result => {
+    if (result === 0) {
+      res.status(404).json({
+        ok: false,
+        err: 'El tramite no existe'
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        msg: `El tramite ha sido actualizado`
+      });
+    }
+  }).catch(Sequelize.ValidationError, function(msg) {
+    return res.status(422).json({
+      message: msg.errors
+    });
+  }).catch(function(err) {
+    return res.status(400).json({ message: "issues trying to connect to database" });
   });
 });
 
-app.get('/certificacion-de-firma', (req, res, next) => {
-  console.log("Params:",req.query);
-  wp.pages().slug('certificacion-de-firma').then(function(response){
-    return res.status(200).json({info: response[0]});
-  }).catch(function(err){
-    return res.status(400).json({error : err});
-  });
-});
 
-app.get('/encomienda-de-tareas', (req, res, next) => {
-  console.log("Params:",req.query);
-  wp.pages().slug('encomienda-de-tareas').then(function(response){
-    return res.status(200).json({info: response[0]});
-  }).catch(function(err){
-    return res.status(400).json({error : err});
-  });
-});
 
 app.post('/',(req,res,next) =>{
-  console.log("REquest:",req);
   db.tramites.create({
-    userId: req.body.userId,
-    documentoNro : req.body.documentoNro,
-    matriculaNro: req.body.matriculaNro,
+    userId: req.body.matriculado.ID,
+    documentoNro : req.body.matriculado.documento_nro,
+    matriculaNro: req.body.matriculado.matricula,
     nroRegistro: req.body.nroRegistro,
     valor : req.body.valor,
     tramite: req.body.tramite,
     nota: req.body.nota,
     observaciones : req.body.observaciones,
     status: req.body.status
-  }).then(result => {
-    if (result === 0) {
+  }).then(tramite => {
+    if (tramite === 0) {
       res.status(404).json({
         ok: false,
         err: 'El tramite pudo ser creado'
@@ -176,6 +206,7 @@ app.post('/',(req,res,next) =>{
     } else {
       res.status(200).json({
         ok: true,
+        tramite:tramite,
         msg: `El tramite ha sido creado`
       });
     }
@@ -187,5 +218,6 @@ app.post('/',(req,res,next) =>{
     return res.status(400).json({ message: err });
   });
 })
+
 
 module.exports = app;

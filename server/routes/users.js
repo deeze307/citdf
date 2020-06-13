@@ -312,29 +312,6 @@ app.post('/matriculados',(req,res) => {
   });
 });
 
-// app.get('/matriculados/como-matricularse', (req, res, next) => {
-//   console.log("Params:",req.query);
-//   if (req.headers.authorization){
-//     wp.setHeaders('Authorization',req.headers.authorization);
-//   }
-//   wp.pages().slug('como-matricularse').then(function(response){
-//     return res.status(200).json({info: response[0]});
-//   }).catch(function(err){
-//     return res.status(400).json({error : err});
-//   });
-// });
-
-// app.get('/matriculados/baja-suspension', (req, res, next) => {
-//   console.log("Params:",req.query);
-//   if (req.headers.authorization){
-//     wp.setHeaders('Authorization',req.headers.authorization);
-//   }
-//   wp.pages().slug('baja-suspension').then(function(response){
-//     return res.status(200).json({info: response[0]});
-//   }).catch(function(err){
-//     return res.status(400).json({error : err});
-//   });
-// });
 
 app.get('/me', (req,res,next) => {
   if (req.headers.authorization){
@@ -618,7 +595,24 @@ app.post('/register', (req, res, next) => {
     body: body
   }, function (error, response, body){
     if(response.body.code === 200){
-      return res.status(200).json({
+      // VER DESPUES!!
+      // db.wp_users.update({
+      //   display_name: body.first_name + " " +body.last_name
+      // },{
+      //   where:{
+      //     user_login:body.documento_nro
+      //   }
+      // }).then(result => {
+      //   console.log()
+
+      // }).catch(Sequelize.ValidationError, function(msg) {
+      //   return res.status(422).json({
+      //     message: msg.errors
+      //   });
+      // }).catch(function(err) {
+      //   return res.status(400).json({ message: "issues trying to connect to database" });
+      // });;
+      return res.json({
         ok: true,
         user: response.data
       });
