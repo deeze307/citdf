@@ -58,7 +58,13 @@ Vue.use(VueScrollTo, {
      y: true
  })
 
+ import VueFileAgent from 'vue-file-agent';
+ import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
+ 
+ Vue.use(VueFileAgent);
 
+//***  ***// Filtros
+//***  ***//
 Vue.filter('fechaSinHora', function(value) {
   if (value) {
     return moment(String(value)).format('DD/MM/YYYY')
@@ -78,6 +84,10 @@ Vue.filter('fechaSegundos', function(value) {
   }
 });
 
+//*******************//
+//*** END FILTROS ***//
+//*******************//
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyBFPUFES_l4Gn4QKty9nwXTdeM-Ew-Hxb8",
@@ -92,15 +102,6 @@ Vue.config.productionTip = false;
 Vue.use(Vuetify)
 export default new Vuetify({ })
 
-/* eslint-disable no-new */
-// new Vue({
-//   Vuetify,
-//   store,
-//   el: '#app',
-//   router,
-//   components: { App },
-//   template: '<App/>'
-// });
 new Vue({
     store,
     router,

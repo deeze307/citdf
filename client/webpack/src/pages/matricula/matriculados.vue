@@ -426,7 +426,7 @@ export default {
       // }
       
 
-      store.dispatch('MATRICULADOS_retrieveAll',params);
+      // store.dispatch('MATRICULADOS_retrieveAll',params);
 
     
     },
@@ -519,19 +519,27 @@ export default {
         }, 300)
       },
       createMatriculado(){
-        this.saving = true;
-        this.editedItem.username = this.editedItem.nickname;
-        this.editedItem.email = this.editedItem.user_email;
-        this.editedItem.role = "matriculado";
-        store.dispatch('MATRICULADOS_create',this.editedItem)
-        .then((response) => {
-          this.saving = false;
-
+        let vm = this
+        vm.saving = true;
+        vm.editedItem.username = vm.editedItem.nickname;
+        vm.editedItem.email = vm.editedItem.user_email;
+        vm.editedItem.role = "matriculado";
+        vm.editedItem.display_name = vm.editedItem.first_name +" "+ vm.editedItem.last_name;
+        store.dispatch('MATRICULADOS_create',vm.editedItem)
+        .then(function(response) {
+          console.log(response)
+          vm.saving = false;
+          if(response.data){
+            vm.editedItem={}
+            vm.dialogAdminMatriculado = false
+          }
         });
       },
       toggleAdminMatriculado(newItem){
         if(newItem){
-          this.editedItem={}
+          this.editedItem={
+            habilitado:true
+          }
           this.newItem = true
         }else{
           this.newItem = false

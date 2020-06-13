@@ -396,9 +396,7 @@
     watch: {
       bolsaTrabajo(){},
       novedades(){},
-      slider(items){
-        console.log("Sliders",items);
-      }
+      slider(items){}
     },
     methods:{
       carouselImages(r) {

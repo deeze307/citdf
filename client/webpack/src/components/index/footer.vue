@@ -26,7 +26,7 @@
         white--text
         xs12
       >
-        &copy;2019 — <strong>Colegio de Ingenieros de Tierra del Fuego Antártida e Islas del Atlántico Sur</strong> info@citdf.org.ar
+        &copy;2019 - 2020 — <strong>Colegio de Ingenieros de Tierra del Fuego Antártida e Islas del Atlántico Sur</strong> info@citdf.org.ar
       </v-flex>
     </v-layout>
   </v-footer>

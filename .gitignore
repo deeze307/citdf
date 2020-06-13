@@ -1,3 +1,5 @@
 wordpress/
 client/node_modules/
 server/node_modules/
+
+client/webpack/package-lock.json
