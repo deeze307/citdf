@@ -93,7 +93,9 @@ const module = {
         .then(response =>{
           if(response.data.ok){
             if(tramite.file){
-              tramiteUpload = dispatch('TRAMITES_prepareToUpload',{tramite: tramite, response: response})
+              response.data.tramite.id = tramite.id
+              response.data.tramite.type = "actualizado"
+              let tramiteUpload = dispatch('TRAMITES_prepareToUpload',{tramite: tramite, response: response})
                 .then(res =>{
                     return res
                 })
@@ -139,6 +141,7 @@ const module = {
           if(response.data.ok){
             // AGREGO SUBIDA DE ARCHIVO SI EXISTE
             if(tramite.file){
+              response.data.tramite.type = "creado"
               let tramiteUpload = dispatch('TRAMITES_prepareToUpload',{tramite: tramite, response: response})
                 .then(res =>{
                   return res
@@ -182,6 +185,7 @@ const module = {
         });
         let tramite = data.tramite
         let response = data.response
+        console.log("prepareToUpload:",response)
         return dispatch("TRAMITES_upload",tramite.file[0]).then(async uploaded => {
           if(uploaded != ""){
             let updated = await curl.put(`/tramites/documento/${response.data.tramite.id}`,uploaded).then(resDocUpdated => {
@@ -201,16 +205,10 @@ const module = {
                   fileUrl: uploaded.url,
                   status: tramite.status
                 }
-                let status = ''
-                if(tramite.status === 1){
-                  status = 'creado'
-                }else if (tramite.status === 2){
-                  status = 'actualizado'
-                }
                 curl.post('/mailer/tramites',mailerData);
                 swal({
                   title: "Exito!",
-                  text: `Trámite ${status} Exitosamente!`,
+                  text: `Trámite ${response.data.tramite.type} Exitosamente!`,
                   icon: "success",
                   button: "Aceptar",
                 });

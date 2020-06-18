@@ -147,7 +147,7 @@
                                   </template>
                                 </v-file-input>
                               </v-flex>
-                              <v-flex v-if="!editarTramite" xs12 offset-xs7>
+                              <v-flex xs12 offset-xs7>
                                 <v-btn x-small color="error" @click="nuevoTramiteItem.file=null" :disabled="!nuevoTramiteItem.file">Quitar Adjunto</v-btn>
                               </v-flex>
                             </v-col >
