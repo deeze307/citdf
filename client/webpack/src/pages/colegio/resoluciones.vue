@@ -50,6 +50,21 @@ export default {
       return {
         resoluciones: [
           {
+            res: "193",
+            fecha: "15/05/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/06/Resolución-Nº193.pdf" target="_blank">Extensión de mandatos</a>'
+          },
+          {
+            res: "191",
+            fecha: "28/04/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/06/Resolución-Nº191.pdf" target="_blank">Otorga M.P.N° 382.</a>'
+          },
+          {
+            res: "190",
+            fecha: "13/03/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/06/Resolución-Nº190.pdf" target="_blank">Otorga M.P.N° 381.</a>'
+          },
+          {
             res: "189",
             fecha: "04/03/2020",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/03/Resolución-Nº189.pdf" target="_blank">Aceptar solicitud de alta M.P.N° 359.</a>'
