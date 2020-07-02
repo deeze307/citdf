@@ -95,7 +95,7 @@ Vue.use(VueGoogleMaps, {
   }
 });
 
-Vue.set(Vue.prototype, '_', _);
+Vue.set(Vue.prototype, '_', _)
 
 Vue.config.productionTip = false;
 

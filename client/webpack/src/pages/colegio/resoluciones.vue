@@ -50,9 +50,19 @@ export default {
       return {
         resoluciones: [
           {
+            res: "194",
+            fecha: "08/06/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/07/Resolución-Nº194.pdf" target="_blank">Otorga M.P.N° 384.</a>'
+          },
+          {
             res: "193",
             fecha: "15/05/2020",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/06/Resolución-Nº193.pdf" target="_blank">Extensión de mandatos</a>'
+          },
+          {
+            res: "192",
+            fecha: "04/05/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/07/Resolución-Nº192.pdf" target="_blank">Otorga M.P.N° 383.</a>'
           },
           {
             res: "191",
