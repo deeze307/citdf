@@ -426,8 +426,7 @@ export default {
       // }
       
 
-      // store.dispatch('MATRICULADOS_retrieveAll',params);
-
+      store.dispatch('MATRICULADOS_retrieveAll',params);
     
     },
     computed:{
