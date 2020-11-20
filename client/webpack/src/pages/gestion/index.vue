@@ -5,15 +5,17 @@
       </v-flex>
       <tramites-component />
       <pagos-component />
+      <aprobadores-component />
     </v-container>
 </template>
 
 <script>
 import tramitesComponent from './tramites'
 import pagosComponent from './pagos'
+import aprobadoresComponent from './aprobadores'
 
 export default {
-  components:{ tramitesComponent, pagosComponent },
+  components:{ tramitesComponent, pagosComponent, aprobadoresComponent },
   data () {
     return {
     }

@@ -6,7 +6,7 @@ const module = {
   
   state: {
     // Flags
-    api_url:'http://api-deeze.tk:3031',
+    api_url:process.env.CITDF_API,
     // api_url:'http://localhost:3031',
     loginIsRunning: false,
     loggedIn: false,
@@ -41,7 +41,6 @@ const module = {
       state.loginIsRunning = running;
     },
     LOGIN_API_updateUser: function(state, userData){
-      
       state.user = userData;
       if(userData.user.firstName == ''){
         state.loggedIn = false;
@@ -113,8 +112,7 @@ const module = {
                   lastName:""
                 }
               }
-              commit('LOGIN_API_updateUser',response.data);
-              commit('LOGIN_API_fetchUserIsrunning',false);
+              dispatch('getApprover',{data:response.data, fetch:true});
             })
             .catch(function (error) {
               // handle error
@@ -168,18 +166,7 @@ const module = {
                 lastName:""
               }
             }
-            commit('LOGIN_API_updateUser', response.data);
-            commit('LOGIN_API_updateToken',response.data.user.token);
-            commit('LOGIN_API_running', false);
-
-
-            dispatch('LOGIN_API_fetchUser');
-            swal({
-              title: "Exito!",
-              text: "Has iniciado sesion exitosamente!",
-              icon: "success",
-              button: "Aceptar",
-            });
+            dispatch('getApprover', {data:response.data, fetch:false})
           }else{
             console.log(response.error);
             swal({
@@ -251,8 +238,7 @@ const module = {
                 lastName:""
               }
             }
-            commit('LOGIN_API_updateUser',response.data);
-            commit('LOGIN_API_fetchUserIsrunning',false);
+            dispatch('getApprover', {data:response.data, fetch:true})
           })
           .catch(function (error) {
             // handle error
@@ -316,6 +302,41 @@ const module = {
           state.fetchUserIsRunning = false;
           state.dialogChangePassword = false
         });
+    },
+    getApprover ({state, commit, dispatch},res) {
+      const curl = axios.create({
+        baseURL: state.api_url
+      });
+      console.log('res', res.data)
+      let params = {
+        matriculadoId: res.data.user.id,
+        active: 1
+      }
+      curl.get('/aprobadores/find',{params:params})
+      .then(function(response) {
+        res.data.user = {
+          ...res.data.user,
+          approver: response.data.payload
+        }
+        commit('LOGIN_API_updateUser', res.data);
+        if (!res.fetch) { 
+          commit('LOGIN_API_updateToken',res.data.user.token);
+          dispatch('LOGIN_API_fetchUser');
+        }
+        commit('LOGIN_API_running', false);
+        commit('LOGIN_API_fetchUserIsrunning',false);
+
+        if(!res.fetch) {
+          swal({
+            title: "Exito!",
+            text: "Has iniciado sesion exitosamente!",
+            icon: "success",
+            button: "Aceptar",
+          });
+        }
+      }).catch(error => {
+        console.log('error approver', error)
+      })
     }
   }
 };

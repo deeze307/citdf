@@ -61,6 +61,7 @@ const matriculaRoutes = require('./routes/matricula');
 const sliderRoutes = require('./routes/slider_img');
 const uploaderRoutes = require('./routes/uploader');
 const mailerRoutes = require('./routes/mailer');
+const aprobadores = require('./routes/aprobadores')
 
 // LAS RUTAS
 app.use('/users', usersRoutes);
@@ -79,6 +80,7 @@ app.use('/matricula',matriculaRoutes);
 app.use('/slider_img',sliderRoutes);
 app.use('/upload',uploaderRoutes);
 app.use('/mailer',mailerRoutes);
+app.use('/aprobadores', aprobadores)
 
 app.get('/', (request, response) => {
   response.json({ info: 'VueJs, Node.js, Express, and WordPress-API' })

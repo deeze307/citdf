@@ -56,6 +56,17 @@ const module = {
           console.log("Error: ",error);
         });
       },
+      async MATRICULADOS_findOne ({ state, commit}, userId) {
+        const curl = axios.create({
+          baseURL: state.apiUrl
+        });
+  
+        let params = {
+          ID: userId
+        }
+        const user = await curl.get('/users/matriculados',{params:params})
+        return user
+      },
       MATRICULADOS_updateFromTable:function({commit,dispatch,state},payload){
         const curl = axios.create({
           baseURL: state.apiUrl,

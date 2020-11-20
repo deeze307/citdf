@@ -46,7 +46,7 @@ app.get('/encomienda-de-tareas', (req, res, next) => {
 
 app.get('/', (req, res, next) => {
   // Obtengo Todos los tramites
-  let { filter, id, userId, tramite, status, documentoNro, matriculaNro, sortField, sortDirection } = req.query;
+  let { filter, id, userId, tramite, status, documentoNro, ciudadTramite, matriculaNro, incremental, sortField, sortDirection } = req.query;
   // let limit = +req.query.pageSize || 5;
   let offset = 0;
   let count = 0;
@@ -75,6 +75,10 @@ app.get('/', (req, res, next) => {
       {matriculaNro: {
         [Op.like]: matriculaNro ? `${matriculaNro}` : '%%'
         }
+      },
+      {ciudadTramite: {
+        [Op.like]: matriculaNro ? `${matriculaNro}` : '%%'
+        }
       }
     ]
   };
@@ -85,7 +89,7 @@ app.get('/', (req, res, next) => {
     // offset = (page) * limit;
     // count = data.count;
     db.tramites.findAll({
-        attributes: ['id','userId','tramite','nota','documentoNro', 'matriculaNro', 'nroRegistro','valor','status','observaciones','docFileUrl','createdAt','updatedAt'],
+        attributes: ['id','userId','tramite','nota','documentoNro', 'matriculaNro','ciudadTramite', 'nroRegistro', 'incremental', 'valor','status','observaciones','docFileUrl','createdAt','updatedAt'],
         // limit: limit,
         // offset: offset,
         where: where,
@@ -113,17 +117,19 @@ app.get('/', (req, res, next) => {
 app.put('/:id', (req, res) => {
   console.log(req.body);
   switch(req.body.status){
-    case "Pendiente" : req.body.status = 0;
+    case "Revisión Pendiente" : req.body.status = 0;
     case "En Proceso" : req.body.status = 1;
     case "Completado" : req.body.status = 2;
-    case "Cancelado" : req.body.status = 3;
+    case "Rechazado" : req.body.status = 3;
+    case "Aprobación Pendiente" : req.body.status = 4;
+    case "Pago Pendiente" : req.body.status = 5;
   }
 
   db.tramites.update({
     userId: req.body.userId,
     documentoNro : req.body.documentoNro,
     matriculaNro : req.body.matriculaNro,
-    nroRegistro : req.body.nroRegistro,
+    // nroRegistro : req.body.nroRegistro, // esto se genera automáticamente y no se modifica
     valor : req.body.valor,
     tramite: req.body.tramite,
     nota: req.body.nota,
@@ -187,37 +193,81 @@ app.put('/documento/:id', (req, res) => {
 
 
 app.post('/',(req,res,next) =>{
-  db.tramites.create({
-    userId: req.body.matriculado.ID,
-    documentoNro : req.body.matriculado.documento_nro,
-    matriculaNro: req.body.matriculado.matricula,
-    nroRegistro: req.body.nroRegistro,
-    valor : req.body.valor,
-    tramite: req.body.tramite,
-    nota: req.body.nota,
-    observaciones : req.body.observaciones,
-    status: req.body.status
-  }).then(tramite => {
-    if (tramite === 0) {
-      res.status(404).json({
-        ok: false,
-        err: 'El tramite pudo ser creado'
-      });
-    } else {
-      res.status(200).json({
-        ok: true,
-        tramite:tramite,
-        msg: `El tramite ha sido creado`
-      });
+  // obtengo el último nro de registro generado para una ciudad y un tipo determinado
+  let _tramite = req.body.tramite
+  let ciudadTramite = req.body.ciudadTramite
+
+  let registroWhere = {
+    [Op.and]: [
+      {
+        tramite: _tramite
+      },
+      {
+        ciudadTramite: ciudadTramite
+      }
+    ]
+  };
+
+  db.tramites.findOne({
+    attributes: ['id','nroRegistro','incremental','createdAt','updatedAt'],
+    where: registroWhere,
+    order: [
+      ["createdAt", "Desc"]
+    ]
+  })
+  .then(registroNro => {
+    _tramite =_tramite.substring(0,1)
+    ciudadTramite = ciudadTramite === "Ushuaia" ? "USH" : "RG"
+    if (!registroNro) {
+      registroNro = { incremental: 0 }
     }
+    
+    let nroRegistro = `${_tramite}${(++registroNro.incremental)}${ciudadTramite}`
+    console.log('nroRegistro', nroRegistro, req.body)
+
+    db.tramites.create({
+      userId: req.body.matriculado.ID,
+      documentoNro : req.body.matriculado.documento_nro,
+      matriculaNro: req.body.matriculado.matricula,
+      ciudadTramite: req.body.ciudadTramite,
+      nroRegistro: nroRegistro, // auto generado
+      incremental: registroNro.incremental,
+      valor : req.body.valor,
+      tramite: req.body.tramite,
+      nota: req.body.nota,
+      observaciones : req.body.observaciones,
+      status: req.body.status
+    }).then(tramite => {
+      if (tramite === 0) {
+        res.status(404).json({
+          ok: false,
+          err: 'El tramite no pudo ser creado'
+        });
+      } else {
+        res.status(200).json({
+          ok: true,
+          tramite:tramite,
+          msg: `El tramite ha sido creado`
+        });
+      }
+    }).catch(Sequelize.ValidationError, function(msg) {
+      return res.status(422).json({
+        message: msg.errors
+      });
+    }).catch(function(err) {
+      console.log('fallo la creacion', err)
+      return res.status(400).json({ message: err });
+    });
   }).catch(Sequelize.ValidationError, function(msg) {
     return res.status(422).json({
       message: msg.errors
     });
   }).catch(function(err) {
+    console.log('fallo la busqueda de tramite', err)
     return res.status(400).json({ message: err });
   });
 })
+
 
 
 module.exports = app;

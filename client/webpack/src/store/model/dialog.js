@@ -16,7 +16,10 @@ const module = {
   },
   mutations: {
     showDialog(state,payload) {
-      state.dialog = payload;
+      state.dialog = {
+        ...state.dialog,
+        payload
+      }
     }
   },
   actions: {

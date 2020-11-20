@@ -16,7 +16,7 @@
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex xs12 sm12 md3 lg3 xl3 offset-md1 offset-lg1 offset-xl1>
-          <!--<v-btn color="green darken-1" small dark> <v-icon left>post_add</v-icon> Nuevo Trámite</v-btn> -->
+          <Dialog :dialog="dialogFormTramite" />
         </v-flex>
       </v-layout>
       <v-layout align-center justify-space-around row fill-height>
@@ -58,29 +58,67 @@
                     </v-card>
                   </v-dialog>
                 </template> 
-                <template v-slot:item.status="{item}">
-                  <v-chip :color="statusColor(item.status)" dark>
+                <template v-slot:[`item.status`]="{item}">
+                  <v-chip v-if="isNaN(item.status)" v-bind:class="{ 'pl-1 pr-2': _.endsWith(item.status, 'Pendiente') }" :color="statusColor(item.status)" dark>
                     {{ item.status }}
-                    <v-icon v-if="item.status === 'En Proceso'" small right>autorenew</v-icon>
-                    <v-icon v-if="item.status === 'Cancelado'" small right>block</v-icon>
+                    <v-icon v-if="item.status === 'En Proceso' || _.endsWith(item.status,'Pendiente')" small right>autorenew</v-icon>
+                    <v-icon v-if="item.status === 'Cancelado' || item.status === 'Rechazado'" small right>block</v-icon>
                     <v-icon v-if="item.status === 'Completado'" small right>done</v-icon>
                     <v-icon v-if="item.status === 'Pendiente'" small right>alarm</v-icon>
                   </v-chip>
                 </template>
-                <template v-slot:item.docFileUrl="{item}">
+                <template v-slot:[`item.docFileUrl`]="{item}">
                   <v-btn v-if="item.docFileUrl" x-small :href="item.docFileUrl" target="_blank" fab color="primary"><v-icon>attach_file</v-icon></v-btn>
                 </template>
-                <template v-slot:item.createdAt="{item}">
+                <template  v-slot:[`item.nota`]="{item}">
+                  <v-btn v-if="item.nota && item.nota !== '' && (item.status === 'Rechazado' || item.status === 'Cancelado')" small fab text color="yellow darken-3" @click="showObservation(item)">
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on">sms_failed</v-icon>
+                      </template>
+                      <span>{{ item.nota }}</span>
+                    </v-tooltip>
+                  </v-btn>
+                </template>
+                <template  v-slot:[`item.observaciones`]="{item}">
+                  <v-btn v-if="item.observaciones && item.observaciones !== ''" small fab text color="blue" @click="showObservation(item)">
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on">visibility</v-icon>
+                      </template>
+                      <span>{{ item.observaciones }}</span>
+                    </v-tooltip>
+                  </v-btn>
+                </template>
+                <template v-slot:[`item.action`]="{item}">
+                  <v-btn v-if="item.status ==='Pago Pendiente'" small class="mr-2" fab text color="green" @click="goToPay(item.id)">
+                    <v-tooltip right>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on">attach_money</v-icon>
+                      </template>
+                      <span>Pagar</span>
+                    </v-tooltip>
+                  </v-btn>
+                  <v-btn v-if="item.status ==='Rechazado'" small class="mr-2" fab text color="red" @click="editTramite(item)">
+                    <v-tooltip right>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon v-bind="attrs" v-on="on">edit</v-icon>
+                      </template>
+                      <span>Editar Trámite</span>
+                    </v-tooltip>
+                  </v-btn>
+                </template>
+                <template v-slot:[`item.createdAt`]="{item}">
                   {{ item.createdAt | fechaSinHora }}
                 </template>
-                <template v-slot:item.nota="{item}">
+                <!-- <template v-slot:[`item.nota`]="{item}">
                   <v-tooltip top>
                     <template v-slot:activator="{ on }">
                       <v-btn v-on="on" v-if="item.status === 'Cancelado'" small text fab color="indigo" @click="showNota(item)"><v-icon>sms_failed</v-icon></v-btn>
                     </template>
                     <span>Ver Nota</span>
                   </v-tooltip>
-                </template>
+                </template> -->
             </v-data-table>
         </v-flex>
         <!-- ./Datatable -->
@@ -145,16 +183,16 @@
                     </v-card>
                   </v-dialog>
                 </template> 
-                <template v-slot:item.status="{item}">
+                <template v-slot:[`item.status`]="{item}">
                   <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
                 </template>
-                <template v-slot:item.comprobante_url="{item}">
+                <template v-slot:[`item.comprobante_url`]="{item}">
                   <v-btn small fab text color="light-blue" @click="showTicket(item)"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
                 </template>
-                <template v-slot:item.factura_afip="{item}">
+                <template v-slot:[`item.factura_afip`]="{item}">
                   <v-btn small fab text color="light-blue"><v-icon>eye</v-icon>{{item.factura_afip}}</v-btn>
                 </template>
-                <template v-slot:item.createdAt="{item}">
+                <template v-slot:[`item.createdAt`]="{item}">
                   {{ item.createdAt | fechaConHora }}
                 </template>
             </v-data-table>
@@ -168,20 +206,23 @@
 <script>
 import router from '../../router'
 import axios from 'axios'
+import Dialog from '@/components/Dialog'
 
 export default {
     components:{
+      Dialog
     },
     data () {
       return {
         headersTramites: [
           { text: 'N° Trámite', value: 'id' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Trámite', value: 'tramite' , sortable: true, align: 'center' , width:'30%'},
-          { text: 'Nota', value: 'nota' , sortable: true, align: 'center' , width:'10%'},
+          { text: 'Notas', value: 'nota' , sortable: true, align: 'center' , width:'10%'},
           { text: 'Observaciones', value: 'observaciones' , sortable: true, align: 'center' , width:'10%'},
-          { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'15%'},
-          { text: 'Adjunto', value: 'docFileUrl' , sortable: true, align: 'center' , width:'10%'},
-          { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'15%'},
+          { text: 'Estado', value: 'status' , sortable: true, align: 'center' , width:'20%'},
+          { text: '', value: 'action' , sortable: false, align: 'center' , width:'5%'},
+          { text: 'Adjunto', value: 'docFileUrl' , sortable: true, align: 'center' , width:'5%'},
+          { text: 'Fecha de Solicitud', value: 'createdAt' , sortable: true, align: 'center' , width:'20%'},
         ],
         headersPagos: [
           { text: '#ID', value: 'id' , sortable: true, align: 'center' , width:'10%'},
@@ -228,7 +269,19 @@ export default {
           status:'',
           createdAt:'',
         },
-        dialogTramite:false,
+        dialogTramite: false,
+        dialogFormTramite: {
+          open: false,
+          maxWidth: '500px',
+          buttonText: 'Nuevo Trámite',
+          showButton: true,
+          component: 'NuevoTramiteForm',
+          data: {
+            origin: 'user',
+            editarTramite: false,
+            form: {}
+          }
+        },
         // apigw: process.env.TEU_API,
         page: 1,
         tramitesLoading:true,
@@ -245,17 +298,33 @@ export default {
           
     },
     computed:{
+      matriculados(){
+        this.matriculadosOrigen = store.state.matriculados.items;
+        this.matriculadosResult = store.state.matriculados.items;
+        return store.state.matriculados.items;
+      },
       tramites(){
         return store.state.tramites.items
       },
       pagos(){
         return store.state.pagos.items
       },
+      pagoItem:{
+        get() {
+          return store.state.pagos.pagoItem
+        },
+        set(val) {
+          store.state.pagos.pagoItem = val
+        }
+      },
+      _dialog () {
+        return store.state.dialog.dialog
+      },
       user() {
         let usuario = store.state.login_api.user;
         console.log("Usuario: ",usuario)
         if(usuario.user){
-          store.dispatch("TRAMITES_retrieveAll",usuario.user.custom_fields.documento_nro)
+          store.dispatch("TRAMITES_retrieveAll",{documentoNro:usuario.user.custom_fields.documento_nro})
           store.dispatch("PAGOS_retrieveAll",usuario.user.custom_fields.documento_nro)
         };
         return usuario
@@ -266,49 +335,110 @@ export default {
         this.tramitesLoading=false;
       },
       user(perfil){
-        store.dispatch("TRAMITES_retrieveAll",perfil.user.custom_fields.documento_nro)
+        store.dispatch("TRAMITES_retrieveAll",{documentoNro:perfil.user.custom_fields.documento_nro})
         store.dispatch("PAGOS_retrieveAll",perfil.user.custom_fields.documento_nro)
       },
       pagos(){
         this.pagosLoading=false;
+      },
+      _dialog: {
+        handler (d) {
+          if (!d.open) {}
+        },
+        deep: true
       }
     },
     methods:{
-        statusColor(status){
-          switch(status){
-            case "Cancelado": return "red";
-            case "Completado": return "green";
-            case "Pagado": return "green";
-            case "En Proceso": return "yellow darken-3";
-            case "Pendiente" : return "grey";
-          }
-        },
-        showNota (item) {
-          this.editedIndex = this.$store.state.tramites.items.payload.indexOf(item)
-          this.editedItem = Object.assign({}, item)
-          this.dialogTramite = true
-        },
-        closeDialogTramite () {
-          this.dialogTramite = false;
-          setTimeout(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
-          }, 300)
-        },
-        closeDialogTicket () {
-          this.dialogTicket = false;
-          // setTimeout(() => {
-          //   this.ticketItem = Object.assign({}, this.defaultItem)
-          //   this.editedIndex = -1
-          // }, 300)
-        },
-        goToPay(){
-          router.push('/tramites/pagos')
-        },
-        showTicket(item){
-          this.ticketItem = item;
-          this.dialogTicket = true
+      showObservation(item){},
+      statusColor(status){
+        switch(status){
+          case "Cancelado": return "red";
+          case "Rechazado": return "red";
+          case "Completado": return "green";
+          case "Pagado": return "green";
+          case "En Proceso": return "yellow darken-3";
+          case "Aprobación Pendiente" : return "indigo darken-3";
+          case "Revisión Pendiente" : return "yellow darken-3";
+          case "Pago Pendiente" : return "grey";
         }
+      },
+      showNota (item) {
+        this.editedIndex = this.$store.state.tramites.items.payload.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogTramite = true
+      },
+      closeDialogTramite () {
+        this.dialogTramite = false;
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        }, 300)
+      },
+      closeDialogTicket () {
+        this.dialogTicket = false;
+        // setTimeout(() => {
+        //   this.ticketItem = Object.assign({}, this.defaultItem)
+        //   this.editedIndex = -1
+        // }, 300)
+      },
+      goToPay(desdeTramite=null){
+        if(desdeTramite) {
+          this.pagoItem = {
+            tramite: desdeTramite,
+            matriculadoId: this.user.user.id} 
+        } else {
+          this.pagoItem = {
+            tramite: null,
+            matriculadoId: null
+          }
+        }
+        console.log('pagar', this.pagoItem)
+        router.push('/tramites/pagos')
+      },
+      
+      showTicket(item){
+        this.ticketItem = item;
+        this.dialogTicket = true
+      },
+      createTramite(item){
+        let vm = this;
+        vm.working = true;
+        item.nota = '';
+        item.status = 1; // Estado "EN PROCESO"
+
+        store.dispatch("TRAMITES_create",item).then(function(response){
+          vm.working = false;
+          if(response){
+            vm.dialogNuevoTramite = false
+            vm.nuevoTramiteItem = Object.assign({}, vm.defaultItem);
+          }
+        });
+      },
+      editTramite (item) {
+        this.dialogFormTramite = {
+          ...this.dialogFormTramite,
+          open: true,
+          data: {
+            origin: 'user',
+            editarTramite: true,
+            form: item
+          }
+        }
+      },
+      updateTramite(item){
+        let vm = this
+        vm.dialogNuevoTramite = false;
+        if(item.status === "En Proceso"){
+          item.status = 1;
+        }else if(item.status === "Completar"){
+          item.status = 2;
+        }else if (item.status === "Cancelar"){
+          item.status = 3;
+        }
+        store.dispatch("TRAMITES_update",item).then( response => {
+          vm.nuevoTramiteItem = Object.assign({}, vm.defaultItem);
+        });
+      }
     }
 }
 </script>

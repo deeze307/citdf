@@ -1,7 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const wp_users = sequelize.define('wp_users', {
-    ID:DataTypes.INTEGER,
+    ID:{
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
     user_login: DataTypes.STRING,
     user_nicename: DataTypes.STRING,
     user_email: DataTypes.STRING,
