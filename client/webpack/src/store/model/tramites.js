@@ -149,7 +149,9 @@ const module = {
               console.log('TRAMITES update origin', tramite)
               if ( tramite.origin && tramite.origin === 'approver') {
                 dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
-              } else {
+              } else if (tramite.origin && tramite.origin === 'user') {
+                dispatch("TRAMITES_retrieveAll",{documentoNro:tramite.matriculado.documento_nro})
+              }  else {
                 dispatch("TRAMITES_retrieveAll",{})
               }
               return true
@@ -200,6 +202,8 @@ const module = {
               });
               if ( tramite.origin && tramite.origin === 'approver') {
                 dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
+              } else if (tramite.origin && tramite.origin === 'user') {
+                dispatch("TRAMITES_retrieveAll",{documentoNro:tramite.matriculado.documento_nro})
               } else {
                 dispatch("TRAMITES_retrieveAll",{})
               }
@@ -263,6 +267,8 @@ const module = {
                 dispatch("toggleDialog", { dialog: false })
                 if ( tramite.origin && tramite.origin === 'approver') {
                   dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
+                }  else if (tramite.origin && tramite.origin === 'user') {
+                  dispatch("TRAMITES_retrieveAll",{documentoNro:tramite.matriculado.documento_nro})
                 } else {
                   dispatch("TRAMITES_retrieveAll",{})
                 }
