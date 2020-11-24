@@ -128,6 +128,7 @@ export default {
         open: false,
         maxWidth: '500px',
         buttonText: 'Agregar Aprobador',
+        showButton: true,
         component: 'NuevoAprobadorForm',
         data: {
           editarAprobador: false,
