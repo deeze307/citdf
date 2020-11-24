@@ -264,7 +264,7 @@ const module = {
                   icon: "success",
                   button: "Aceptar",
                 });
-                dispatch("toggleDialog", { dialog: false })
+                disatch("toggleDialog", { dialog: false })
                 if ( tramite.origin && tramite.origin === 'approver') {
                   dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
                 }  else if (tramite.origin && tramite.origin === 'user') {

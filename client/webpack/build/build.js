@@ -3,6 +3,7 @@
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
+process.env.CITDF_API = 'http://api-deeze.tk:3031'
 
 const ora = require('ora')
 const rm = require('rimraf')
@@ -12,6 +13,7 @@ const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
 
+console.log(chalk.yellow(`NODE_ENV= ${process.env.NODE_ENV} | CITDF_API= ${process.env.CITDF_API}`))
 const spinner = ora('building for production...')
 spinner.start()
 
