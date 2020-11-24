@@ -114,10 +114,9 @@
         </template>
         <v-list>
           <v-list-item
-            v-for="(item, i) in userItems"
+            v-for="(item, i) in userMenuItems"
             :key="i"
             @click="callToAction(item.path)"
-            v-if="checkAdmin(item)"
           >
             <v-list-item-title v-if="item.title">{{ item.title }}</v-list-item-title>
           </v-list-item>
@@ -146,9 +145,10 @@ export default {
     return{
       loginWorking:false,
       userItems: [
-        { title: 'Mi Perfil', path:'/profile', admin:false},
-        { title: 'Mis Trámites',path:'/tramites',admin:false},
-        { title: 'Gestionar',path:'/gestion',admin:true},
+        { title: 'Mi Perfil', path:'/profile', admin:false, approver:false},
+        { title: 'Mis Trámites',path:'/tramites',admin:false, approver:false},
+        { title: 'Aprobaciones Pendientes',path:'/aprobaciones',admin:false, approver:true},
+        { title: 'Gestionar',path:'/gestion',admin:true, approver:false},
       ]
     }
   },
@@ -160,6 +160,24 @@ export default {
       set:function(newValue){
         store.state.login_api.showDialog = newValue;
       }
+    },
+    userMenuItems () {
+      return this.userItems.filter((item) =>{
+        let canSee = true
+        if(item.admin) {
+          canSee = false
+          if(_.has(this.user.user,'slug') && (this.user.user.slug === 'citdf' || _.startsWith(this.user.user.slug, 'secretaria') )){
+            canSee = true;
+          }
+        }
+        if (item.approver) {
+          canSee = false;
+          if(this.user.user.approver && this.user.user.approver.active === 1) {
+            canSee = true
+          }
+        }
+        if (canSee) { return item }
+      })
     }
   },
   methods:{
@@ -174,24 +192,30 @@ export default {
       router.push(path);
     },
     
-    checkAdmin(item){
-      let isAdmin = true;
+    checkAdminOrApprover(item){
+      let isAdminOrApprover = true;
       if(item.admin){
-        isAdmin = false;
+        isAdminOrApprover = false;
         // if(this.user.user.user_roles){
           // this.user.user.user_roles.map( rol => {
           //   if(rol === 'administrator'){
           //     console.log('es admin');
-          //     isAdmin = true;
+          //     isAdminOrApprover = true;
           //   }
           // })
           console.log(this.user.user)
           if(_.has(this.user.user,'slug') && (this.user.user.slug === 'citdf' || _.startsWith(this.user.user.slug, 'secretaria') )){
-            isAdmin = true;
+            isAdminOrApprover = true;
           }
         // }
       }
-      return isAdmin;
+      if(item.approver) {
+        isAdminOrApprover = false;
+        if(_.has(this.user.user.approver,'active')) {
+          isAdminOrApprover = true
+        }
+      }
+      return isAdminOrApprover;
     },
     subMenu(submenu) {
       if(!submenu.children){

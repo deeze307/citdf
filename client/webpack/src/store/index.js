@@ -15,6 +15,7 @@ import marco_legal from './model/marco_legal'
 import honorarios from './model/honorarios'
 import descargas from './model/descargas'
 import sliders from './model/sliders'
+import aprobadores from './model/aprobadores'
 
 //import user from './model/user'
 import profile from './model/profile'
@@ -40,6 +41,7 @@ const store = new Vuex.Store({
     honorarios: honorarios,
     descargas: descargas,
     sliders: sliders,
+    aprobadores,
 
 //    user: user,
     profile:profile,

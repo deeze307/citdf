@@ -278,6 +278,181 @@ app.get('/matriculados',(req,res) => {
   });
 });
 
+app.get('/matriculados/find', (req,res) => {
+  let body = req.body
+
+  db.wp_usermeta.findOne({
+    attributes: ['umeta_id','user_id','meta_key','meta_value'],
+    // limit: count,
+    // offset: null,
+    where: {ID: body.userId},
+    // order: [
+    //   ["ID", "Asc"]
+    // ]
+  })
+  .then(mat => {
+    let usuarios = [];
+    let u_temp;
+    mat.map(usuario =>{
+      if(usuario.user_id !== u_temp){
+        u_temp = usuario.user_id;
+        let alreadyUser = false;
+        usuarios.map(us =>{
+          if(us.ID === usuario.user_id){
+            alreadyUser = true;
+          }
+        })
+        if(!alreadyUser){
+          usuarios.push({ID:usuario.user_id});
+        }
+      }
+    });
+    
+    let matriculados = usuarios.map(usuario =>{
+      mat.map(m => {
+        if(m.user_id === usuario.ID){
+          if(m.meta_key ==="first_name"){
+            usuario.first_name = m.meta_value
+          }
+          if(m.meta_key ==="nickname"){
+            usuario.nickname = m.meta_value
+          }
+          if(m.meta_key ==="matricula"){
+            usuario.matricula = m.meta_value
+          }
+          if(m.meta_key ==="last_name"){
+            usuario.last_name = m.meta_value
+          }
+          if(m.meta_key ==="email"){
+            usuario.user_email = m.meta_value
+          }
+          if(m.meta_key ==="user_email" && m.meta_key !==""){
+            usuario.user_email = m.meta_value
+          }
+          if(m.meta_key ==="user_url"){
+            usuario.user_url = m.meta_value
+          }
+          if(m.meta_key ==="description"){
+            usuario.description = m.meta_value
+          }
+          if(m.meta_key ==="res"){
+            usuario.res = m.meta_value
+          }
+          if(m.meta_key ==="titulo_profesional"){
+            usuario.titulo_profesional = m.meta_value
+          }
+          if(m.meta_key ==="universidad"){
+            usuario.universidad = m.meta_value
+          }
+          if(m.meta_key ==="promocion"){
+            usuario.promocion = m.meta_value
+          }
+          if(m.meta_key ==="titulo_profesional_2"){
+            usuario.titulo_profesional_2 = m.meta_value
+          }
+          if(m.meta_key ==="universidad_2"){
+            usuario.universidad_2 = m.meta_value
+          }
+          if(m.meta_key ==="promocion_2"){
+            usuario.promocion_2 = m.meta_value
+          }
+          if(m.meta_key ==="documento_nro"){
+            usuario.documento_nro= m.meta_value
+          }
+          if(m.meta_key ==="ciudad"){
+            usuario.ciudad= m.meta_value
+          }
+          if(m.meta_key ==="telefono"){
+            usuario.telefono = m.meta_value
+          }
+          if(m.meta_key ==="direccion"){
+            usuario.direccion= m.meta_value
+          }
+          if(m.meta_key ==="apt"){
+            usuario.apt = m.meta_value
+          }
+          if(m.meta_key ==="perfil_de_facebook"){
+            usuario.perfil_de_facebook = m.meta_value
+          }
+          if(m.meta_key ==="perfil_de_linkedin"){
+            usuario.perfil_de_linkedin= m.meta_value
+          }
+          if(m.meta_key ==="observaciones"){
+            usuario.observaciones= m.meta_value
+          }
+          if(m.meta_key ==="habilitado"){
+            if(m.meta_value == 1){
+              usuario.habilitado = true
+            }else{
+              usuario.habilitado = false
+            }
+          }
+          if(m.meta_key ==="newsletter"){
+            if(m.meta_value == 1){
+              usuario.newsletter = true
+            }else{
+              usuario.newsletter = false
+            }
+          }
+        }
+      });
+      usuario.display_name = usuario.last_name + " " + usuario.first_name;
+    })
+
+    if(ciudad && ciudad!=="" && ciudad!=="Todos"){
+      let filtered=[]
+      usuarios.map(u =>{
+        if(u.ciudad === ciudad){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+    if(titulo_profesional && titulo_profesional!=="" && titulo_profesional!=="Todos"){
+      let filtered=[]
+      usuarios.map(u =>{
+        if(u.titulo_profesional === titulo_profesional){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+
+    if(admin && admin ==="" || admin == 'false'){
+      let filtered=[]
+      usuarios.map(u =>{
+        if(u.habilitado === true){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+
+    if(documento_nro && documento_nro!==""){
+      let filtered=[]
+      usuarios.map(u =>{
+        console.log(u.documento_nro +" | "+ documento_nro)
+        if(u.documento_nro === documento_nro){
+          filtered.push(u)
+        }
+      })
+      usuarios = filtered;
+    }
+
+    res.status(200).json({
+      ok:true,
+      payload:usuarios
+    });
+  })
+  .catch(function(error){
+    res.status(400).json({
+      ok:false,
+      error:error
+    });
+  });
+
+});
+
 app.post('/matriculados',(req,res) => {
   let body = req.body;
   db.users.update({

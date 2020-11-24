@@ -132,10 +132,10 @@
             class="elevation-1"
             :footer-props="{
               showFirstLastPage: true,
-              firstIcon: 'mdi-arrow-collapse-left',
-              lastIcon: 'mdi-arrow-collapse-right',
-              prevIcon: 'mdi-minus',
-              nextIcon: 'mdi-plus'
+              firstIcon: 'first_page',
+              lastIcon: 'last_page',
+              prevIcon: 'chevron_left',
+              nextIcon: 'chevron_right'
             }"
             >
             <template v-slot:top>
@@ -180,22 +180,22 @@
                 </v-card>
               </v-dialog>
             </template> 
-            <template v-slot:item.status="{item}">
+            <template v-slot:[`item.status`]="{item}">
               <v-chip :color="statusColor(item.status)" dark>{{ item.status }}</v-chip>
             </template>
-            <template v-slot:item.transaction_amount="{item}">
+            <template v-slot:[`item.transaction_amount`]="{item}">
               ${{ item.transaction_amount }}
             </template>
-            <template v-slot:item.comprobante_url="{item}">
+            <template v-slot:[`item.comprobante_url`]="{item}">
               <v-btn small fab text color="light-blue" @click="showTicket(item)"><v-icon>receipt</v-icon>{{item.comp}}</v-btn>
             </template>
-            <template  v-slot:item.observaciones="{item}">
+            <template  v-slot:[`item.observaciones`]="{item}">
                 <v-btn v-if="item.observaciones && item.observaciones !== ''" small fab text color="blue" @click="showObservation(item)"><v-icon>visibility</v-icon></v-btn>
               </template>
-            <template v-slot:item.createdAt="{item}">
+            <template v-slot:[`item.createdAt`]="{item}">
               {{ item.createdAt | fechaConHora }}
             </template>
-            <template v-slot:item.action="{item}">
+            <template v-slot:[`item.action`]="{item}">
               <v-icon small class="mr-2" @click="editPay(item)">edit</v-icon>
               <v-icon small @click="deletePay(item)">delete</v-icon>
             </template>

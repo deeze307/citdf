@@ -11,7 +11,7 @@ module.exports = {
         password: process.env.DB_PASSWORD || 'ingTDF.19',
         options: {
         dialect: process.env.DB_DIALECT || 'mysql',
-        host: process.env.DB_HOST || 'localhost'
+        host: process.env.DB_HOST || 'http://api-deeze.tk'
         }
     },
     username: process.env.DB_USERNAME || 'wordpress',

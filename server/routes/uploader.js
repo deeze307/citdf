@@ -22,7 +22,7 @@ var fileName = null
 
 var upload = multer({
   storage: new ftpStorage({
-    basepath: '/importador-tramites', // base path for file uploads on the server
+    basepath: '/importador-tramites/', // base path for file uploads on the server
     ftp: { 
       host: 'ftp.citdf.org.ar',
       secure: false, // enables FTPS/FTP with TLS
@@ -30,7 +30,8 @@ var upload = multer({
       password: 'ingTDF.19' },
     destination: function (req, file, options, callback) {
       fileName = file.fieldname + Date.now()+ path.extname(file.originalname);
-      callback(null, path.join(options.basepath, fileName)) // custom file destination, file extension is added to the end of the path
+      callback(null, 'importador-tramites/'+fileName) // custom file destination, file extension is added to the end of the path
+      console.log('file.filename', fileName)
     },
     transformFile: function (req, file, callback) {
       callback(null, file.stream)

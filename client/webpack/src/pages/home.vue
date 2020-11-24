@@ -405,7 +405,7 @@
         this.carouselItems.push({src : imgs[key]})
         ))
       },
-      carouselTouched(){
+      carouselTouched(){ // MODIFY
         router.push('/novedades')
       },
       irBolsaTrabajo(bolsa) {

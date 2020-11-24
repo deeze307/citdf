@@ -3,7 +3,7 @@ import router from '../../router'
 
 const module = {
     state: {
-      apiUrl: 'http://api-deeze.tk:3031',
+      apiUrl: process.env.CITDF_API,
       // apiUrl: 'http://localhost:3031',
       items:{
         payload:[]
@@ -14,6 +14,10 @@ const module = {
         installments:{
           issuer:{}
         }
+      },
+      pagoItem: {
+        tramite: null,
+        matriculadoId: null
       }
     },
     getters: {
@@ -73,10 +77,11 @@ const module = {
 
           },
           additional:{
-            pagoTitulo:state.pagosForm.pagoTitulo,
-            observaciones:state.pagosForm.observaciones,
-            matriculaNro:state.pagosForm.matriculaNro
-          }
+            pagoTitulo: state.pagosForm.pagoTitulo,
+            observaciones: state.pagoItem.tramite ? `Trámite pagado: ${state.pagoItem.tramite} - ${state.pagosForm.observaciones}` : state.pagosForm.observaciones,
+            matriculaNro: state.pagosForm.matriculaNro
+          },
+          pagoItem: state.pagoItem
         }
 
         // console.log("Pagos Form: ",data)

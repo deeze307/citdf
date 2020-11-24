@@ -50,6 +50,41 @@ export default {
       return {
         resoluciones: [
           {
+            res: "201",
+            fecha: "30/10/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº201.pdf" target="_blank">Otorga M.P.N°389.</a>'
+          },
+          {
+            res: "200",
+            fecha: "06/10/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº200.pdf" target="_blank">Otorga M.P.N°388.</a>'
+          },
+          {
+            res: "199",
+            fecha: "07/09/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº199.pdf" target="_blank">Otorga M.P.N°386 y 387.</a>'
+          },
+          {
+            res: "198",
+            fecha: "31/08/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº198.pdf" target="_blank">Otorga M.P.N° 385.</a>'
+          },
+          {
+            res: "197",
+            fecha: "31/08/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº197.pdf" target="_blank">Aceptar solicitud de suspesión M.P.N° 326.</a>'
+          },
+          {
+            res: "196",
+            fecha: "25/08/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº196.pdf" target="_blank">Resolución 196/2020</a>'
+          },
+          {
+            res: "195",
+            fecha: "25/08/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº195.pdf" target="_blank">Elecciones de Consejo Superior.</a>'
+          },
+          {
             res: "194",
             fecha: "08/06/2020",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/07/Resolución-Nº194.pdf" target="_blank">Otorga M.P.N° 384.</a>'

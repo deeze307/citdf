@@ -13,7 +13,7 @@
                             <v-col cols="12" sm="12" md="6" lg="6" xl="6">
                                 <v-select
                                     v-model="pagosForm.tipo_pago"
-                                    :items="tipoPago"
+                                    :items="_tipoPago"
                                     label="¿Qué desea Pagar?"
                                     item-text="nombre"
                                     return-object
@@ -204,8 +204,18 @@ export default {
         pagosForm(){
             return store.state.pagos.pagosForm
         },
+        pagoItem(){
+            console.log('Pagos: pagoItem', store.state.pagos.pagoItem)
+            return store.state.pagos.pagoItem
+        },
         inProcess(){
             return store.state.pagos.inProcess
+        },
+        _tipoPago() {
+            if (process.env.NODE_ENV === 'development'){
+                this.tipoPago.push({"nombre":"Item de Prueba", "modulos":1, "costo":1})
+            }
+            return this.tipoPago
         }
     },
     watch:{
@@ -259,6 +269,7 @@ export default {
             }
         },
         startPay(){
+            console.log('startPay Pago Item', this.pagoItem)
             this.$store.state.pagos.pagosForm.pagoTitulo = this.$store.state.pagos.pagosForm.tipo_pago.nombre
             this.$store.state.pagos.pagosForm.description = this.$store.state.pagos.pagosForm.tipo_pago.nombre +' | '+this.$store.state.login_api.user.user.firstName + this.$store.state.login_api.user.user.lastName + '-' + this.$store.state.pagos.pagosForm.matriculaNro + '-' + moment().year()
             this.$store.state.pagos.pagosForm.transaction_amount = this.$store.state.pagos.pagosForm.tipo_pago.costo
@@ -329,7 +340,7 @@ export default {
             }
             
             this.$store.state.pagos.pagosForm.tipo_pago.costo_modulo = valor_modulo;
-             if(this.$store.state.pagos.pagosForm.tipo_pago.nombre === "Pago de Prueba"){
+             if(this.$store.state.pagos.pagosForm.tipo_pago.nombre === "Pago de Prueba" || this.$store.state.pagos.pagosForm.tipo_pago.nombre === "Item de Prueba"){
                  this.$store.state.pagos.pagosForm.tipo_pago.costo = 1;
              }else{
                  this.$store.state.pagos.pagosForm.tipo_pago.costo = costo;

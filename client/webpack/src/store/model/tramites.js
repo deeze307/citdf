@@ -3,7 +3,7 @@ import router from '../../router'
 
 const module = {
     state: {
-      apiUrl: 'http://api-deeze.tk:3031',
+      apiUrl: process.env.CITDF_API,
       apiUrlDev: 'http://localhost:3031',
       items:{
         payload:[]
@@ -45,15 +45,21 @@ const module = {
       }
     },
     actions: {
-      TRAMITES_retrieveAll:function({commit,dispatch,state},documentoNro=null){
+      TRAMITES_retrieveAll:function({commit,dispatch,state},query){
         commit('inicializaTramites')
         const curl = axios.create({
           baseURL: state.apiUrl,
         });
 
         let params = "";
-        if(documentoNro){
-          params = {documentoNro:documentoNro};
+        if(query.documentoNro){
+          params = {documentoNro:query.documentoNro};
+        }
+        if(query.status) {
+          params = {
+            ...params,
+            status: query.status
+          }
         }
 
         curl.get('/tramites',{params:params}).then(function(response){
@@ -61,7 +67,7 @@ const module = {
           tramites.payload = response.data.payload.map(t =>{
             switch(+t.status){
               case 0: {
-                t.status = "Pendiente";
+                t.status = "Revisión Pendiente";
                 return t
               };
               case 1: {
@@ -73,7 +79,15 @@ const module = {
                 return t
               };
               case 3: {
-                t.status = "Cancelado";
+                t.status = "Rechazado";
+                return t
+              };
+              case 4: {
+                t.status = "Aprobación Pendiente";
+                return t
+              };
+              case 5: {
+                t.status = "Pago Pendiente";
                 return t
               };
             }
@@ -101,13 +115,45 @@ const module = {
                 })
               return tramiteUpload
             }else{
+              if (tramite.status === 3) {
+                let mailerData = {
+                  name: tramite.matriculado.first_name,
+                  to: tramite.matriculado.user_email,
+                  tid: tramite.id,
+                  type: tramite.tramite,
+                  status: tramite.status,
+                  nota: tramite.nota
+                }
+                console.log('mailerData', mailerData)
+                curl.post('/mailer/tramites',mailerData);
+                swal({
+                  title: "Exito!",
+                  text: "Trámite actualizado Exitosamente! Se notificará al matriculado la disconformidad de la documentación.",
+                  icon: "success",
+                  button: "Aceptar",
+                });
+              } else {
+                swal({
+                  title: "Exito!",
+                  text: "Trámite actualizado Exitosamente!",
+                  icon: "success",
+                  button: "Aceptar",
+                });
+              }
               swal({
                 title: "Exito!",
                 text: "Trámite actualizado Exitosamente!",
                 icon: "success",
                 button: "Aceptar",
               });
-              dispatch("TRAMITES_retrieveAll");
+              console.log('TRAMITES update origin', tramite)
+              if ( tramite.origin && tramite.origin === 'approver') {
+                dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
+              } else if (tramite.origin && tramite.origin === 'user') {
+                dispatch("TRAMITES_retrieveAll",{documentoNro:tramite.matriculado.documento_nro})
+              }  else {
+                dispatch("TRAMITES_retrieveAll",{})
+              }
               return true
             }
           }else{
@@ -154,7 +200,13 @@ const module = {
                 icon: "success",
                 button: "Aceptar",
               });
-              dispatch("TRAMITES_retrieveAll");
+              if ( tramite.origin && tramite.origin === 'approver') {
+                dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
+              } else if (tramite.origin && tramite.origin === 'user') {
+                dispatch("TRAMITES_retrieveAll",{documentoNro:tramite.matriculado.documento_nro})
+              } else {
+                dispatch("TRAMITES_retrieveAll",{})
+              }
               return true
             }
           }else{
@@ -185,10 +237,10 @@ const module = {
         });
         let tramite = data.tramite
         let response = data.response
-        console.log("prepareToUpload:",response)
+        console.log("prepareToUpload:",response, tramite.file)
         return dispatch("TRAMITES_upload",tramite.file[0]).then(async uploaded => {
           if(uploaded != ""){
-            let updated = await curl.put(`/tramites/documento/${response.data.tramite.id}`,uploaded).then(resDocUpdated => {
+            let updated = await curl.put(`/tramites/documento/${response.data.tramite.id}`,uploaded).then(async resDocUpdated => {
               if(resDocUpdated.data.ok){
                 /* ACÁ SE VA A ENVIAR EL QR POR CORREO AL MATRICULADO
                   ENVÍA DESDE CORREO SECRETARIA.CITDF@GMAIL.COM
@@ -196,7 +248,6 @@ const module = {
                 */ 
                // AGREGO CORREO PARA DEBUG
                 // tramite.matriculado.user_email = 'dmaidana01@gmail.com'
-               
                 let mailerData = {
                   name: tramite.matriculado.first_name,
                   to: tramite.matriculado.user_email,
@@ -205,6 +256,7 @@ const module = {
                   fileUrl: uploaded.url,
                   status: tramite.status
                 }
+                console.log('mailerData', mailerData)
                 curl.post('/mailer/tramites',mailerData);
                 swal({
                   title: "Exito!",
@@ -212,7 +264,14 @@ const module = {
                   icon: "success",
                   button: "Aceptar",
                 });
-                dispatch("TRAMITES_retrieveAll");
+                dispatch("toggleDialog", { dialog: false })
+                if ( tramite.origin && tramite.origin === 'approver') {
+                  dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
+                }  else if (tramite.origin && tramite.origin === 'user') {
+                  dispatch("TRAMITES_retrieveAll",{documentoNro:tramite.matriculado.documento_nro})
+                } else {
+                  dispatch("TRAMITES_retrieveAll",{})
+                }
                 return true
               }else{
                 swal({

@@ -167,6 +167,7 @@ app.post('/create',(req,res,next) =>{
   
   let payment = req.body.form;
   let additional = req.body.additional;
+  let pagoItem = req.body.pagoItem
   console.log("Req:",req.body);
 
   // Primero genero el pago en mercadopago
@@ -183,12 +184,32 @@ app.post('/create',(req,res,next) =>{
         medio_pago : 'online',
         observaciones : additional.observaciones
       }).then(result =>{
+        if (pagoItem.tramite) {
+          db.tramites.update({
+            status: 0
+          }, {
+            where: {
+              id: pagoItem.tramite
+            }
+          }).then(_resultUpdate => {
+            res.status(200).json({
+              ok:true,
+              response : response
+            });
+          })
+        } else {
+          res.status(200).json({
+            ok:true,
+            response : response
+          });
+        }
       })
+    } else {
+      res.status(200).json({
+        ok:true,
+        response : response
+      });
     }
-    res.status(200).json({
-      ok:true,
-      response : response
-    });
     
   }).catch(function(error){
     console.log(error);

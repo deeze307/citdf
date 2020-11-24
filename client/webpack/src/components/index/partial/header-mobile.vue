@@ -31,10 +31,9 @@
             </template>
             <v-list>
               <v-list-item
-                v-for="(item, i) in userItems"
+                v-for="(item, i) in userMenuItems"
                 :key="i"
                 @click="callToAction(item.path)"
-                v-if="checkAdmin(item)"
               >
                 <v-list-item-title v-if="item.title">{{ item.title }}</v-list-item-title>
               </v-list-item>
@@ -151,6 +150,7 @@ export default {
       userItems: [
         { title: 'Mi Perfil', path:'/profile', admin:false},
         { title: 'Mis Trámites',path:'/tramites',admin:false},
+        { title: 'Aprobaciones',path:'/aprobaciones',admin:false, approver:true},
         { title: 'Gestionar',path:'/gestion',admin:true},
       ]
     }
@@ -163,6 +163,24 @@ export default {
       set:function(newValue){
         store.state.login_api.showDialog = newValue;
       }
+    },
+    userMenuItems () {
+      return this.userItems.filter((item) =>{
+        let canSee = true
+        if(item.admin) {
+          canSee = false
+          if(_.has(this.user.user,'slug') && (this.user.user.slug === 'citdf' || _.startsWith(this.user.user.slug, 'secretaria') )){
+            canSee = true;
+          }
+        }
+        if (item.approver) {
+          canSee = false;
+          if(this.user.user.approver && this.user.user.approver.active === 1) {
+            canSee = true
+          }
+        }
+        if (canSee) { return item }
+      })
     }
   },
   methods:{

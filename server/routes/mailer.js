@@ -2,6 +2,9 @@ const express = require('express');
 var cors = require('cors');
 var nodemailer = require('nodemailer');
 var QRCode = require('qrcode');
+const db = require('../models');
+const Sequelize = require('../models').Sequelize;
+const Op = Sequelize.Op;
 require('dotenv').config({path: __dirname + '/.env'})
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -12,24 +15,81 @@ const app = express();
 app.use(cors());
 
 // email sender function
-sendEmail = function(req, res){
-  
+sendEmail = function(mailOptions, res){
+  var transporter = nodemailer.createTransport({
+    host: 'mail.citdf.org.ar',
+    port:587,
+    secure:false,
+    tls:{
+      rejectUnauthorized:false
+    },
+    auth: {
+        user: 'documentos@citdf.org.ar',
+        pass: 'g#fJw^7!iSLm'
+    }
+  });
+
+  // Enviamos el email
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error){
+        console.log(error);
+        res.status(500).jsonp({errorType:500,errorMessage:error.message});
+    } else {
+        console.log("Email sent");
+        res.status(200).jsonp({ok:true});
+    }
+  });
 };
+
+app.post('/aprobadores', (req,res,next) => {
+  //primero obtenemos todos los aprobadores habilitados
+  let registroWhere = {
+    [Op.and]: [
+      {
+        tramite: _tramite
+      },
+      {
+        ciudadTramite: ciudadTramite
+      }
+    ]
+  };
+
+  db.tramites.findOne({
+    attributes: ['id','nroRegistro','incremental','createdAt','updatedAt'],
+    where: {registroWhere},
+    order: [
+      ["createdAt", "Desc"]
+    ]
+  })
+  .then(registroNro => {
+  }).catch(Sequelize.ValidationError, function(msg) {
+    return res.status(422).json({
+      message: msg.errors
+    });
+  }).catch(function(err) {
+    console.log('fallo la busqueda de aprobadores', err)
+    return res.status(400).json({ message: err });
+  });
+})
 
 
 
 app.post('/tramites',async function(req,res,next) {
+  console.log('a punto de enviar correo', req.body)
   if(req.body.to){
-    // Definimos el QR
-    let qr = await QRCode.toDataURL(req.body.fileUrl);
     // Definimos el transporter
     let mailer = req.body;
+    // Definimos el QR si es que hace falta
+    let qr = null
+    if (mailer.status !== 3) qr = await QRCode.toDataURL(req.body.fileUrl);
     
     let statusMsg
     if(mailer.status === 1){
       statusMsg = 'en proceso'
     }else if(mailer.status === 2){
       statusMsg = 'completado'
+    }else if(mailer.status === 5) {
+      statusMsg = 'listo para ser abonado y que comience el proceso de revisión'
     }
     // var transporter = nodemailer.createTransport({
     //   service: 'Gmail',
@@ -39,18 +99,29 @@ app.post('/tramites',async function(req,res,next) {
     //   }
     // });
 
-    var transporter = nodemailer.createTransport({
-      host: 'mail.citdf.org.ar',
-      port:587,
-      secure:false,
-      tls:{
-        rejectUnauthorized:false
-      },
-      auth: {
-          user: 'secretaria@citdf.org.ar',
-          pass: 'da?N)m0%KV4o'
-      }
-    });
+    // Definimos el mensaje
+    let htmlTemplate = ''
+    if (mailer.status === 3) {
+      htmlTemplate = `
+      <p>Lamentamos informar que su trámite <strong>"${mailer.type} #${mailer.tid}"</strong> fué rechazado por el siguiente motivo:</p>
+      <br>
+      <p><strong><cite>"${mailer.nota}"</cite></strong></p>
+      <br>
+      <p>Si ha enviado documentación revisela y vuelva a enviarla nuevamente. Si no es el caso, póngase en contacto con la secretaría de su localidad.</p>
+      <br>
+      `
+    } else {
+      htmlTemplate = `
+        <p>Tenemos el agrado de informarle que su trámite <strong>"${mailer.type} #${mailer.tid}"</strong> se encuentra ${statusMsg}.</p>
+        <p>Puede visualizar el documento adjuntado a su trámite escaneando el código QR desde un dispositivo móvil.</p>
+        <br>
+        <p><img width="150" height="150" src="${qr}"></p>
+        <br>
+        <p>Si no puede visualizarlo correctamente puede ingresar <a href="${mailer.fileUrl}">AQUÍ</a> para acceder al Documento.</p>
+        <br>
+        `
+    }
+    
     // Definimos el email
     var mailOptions = {
         from: 'Secretaria CITDF<secretaria@citdf.org.ar>',
@@ -58,35 +129,24 @@ app.post('/tramites',async function(req,res,next) {
         attachDataUrls: true,
         subject: `Documentación de Trámite "${mailer.type} #${mailer.tid}"`,
         html: `<div style="font-family:Helvetica;font-size:14px;">
-                <h2 style="color:#10172b;">Hola ${mailer.name}!</h2>
-                <p>Tenemos el agrado de informarle que su trámite <strong>"${mailer.type} #${mailer.tid}"</strong> se encuentra ${statusMsg}.</p>
-                <p>Puede visualizar el documento adjuntado a su trámite escaneando el código QR desde un dispositivo móvil.</p>
-                <br>
-                <p><img width="150" height="150" src="${qr}"></p>
-                <br>
-                <p>Si no puede visualizarlo correctamente puede ingresar <a href="${mailer.fileUrl}">AQUÍ</a> para acceder al Documento.</p>
-                <br>
+          <h2 style="color:#10172b;">Hola ${mailer.name}!</h2>
+          
+          ${htmlTemplate}
 
-                <div style="color:#616161;font-style:italic;font-size:10px;">
-                  <p>
-                    <strong>Colegio de Ingenieros de Tierra del Fuego</strong><br>
-                    <a style="font-size:12px;" href="www.citdf.org.ar">www.citdf.org.ar</a><br>
-                    Rio Grande Tel. (02964) - 430300 - Bernardo Houssay 288 <br>
-                    Ushuaia Tel. (02901) - 431957 - Gdor Campos  y Yaganes (Sede de la Cámara Fueguina de la Construcción)
-                  </p>
-                </div>
-              </div>`
+          <div style="color:#616161;font-style:italic;font-size:10px;">
+            <p>
+              <strong>Colegio de Ingenieros de Tierra del Fuego</strong><br>
+              <a style="font-size:12px;" href="www.citdf.org.ar">www.citdf.org.ar</a><br>
+              Rio Grande Tel. (02964) - 430300 - Bernardo Houssay 288 <br>
+              Ushuaia Tel. (02901) - 431957 - Gdor Campos  y Yaganes (Sede de la Cámara Fueguina de la Construcción)
+            </p>
+          </div>
+        </div>`
     };
-    // Enviamos el email
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error){
-            console.log(error);
-            res.status(500).jsonp({errorType:500,errorMessage:error.message});
-        } else {
-            console.log("Email sent");
-            res.status(200).jsonp({ok:true});
-        }
-    });
+    
+    this.sendEmail(mailOptions, res)
+  } else {
+    console.log('data needed to send mail is not present')
   }
 })
 
