@@ -87,10 +87,13 @@
                             ></v-select>
                           </v-col>
                           <v-col cols="12" xs="12" sm="5" md="5" lg="5" xl="5" class="mx-0">
-                            <v-text-field
-                            v-model="nuevoTramiteItem.nroRegistro" 
-                            label="Nro. Registro"
-                            required></v-text-field>
+                            <v-select
+                            :items="ciudades"
+                            label="Ciudad de Trámite"
+                            :rules="[v => !!v || 'La Ciudad del trámite es Requerida']"
+                            v-model="nuevoTramiteItem.ciudadTramite"
+                            required
+                            ></v-select>
                           </v-col>
                           <v-col cols="12" sm="12" md="12" lg="12" xl="12">
                             <v-autocomplete
@@ -322,6 +325,11 @@ export default {
             {"nombre":"Efectivo (presencial)","valor":"efectivo"},
             {"nombre":"Efectivo (transferencia bancaria)","valor":"trans_efectivo"},
             {"nombre":"Tarjeta (presencial)","valor":"tarjeta"}
+        ],
+        ciudades: [
+          "Ushuaia",
+          "Tolhuin",
+          "Rio Grande"
         ],
         valid:true,
         lazy: false,

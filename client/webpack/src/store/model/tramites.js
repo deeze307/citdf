@@ -139,6 +139,17 @@ const module = {
                   icon: "success",
                   button: "Aceptar",
                 });
+                if (tramite.status === 4) {
+                  let mailerData = {
+                    name: '',
+                    to: 'aprobador@aprobador.com',
+                    tid: tramite.id,
+                    type: tramite.tramite,
+                    fileUrl: '',
+                    status: tramite.status
+                  }
+                  curl.post('/mailer/tramites',mailerData);
+                }
               }
               swal({
                 title: "Exito!",
@@ -237,7 +248,6 @@ const module = {
         });
         let tramite = data.tramite
         let response = data.response
-        console.log("prepareToUpload:",response, tramite.file)
         return dispatch("TRAMITES_upload",tramite.file[0]).then(async uploaded => {
           if(uploaded != ""){
             let updated = await curl.put(`/tramites/documento/${response.data.tramite.id}`,uploaded).then(async resDocUpdated => {
@@ -256,7 +266,6 @@ const module = {
                   fileUrl: uploaded.url,
                   status: tramite.status
                 }
-                console.log('mailerData', mailerData)
                 curl.post('/mailer/tramites',mailerData);
                 swal({
                   title: "Exito!",
@@ -264,7 +273,7 @@ const module = {
                   icon: "success",
                   button: "Aceptar",
                 });
-                disatch("toggleDialog", { dialog: false })
+                dispatch("toggleDialog", { dialog: false })
                 if ( tramite.origin && tramite.origin === 'approver') {
                   dispatch("TRAMITES_retrieveAll",{documentoNro:null,status:4})
                 }  else if (tramite.origin && tramite.origin === 'user') {

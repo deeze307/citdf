@@ -196,7 +196,6 @@ app.post('/',(req,res,next) =>{
   // obtengo el último nro de registro generado para una ciudad y un tipo determinado
   let _tramite = req.body.tramite
   let ciudadTramite = req.body.ciudadTramite
-
   let registroWhere = {
     [Op.and]: [
       {
