@@ -144,8 +144,7 @@ app.post('/tramites',async function(req,res,next) {
         </div>`
     };
     
-    // comento esto un momento para probar los correos
-    // if (mailer.status !== 4) this.sendEmail(mailOptions, res)
+    if (mailer.status !== 4) this.sendEmail(mailOptions, res)
 
     // Ahora enviamos correo a las secretarias o aprobadores correspondientemente
     var mailOptions2 = {}
