@@ -273,6 +273,7 @@ export default {
       vm.working = true;
       item.nota = '';
       item.status = 5; // Estado "PENDIENTE DE PAGO"
+      item.origin = this.data.origin
 
       item.matriculado = this.matriculadosResult.filter((matriculado) => {
         if(matriculado.ID === this.user.user.id) return matriculado

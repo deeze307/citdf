@@ -230,14 +230,18 @@ export default {
       let costo = 0;
       let curDate = moment().format('YYYY-MM-DD');
 
-      if(moment(curDate).isBetween('2020-01-01','2020-03-21',null,'[]')){
-        this.data.form.valor = 1200;
-      }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
-        this.data.form.valor = 1300;
-      }else if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
-        this.data.form.valor = 1400;
-      }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
-        this.data.form.valor = 1500;
+      if(this.data.form.tramite === 'Item de Prueba') {
+        this.data.form.valor = 1;
+      } else {
+        if(moment(curDate).isBetween('2020-01-01','2020-03-21',null,'[]')){
+          this.data.form.valor = 1200;
+        }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+          this.data.form.valor = 1300;
+        }else if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
+          this.data.form.valor = 1400;
+        }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
+          this.data.form.valor = 1500;
+        }
       }
     },
     createTramite(item){
