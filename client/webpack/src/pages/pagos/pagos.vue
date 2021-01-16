@@ -185,8 +185,8 @@ export default {
             // {"nombre":"Pago de Prueba","modulos":1,"costo":1},
             {"nombre":"Certificación de Firma","modulos":1,"costo":1200},
             {"nombre":"Encomienda de Trámites","modulos":1,"costo":1200},
-            {"nombre":"Inscripción","modulos":5,"costo":1200},
-            {"nombre":"Derecho Anual de Colegiación","modulos":5,"costo":6000}
+            {"nombre":"Inscripción","modulos":5,"costo":1500},
+            {"nombre":"Derecho Anual de Colegiación","modulos":5,"costo":7500}
             
         ],
         selectedTipoPago:{"nombre":""}
@@ -300,14 +300,14 @@ export default {
             // Por emergencia sanitaria debido a COVID-19 se pospone el vencimiento del primer trimestre
             // un mes más SOLO PARA DERECHO ANUAL DE COLEGIACIÓN 
             if(this.$store.state.pagos.pagosForm.tipo_pago.nombre === 'Derecho Anual de Colegiación'){
-                if(moment(curDate).isBetween('2020-01-01','2020-04-30',null,'[]')){
-                    valor_modulo = 1200;
-                }else if(moment(curDate).isBetween('2020-05-01','2020-06-30',null,'[]')){
+                if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
+                    valor_modulo = 1500;
+                }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
                     valor_modulo = 1300;
                 }
             }else{
                 if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
-                    valor_modulo = 1200;
+                    valor_modulo = 1500;
                 }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
                     valor_modulo = 1300;
                 }

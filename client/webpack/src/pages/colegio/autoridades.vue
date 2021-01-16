@@ -78,127 +78,127 @@ export default {
         consejo_superior: [
           {
             cargo: "Presidente",
-            nombre: "Marcelo Fabián Domato",
-            matricula: "37"
+            nombre: "Ricardo Anibal Bianciotto",
+            matricula: "006"
           },
           {
             cargo: "Vicepresidente",
-            nombre: "Mónica María Frías",
-            matricula: "109"
+            nombre: "Arnaldo Agustin Ojeda",
+            matricula: "290"
           },
           {
             cargo:"Secretario",
-            nombre: "Vicente Antonio Fank",
-            matricula:"44"
+            nombre: "Esteban Martin Mangiameli",
+            matricula:"056"
           },
           {
             cargo:"Prosecretario",
-            nombre:"Sergio Leonardo Digón",
-            matricula:"157"
+            nombre:"Roxana Estela Taler",
+            matricula:"149"
           },
           {
-            cargo:"Tesorera",
-            nombre:"Inés Alejandra Caliva",
-            matricula:"11"
+            cargo:"Tesorero",
+            nombre:"Alberto Eduardo Goitia",
+            matricula:"045"
           },
           {
             cargo: "Protesorero",
-            nombre:"Rafael Jorge Fank",
-            matricula:"50"
+            nombre:"Abel Omar Cortez",
+            matricula:"193"
           },
           {
             cargo:"Vocal 1°",
-            nombre:"Vicente Antonio Fank (Asume como Secretario en reemplazo del Secretario Electo por renuncia del mismo)",
-            matricula:"44"
+            nombre:"Gustavo Daniel Cóccaro",
+            matricula:"036"
           },
           {
             cargo:"Vocal 2°",
-            nombre:"Marcelo Daniel Jacob",
-            matricula:"184"
+            nombre:"Luciana Graciela Ferro",
+            matricula:"031"
           },
           {
             cargo:"Vocal 3°",
-            nombre:"Mónica Ester Obreque",
-            matricula:"38"
+            nombre:"Ariel Gustavo Prokopiw",
+            matricula:"130"
           },
           {
             cargo:"Vocal 4°",
-            nombre:"Fabio Adrian Zárate",
-            matricula:"1"
+            nombre:"Marcela Virginia Arguello",
+            matricula:"077"
           },
           {
             cargo:"Vocal 5°",
-            nombre: "Guillermo Federico Haehnel",
-            matricula:"40"
+            nombre: "Carolina Erica Reynoso",
+            matricula:"150"
           },
           {
             cargo:"Vocal 6°",
-            nombre:"Horacio Guillermo Salvañá",
-            matricula:54
+            nombre:"Gustavo Omar Cortes",
+            matricula:"185"
           },
           {
             cargo:"Vocal Suplente 1°",
-            nombre:"Sergio Ariel Fernandez",
-            matricula:187
+            nombre:"Martin Ivan Gessaga",
+            matricula:"062"
           },
           {
             cargo:"Vocal Suplente 2°",
-            nombre:"Marcelo Adrian Bertoni",
-            matricula: 87
+            nombre:"Juan Manuel Casco",
+            matricula: "146"
           },
           {
             cargo:"Vocal Suplente 3°",
-            nombre:"Gustavo Daniel Coccaro",
-            matricula: 36
+            nombre:"Nicolás Dimitroff Hodi",
+            matricula: "329"
           }
         ],
         comision_revisora:[
           {
-            cargo:"Presidente", 
-            nombre:"Pablo Villena",
-            matricula: 245
+            cargo:"Titular", 
+            nombre:"Mariano Adolfo Medina",
+            matricula: "065"
           },
           {
-            cargo:"Vocal Titular", 
-            nombre:"Christian Oscar Hervias",
-            matricula: 141
+            cargo:"Titular", 
+            nombre:"Anibal Antonio Viscido Castro",
+            matricula: "203"
           },
           {
-            cargo: "Vocal Titular", 
-            nombre:"Javier Nicolas Lepori",
-            matricula: 114
+            cargo:"Suplente", 
+            nombre:"Jonatan Wilder",
+            matricula: "205"
           },
           {
-            cargo:"Vocal Suplente", 
-            nombre:"Viviana Marta Pamich",
-            matricula: 148
+            cargo:"Suplente", 
+            nombre:"Jorge Demián Burdisso",
+            matricula: "074"
           }
         ],
         tribunal:[
           {
             cargo:"Presidente", 
-            nombre:"Jorge Gabriel Chocrón",
-            matricula: 8
+            nombre:"Fabio Adrián Zárate",
+            matricula: "001"
           },
           {
             cargo:"Vocal Titular", 
-            nombre:"Alberto Eduardo Goitia",
-            matricula: 45
+            nombre:"Roberto José Mangiameli",
+            matricula: "232"
           },
           {
-            cargo:"Vocal Titular", 
-            nombre:"Hector Miguel Czelada",
-            matricula: 47
-          },
-          {
-            cargo:"Vocal Suplente", 
+            cargo: "Vocal Titular", 
             nombre:"Gustavo Roberto Fried",
-            matricula: 9
+            matricula: "009"
           },
           {
             cargo:"Vocal Suplente", 
-            nombre:"Roberto José Mangiamelli",
-            matricula: 232
+            nombre:"Alejandro Jorge Galvarini",
+            matricula: "182"
+          },
+          {
+            cargo:"Vocal Suplente", 
+            nombre:"Gustavo Amancio Nuñez",
+            matricula: "094"
           }
         ]
       }
