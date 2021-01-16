@@ -28,14 +28,14 @@
           <p><a href="http://documentos.citdf.org.ar/2014/09/CITDF_resolucion_079.pdf" rel="noopener" target="_blank">Resolución 79 (22/10/2016)</a></p>
           <br>
           <br>
-          <h3 class=".subheading font-weight-bold">VALOR DEL DERECHO ANUAL DE COLEGIACIÓN 2020</h3>
+          <h3 class=".subheading font-weight-bold">VALOR DEL DERECHO ANUAL DE COLEGIACIÓN 2021</h3>
           <br>
           <v-simple-table dense>
             <thead>
               <tr>
                 <th class="text-left" style="width:20%;">TRIMESTRE</th>
                 <th class="text-left" style="width:40%;">FECHA</th>
-                <th class="text-center" style="width:40%;">DERECHO ANUAL DE COLEGIACIÓN 2020</th>
+                <th class="text-center" style="width:40%;">DERECHO ANUAL DE COLEGIACIÓN 2021</th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@
           </v-simple-table>
           <br>
           <br>
-          <h3 class=".subheading font-weight-bold">VALOR DEL MÓDULO 2020</h3>
+          <h3 class=".subheading font-weight-bold">VALOR DEL MÓDULO 2021</h3>
           <br>
           <v-simple-table dense>
             <thead>
@@ -136,30 +136,30 @@ export default {
         valor_colegiacion:[
           {
             trimestre:"1er trimestre", 
-            fecha:"Hasta el 30 de Abril",
-            valor: "$ 6000"
+            fecha:"Hasta el 31 de Marzo",
+            valor: "$ 7.500"
           },
           {
             trimestre:"2do trimestre", 
             fecha:"Hasta el 30 de Junio",
-            valor: "$ 6500"
+            valor: "$ 6.500"
           },
           {
             trimestre: "3er trimestre", 
             fecha:"Hasta el 30 de Septiembre",
-            valor: "$ 7000"
+            valor: "$ 7.000"
           },
           {
             trimestre:"4to trimestre", 
             fecha:"Hasta el 31 de Diciembre",
-            valor: "$ 7500"
+            valor: "$ 7.500"
           }
         ],
         valor_modulo:[
           {
             trimestre:"1er trimestre", 
             fecha:"Hasta el 31 de Marzo",
-            valor: "$ 1200"
+            valor: "$ 1.500"
           },
           {
             trimestre:"2do trimestre", 
