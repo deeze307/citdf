@@ -142,17 +142,17 @@ export default {
           {
             trimestre:"2do trimestre", 
             fecha:"Hasta el 30 de Junio",
-            valor: "$ 6.500"
+            valor: "(por definir)"
           },
           {
             trimestre: "3er trimestre", 
             fecha:"Hasta el 30 de Septiembre",
-            valor: "$ 7.000"
+            valor: "(por definir)"
           },
           {
             trimestre:"4to trimestre", 
             fecha:"Hasta el 31 de Diciembre",
-            valor: "$ 7.500"
+            valor: "(por definir)"
           }
         ],
         valor_modulo:[
@@ -164,17 +164,17 @@ export default {
           {
             trimestre:"2do trimestre", 
             fecha:"Hasta el 30 de Junio",
-            valor: "$ 1300"
+            valor: "(por definir)"
           },
           {
             trimestre: "3er trimestre", 
             fecha:"Hasta el 30 de Septiembre",
-            valor: "$ 1400"
+            valor: "(por definir)"
           },
           {
             trimestre:"4to trimestre", 
             fecha:"Hasta el 31 de Diciembre",
-            valor: "$ 1500"
+            valor: "(por definir)"
           }
         ],
       }
