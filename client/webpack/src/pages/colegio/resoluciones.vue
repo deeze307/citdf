@@ -50,6 +50,101 @@ export default {
       return {
         resoluciones: [
           {
+            res: "221",
+            fecha: "20/02/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°221.pdf" target="_blank">Designación de Representante Titular del Departamento de Informática, Sistemas y Telecomunicaciones.</a>'
+          },
+          {
+            res: "220",
+            fecha: "20/02/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°220.pdf" target="_blank">Designación de Representante Titular del Departamento de Pesca, Acuicultura y Actividades Maritimas.</a>'
+          },
+          {
+            res: "219",
+            fecha: "19/02/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°219.pdf" target="_blank">Otorga M.P N°400.</a>'
+          },
+          {
+            res: "218",
+            fecha: "08/02/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°218.pdf" target="_blank">Otorga M.P N° 398 y 399.</a>'
+          },
+          {
+            res: "217",
+            fecha: "02/02/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°217.pdf" target="_blank">Créase el Departamento de Informática, Sistemas y Telecomunicaciones.</a>'
+          },
+          {
+            res: "215",
+            fecha: "27/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°215.pdf" target="_blank">Otorga M.P. Provisoria N°396.</a>'
+          },
+          {
+            res: "214",
+            fecha: "22/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°214.pdf" target="_blank">Designación de firmantes para cheques.</a>'
+          },
+          {
+            res: "213",
+            fecha: "18/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°213.pdf" target="_blank">Baja M.P.N° 197 y M.P.N° 198.</a>'
+          },
+          {
+            res: "212",
+            fecha: "18/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°212.pdf" target="_blank">Otorga M.P.N° 395.</a>'
+          },
+          {
+            res: "211",
+            fecha: "14/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°211.pdf" target="_blank">Crease el departamento de Pesca,acuicultura y Actividades Marítimas.</a>'
+          },
+          {
+            res: "210",
+            fecha: "08/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°210.pdf" target="_blank">Otorga M.P.N° 394.</a>'
+          },
+          {
+            res: "209",
+            fecha: "11/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°209.pdf" target="_blank">Baja y altas de firmas .</a>'
+          },
+          {
+            res: "208",
+            fecha: "08/01/2021",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°208.pdf" target="_blank">Otorga M.P N°393.</a>'
+          },
+          {
+            res: "207",
+            fecha: "30/12/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°207.pdf" target="_blank">Aceptar solicitud de alta M.P.N° 244.</a>'
+          },
+          {
+            res: "206",
+            fecha: "24/12/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°206.pdf" target="_blank">Concretar matriculación en el Colegio aún sin titulo original. En reemplazo Constancia de titulo en trámite.</a>'
+          },
+          {
+            res: "205",
+            fecha: "22/12/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°205.pdf" target="_blank">Otorga M.P N° 392.</a>'
+          },
+          {
+            res: "204",
+            fecha: "09/12/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°204.pdf" target="_blank">Otorga M.P.N°391.</a>'
+          },
+          {
+            res: "203",
+            fecha: "17/11/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°203.pdf" target="_blank">Otorga M.P.N°390.</a>'
+          },
+          {
+            res: "202",
+            fecha: "20/11/2020",
+            concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2021/03/Resolución-N°202-.pdf" target="_blank">Prórroga de firmantes- Banco BTF.</a>'
+          },
+          {
             res: "201",
             fecha: "30/10/2020",
             concepto: '<a href="http://api-deeze.tk/citdf/wordpress/wp-content/uploads/2020/11/Resolución-Nº201.pdf" target="_blank">Otorga M.P.N°389.</a>'
