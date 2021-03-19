@@ -123,18 +123,18 @@ export default {
           },
           {
             cargo:"Vocal 4°",
-            nombre:"Marcela Virginia Arguello",
-            matricula:"077"
+            nombre:"Alfredo Alejandro Muñoz",
+            matricula:"127"
           },
           {
             cargo:"Vocal 5°",
-            nombre: "Carolina Erica Reynoso",
-            matricula:"150"
+            nombre: "Marcelo Fabián Domato",
+            matricula:"037"
           },
           {
             cargo:"Vocal 6°",
-            nombre:"Gustavo Omar Cortes",
-            matricula:"185"
+            nombre:"Arteaga Silvina Mariela",
+            matricula:"306"
           },
           {
             cargo:"Vocal Suplente 1°",
@@ -148,8 +148,8 @@ export default {
           },
           {
             cargo:"Vocal Suplente 3°",
-            nombre:"Nicolás Dimitroff Hodi",
-            matricula: "329"
+            nombre:"María Concepción Gonzalez",
+            matricula: "325"
           }
         ],
         comision_revisora:[
