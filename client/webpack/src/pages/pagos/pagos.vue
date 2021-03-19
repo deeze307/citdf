@@ -300,23 +300,23 @@ export default {
             // Por emergencia sanitaria debido a COVID-19 se pospone el vencimiento del primer trimestre
             // un mes más SOLO PARA DERECHO ANUAL DE COLEGIACIÓN 
             if(this.$store.state.pagos.pagosForm.tipo_pago.nombre === 'Derecho Anual de Colegiación'){
-                if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
+                if(moment(curDate).isBetween('2021-01-01','2021-03-31',null,'[]')){
                     valor_modulo = 1500;
-                }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+                }else if(moment(curDate).isBetween('2021-04-01','2021-06-30',null,'[]')){
                     valor_modulo = 1300;
                 }
             }else{
-                if(moment(curDate).isBetween('2020-01-01','2020-03-31',null,'[]')){
+                if(moment(curDate).isBetween('2021-01-01','2021-03-31',null,'[]')){
                     valor_modulo = 1500;
-                }else if(moment(curDate).isBetween('2020-04-01','2020-06-30',null,'[]')){
+                }else if(moment(curDate).isBetween('2021-04-01','2021-06-30',null,'[]')){
                     valor_modulo = 1300;
                 }
             }
 
             //Fuera del aplazo, se sigue con la fechas normales
-            if(moment(curDate).isBetween('2020-07-01','2020-09-30',null,'[]')){
+            if(moment(curDate).isBetween('2021-07-01','2021-09-30',null,'[]')){
                 valor_modulo = 1400;
-            }else if(moment(curDate).isBetween('2020-10-01','2020-12-31',null,'[]')){
+            }else if(moment(curDate).isBetween('2021-10-01','2021-12-31',null,'[]')){
                 valor_modulo = 1500;
             }
                 // console.log("valor modulo: "+valor_modulo)
@@ -331,9 +331,9 @@ export default {
                 if(moment(curDate).diff(fechaPromocion,'months') < 12){
                     costo = costo * 0.5;
                 }else{
-                    if(moment(curDate).isBetween('2020-07-01','2020-09-30')){// Tercer Trimeste
+                    if(moment(curDate).isBetween('2021-07-01','2021-09-30')){// Tercer Trimeste
                     costo = costo - ((costo / 2) * 0.5);
-                    }else if(moment(curDate).isBetween('2020-10-01','2020-12-31')){// Cuarto Trimeste
+                    }else if(moment(curDate).isBetween('2021-10-01','2021-12-31')){// Cuarto Trimeste
                         costo = costo - ((costo / 2) * 0.75);
                     }
                 }

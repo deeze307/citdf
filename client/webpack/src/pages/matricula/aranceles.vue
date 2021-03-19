@@ -80,7 +80,7 @@
           <br>
           A través de una transferencia electrónica a la cuenta del Colegio en el Banco Tierra del Fuego (ver cuenta en esta misma página).
           <br>
-          <strong>Una vez efectuada la transferencia, el comprobante deberá remitirse al correo electrónico de la tesorería del Colegio <a href="mailto:tesoreria@citdf.org.ar">tesoreria@citdf.org.ar</a> con el formato nombreyapellido-numero de matricula-año (ejemplo: juanperez-035-2020).
+          <strong>Una vez efectuada la transferencia, el comprobante deberá remitirse al correo electrónico de la tesorería del Colegio <a href="mailto:tesoreria@citdf.org.ar">tesoreria@citdf.org.ar</a> con el formato nombreyapellido-numero de matricula-año (ejemplo: juanperez-035-2021).
           No se considerará pagada la matrícula si no se recibe el comprobante pago.</strong>
           <br>
           Si hubiese habido modificación de los datos de contacto (domicilio, teléfono, etc.), se solicita modificarlos en su perfíl de matriculado ingresando con sus credeciales correspondientes.
@@ -142,17 +142,17 @@ export default {
           {
             trimestre:"2do trimestre", 
             fecha:"Hasta el 30 de Junio",
-            valor: "(por definir)"
+            valor: "$ 10.000"
           },
           {
             trimestre: "3er trimestre", 
             fecha:"Hasta el 30 de Septiembre",
-            valor: "(por definir)"
+            valor: "$ 12.000"
           },
           {
             trimestre:"4to trimestre", 
             fecha:"Hasta el 31 de Diciembre",
-            valor: "(por definir)"
+            valor: "$ 14.000"
           }
         ],
         valor_modulo:[
@@ -164,17 +164,17 @@ export default {
           {
             trimestre:"2do trimestre", 
             fecha:"Hasta el 30 de Junio",
-            valor: "(por definir)"
+            valor: "$ 2.000"
           },
           {
             trimestre: "3er trimestre", 
             fecha:"Hasta el 30 de Septiembre",
-            valor: "(por definir)"
+            valor: "$ 2.400"
           },
           {
             trimestre:"4to trimestre", 
             fecha:"Hasta el 31 de Diciembre",
-            valor: "(por definir)"
+            valor: "$ 2.800"
           }
         ],
       }
