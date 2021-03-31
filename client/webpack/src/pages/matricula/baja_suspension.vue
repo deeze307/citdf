@@ -15,7 +15,8 @@
       </v-dialog>
       <v-layout align-center justify-space-around row fill-height>
         <v-flex xs12 sm12 md12 lg12 xl12 text-center class="pt-2 pb-4">
-          <h2 class="display-1 font-weight-black" style="color:#263238">Requisitos para Baja o Suspensión de Matrícula</h2>
+          <!-- <h2 class="display-1 font-weight-black" style="color:#263238">Requisitos para Baja o Suspensión de Matrícula</h2> -->
+          <h2 class="display-1 font-weight-black" style="color:#263238">Requisitos para Baja de Matrícula</h2>
         </v-flex>
         
         <v-flex xs12 sm12 md6 lg8 xl8>
